@@ -47,7 +47,8 @@
             "image_4": "shopify://shop_images/Main_0a40b01b-5021-48c1-80d1-aa8ab4876d3d.jpg",
             "image_5": "shopify://shop_images/wax-special.png",
             "animation_type": "slide",
-            "show_navigation": true
+            "show_navigation": true,
+            "show_thumbnails": true
           }
         }
       },

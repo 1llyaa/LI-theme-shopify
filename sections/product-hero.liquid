@@ -100,70 +100,48 @@
                 {% endif %}
               {% endfor %}
 
-              {% if total_images > 0 %}
-                <div class="glide product-hero__glide">
-                  <div class="glide__track" data-glide-el="track">
-                    <ul class="glide__slides">
+              <!-- Main Carousel - Following Splide Tutorial -->
+              <section id="main-carousel" class="splide" aria-label="Beautiful Gallery" data-animation-type="{{ block.settings.animation_type | default: 'slide' }}">
+                <div class="splide__track">
+                  <ul class="splide__list">
+                    {% if block.settings.main_image != blank %}
+                      <li class="splide__slide">
+                        {{ block.settings.main_image | image_url: width: 600, height: 600 | image_tag: alt: block.settings.main_image.alt, width: 600, height: 600 }}
+                      </li>
+                    {% endif %}
+                    {% for i in (1..5) %}
+                      {% assign image_key = 'image_' | append: i %}
+                      {% if block.settings[image_key] != blank %}
+                        <li class="splide__slide">
+                          {{ block.settings[image_key] | image_url: width: 600, height: 600 | image_tag: alt: block.settings[image_key].alt, width: 600, height: 600 }}
+                        </li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </section>
+
+              <!-- Thumbnail Carousel - Following Splide Tutorial -->
+              {% if total_images > 1 and block.settings.show_thumbnails %}
+                <section id="thumbnail-carousel" class="splide" aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
+                  <div class="splide__track">
+                    <ul class="splide__list">
                       {% if block.settings.main_image != blank %}
-                        <li class="glide__slide">
-                          {{ block.settings.main_image | image_url: width: 600 | image_tag: 
-                            class: 'product-hero__glide-image',
-                            loading: 'eager',
-                            alt: block.settings.main_image.alt | default: 'Product image'
-                          }}
+                        <li class="splide__slide">
+                          {{ block.settings.main_image | image_url: width: 100, height: 60 | image_tag: alt: block.settings.main_image.alt, width: 100, height: 60 }}
                         </li>
                       {% endif %}
                       {% for i in (1..5) %}
                         {% assign image_key = 'image_' | append: i %}
                         {% if block.settings[image_key] != blank %}
-                          <li class="glide__slide">
-                            {{ block.settings[image_key] | image_url: width: 600 | image_tag: 
-                              class: 'product-hero__glide-image',
-                              loading: 'lazy',
-                              alt: block.settings[image_key].alt | default: 'Product image'
-                            }}
+                          <li class="splide__slide">
+                            {{ block.settings[image_key] | image_url: width: 100, height: 60 | image_tag: alt: block.settings[image_key].alt, width: 100, height: 60 }}
                           </li>
                         {% endif %}
                       {% endfor %}
                     </ul>
                   </div>
-
-                  {% if total_images > 1 %}
-                    {% if block.settings.show_navigation %}
-                      <div class="glide__arrows" data-glide-el="controls">
-                        <button class="glide__arrow glide__arrow--left product-hero__glide-arrow product-hero__glide-arrow--prev" data-glide-dir="<" aria-label="Previous image">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                        <button class="glide__arrow glide__arrow--right product-hero__glide-arrow product-hero__glide-arrow--next" data-glide-dir=">" aria-label="Next image">
-                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                      </div>
-                    {% endif %}
-
-                    <div class="glide__bullets" data-glide-el="controls[nav]">
-                      {% assign slide_index = 0 %}
-                      {% if block.settings.main_image != blank %}
-                        <button class="glide__bullet product-hero__glide-bullet" data-glide-dir="={{ slide_index }}"></button>
-                        {% assign slide_index = slide_index | plus: 1 %}
-                      {% endif %}
-                      {% for i in (1..5) %}
-                        {% assign image_key = 'image_' | append: i %}
-                        {% if block.settings[image_key] != blank %}
-                          <button class="glide__bullet product-hero__glide-bullet" data-glide-dir="={{ slide_index }}"></button>
-                          {% assign slide_index = slide_index | plus: 1 %}
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                </div>
-              {% else %}
-                <div class="product-hero__image-placeholder">
-                  <span>Product Image</span>
-                </div>
+                </section>
               {% endif %}
             </div>
         {% endcase %}
@@ -393,94 +371,45 @@
 .product-hero__gallery {
   background: var(--hero-bg-light);
   position: relative;
-  aspect-ratio: 1/1;
-  overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Glide.js Custom Styling */
-.product-hero__glide {
+/* Splide Tutorial CSS - Proper Thumbnail Styling */
+.splide__slide {
+  opacity: 0.6;
+}
+
+.splide__slide.is-active {
+  opacity: 1;
+}
+
+/* Main carousel images */
+#main-carousel .splide__slide img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 
-.product-hero__glide .glide__track {
-  height: 100%;
-}
-
-.product-hero__glide .glide__slides {
-  height: 100%;
-}
-
-.product-hero__glide .glide__slide {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--hero-bg-dark);
-}
-
-.product-hero__glide-image {
+/* Thumbnail carousel images - following Splide tutorial exactly */
+#thumbnail-carousel .splide__slide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;
 }
 
-.product-hero__glide-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--hero-text-light);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+/* Ensure thumbnail slides have proper dimensions and centering */
+#thumbnail-carousel .splide__slide {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  z-index: 10;
-  /* Fix centering issues */
-  padding: 0;
-  margin: 0;
-  line-height: 1;
+  background: #f5f5f5;
+  overflow: hidden;
 }
 
-.product-hero__glide-arrow:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
 
-.product-hero__glide-arrow--prev {
-  left: var(--hero-spacing);
-}
-
-.product-hero__glide-arrow--next {
-  right: var(--hero-spacing);
-}
-
-.product-hero__glide-arrow svg {
-  width: 16px;
-  height: 16px;
-  color: currentColor;
-  flex-shrink: 0;
-}
-
-.product-hero__glide-bullet {
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin: 0 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.product-hero__glide-bullet--active {
-  background: var(--hero-text-light);
-}
 
 .product-hero__image-placeholder {
   width: 100%;
@@ -539,46 +468,58 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .product-hero__glide-arrow {
+  #main-carousel .splide__arrow {
     width: 36px;
     height: 36px;
   }
 
-  .product-hero__glide-arrow svg {
-    width: 14px;
-    height: 14px;
+  #thumbnail-carousel {
+    padding: 0 var(--hero-spacing-small);
+    margin-top: var(--hero-spacing-small);
   }
 
-  .product-hero__glide-arrow--prev {
-    left: var(--hero-spacing-small);
-  }
 
-  .product-hero__glide-arrow--next {
-    right: var(--hero-spacing-small);
-  }
 }
 {% endstylesheet %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js" defer></script>
+{{ 'splide.min.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'splide.min.js' | asset_url }}" defer></script>
 
+<script>
+document.addEventListener( 'DOMContentLoaded', function () {
+  // Get animation type from data attribute
+  var animationType = document.querySelector('#main-carousel').dataset.animationType || 'slide';
+  
+  var main = new Splide( '#main-carousel', {
+    type      : animationType,
+    rewind    : true,
+    pagination: false,
+    arrows    : true,
+    speed     : 400,
+    easing    : 'cubic-bezier(0.25, 1, 0.5, 1)',
+  } );
 
-{% javascript %}
-document.addEventListener("DOMContentLoaded", function () {
-  const glideElement = document.querySelector('.product-hero__glide');
-  if (glideElement) {
-    new Glide('.product-hero__glide', {
-      type: 'carousel',
-      perView: 1,
-      
-      hoverpause: true,
-      keyboard: true,
-      animationDuration: 600,
-      rewind: true
-    }).mount();
-  }
-});
-{% endjavascript %}
+  var thumbnails = new Splide( '#thumbnail-carousel', {
+    fixedWidth  : 80,
+    fixedHeight : 80,
+    gap         : 10,
+    rewind      : true,
+    pagination  : false,
+    arrows      : false,
+    isNavigation: true,
+    breakpoints : {
+      600: {
+        fixedWidth : 60,
+        fixedHeight: 60,
+      },
+    },
+  } );
+
+  main.sync( thumbnails );
+  main.mount();
+  thumbnails.mount();
+} );
+</script>
 
 {% schema %}
 {
@@ -825,6 +766,12 @@ document.addEventListener("DOMContentLoaded", function () {
           "type": "checkbox",
           "id": "show_navigation",
           "label": "Show navigation arrows",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_thumbnails",
+          "label": "Show thumbnail gallery",
           "default": true
         }
       ]

@@ -1,0 +1,68 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_hero_nrCC6t": {
+      "type": "product-hero",
+      "blocks": {
+        "product_info_ViQA7Q": {
+          "type": "product_info",
+          "settings": {
+            "show_rating": true,
+            "rating_value": "4.7",
+            "reviews_text": "1000+ Verified Reviews",
+            "headline": "100% Pure Titanium Cutting Board: No More Microplastics, Bacteria Or Dull Knives",
+            "subheadline": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board",
+            "features": "Prevents risk from microplastics, Resists bacteria and odors, Keeps your knives sharp, Eliminates food cross-contamination",
+            "show_customer_satisfaction": true,
+            "customers_text": "8K+ Happy Customers",
+            "stock_text": "In stock and ready to ship",
+            "cta_text": "GET A -70% DISCOUNT",
+            "cta_link": "",
+            "show_guarantees": true,
+            "guarantee_icon_1": "🔶",
+            "guarantee_text_1": "PURE TITANIUM",
+            "guarantee_icon_2": "⏳",
+            "guarantee_text_2": "LIFETIME DURABILITY",
+            "guarantee_icon_3": "💰",
+            "guarantee_text_3": "30-DAY MONEY-BACK GUARANTEE",
+            "guarantee_icon_4": "🦠",
+            "guarantee_text_4": "ANTIBACTERIAL AND BPA-FREE"
+          }
+        },
+        "product_gallery_NXrXLL": {
+          "type": "product_gallery",
+          "settings": {
+            "main_image": "shopify://shop_images/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg",
+            "image_1": "shopify://shop_images/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg",
+            "image_2": "shopify://shop_images/Main_0a4e9096-021a-4c1e-8750-24b233166a12.jpg",
+            "image_3": "shopify://shop_images/Main_0a40b01b-5021-48c1-80d1-aa8ab4876d3d.jpg",
+            "image_4": "shopify://shop_images/Main_0a40b01b-5021-48c1-80d1-aa8ab4876d3d.jpg",
+            "image_5": "shopify://shop_images/wax-special.png",
+            "animation_type": "slide",
+            "show_navigation": true
+          }
+        }
+      },
+      "block_order": [
+        "product_info_ViQA7Q",
+        "product_gallery_NXrXLL"
+      ],
+      "name": "Product Hero",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "product_hero_nrCC6t"
+  ]
+}

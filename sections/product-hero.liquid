@@ -1,0 +1,847 @@
+{% comment %}
+  Product Hero Section
+  A two-column layout with product information on the left and product gallery on the right
+{% endcomment %}
+
+
+
+<div class="product-hero">
+  <div class="product-hero__container">
+    <div class="product-hero__content">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'product_info' %}
+            <div class="product-hero__info" {{ block.shopify_attributes }}>
+              {% if block.settings.show_rating %}
+                <div class="product-hero__rating">
+                  <div class="product-hero__stars">
+                    {% for i in (1..5) %}
+                      <span class="product-hero__star">★</span>
+                    {% endfor %}
+                  </div>
+                  <span class="product-hero__rating-text">{{ block.settings.rating_value }}</span>
+                  <span class="product-hero__reviews">{{ block.settings.reviews_text }}</span>
+                </div>
+              {% endif %}
+
+              {% if block.settings.headline != blank %}
+                <h1 class="product-hero__headline">{{ block.settings.headline }}</h1>
+              {% endif %}
+
+              {% if block.settings.subheadline != blank %}
+                <p class="product-hero__subheadline">{{ block.settings.subheadline }}</p>
+              {% endif %}
+
+              {% if block.settings.features != blank %}
+                <ul class="product-hero__features">
+                  {% assign features = block.settings.features | split: ',' %}
+                  {% for feature in features %}
+                    <li class="product-hero__feature">
+                      <span class="product-hero__feature-icon">✓</span>
+                      {{ feature | strip }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+
+              {% if block.settings.show_customer_satisfaction %}
+                <div class="product-hero__satisfaction">
+                  <div class="product-hero__avatars">
+                    {% for i in (1..5) %}
+                      <div class="product-hero__avatar"></div>
+                    {% endfor %}
+                  </div>
+                  <span class="product-hero__customers">{{ block.settings.customers_text }}</span>
+                  <div class="product-hero__stock">
+                    <span class="product-hero__stock-dot"></span>
+                    {{ block.settings.stock_text }}
+                  </div>
+                </div>
+              {% endif %}
+
+              {% if block.settings.cta_text != blank and block.settings.cta_link != blank %}
+                <a href="{{ block.settings.cta_link }}" class="product-hero__cta">
+                  {{ block.settings.cta_text }}
+                </a>
+              {% endif %}
+
+              {% if block.settings.show_guarantees %}
+                <div class="product-hero__guarantees">
+                  {% for i in (1..4) %}
+                    {% assign guarantee_icon = 'guarantee_icon_' | append: i %}
+                    {% assign guarantee_text = 'guarantee_text_' | append: i %}
+                    {% if block.settings[guarantee_text] != blank %}
+                      <div class="product-hero__guarantee">
+                        <div class="product-hero__guarantee-icon">
+                          {% if block.settings[guarantee_icon] != blank %}
+                            {{ block.settings[guarantee_icon] }}
+                          {% else %}
+                            <span class="product-hero__guarantee-placeholder"></span>
+                          {% endif %}
+                        </div>
+                        <span class="product-hero__guarantee-text">{{ block.settings[guarantee_text] }}</span>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+
+          {% when 'product_gallery' %}
+            <div class="product-hero__gallery" {{ block.shopify_attributes }}>
+              {% assign total_images = 0 %}
+              {% if block.settings.main_image != blank %}
+                {% assign total_images = total_images | plus: 1 %}
+              {% endif %}
+              {% for i in (1..5) %}
+                {% assign image_key = 'image_' | append: i %}
+                {% if block.settings[image_key] != blank %}
+                  {% assign total_images = total_images | plus: 1 %}
+                {% endif %}
+              {% endfor %}
+
+              {% if total_images > 0 %}
+                <div class="glide product-hero__glide">
+                  <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                      {% if block.settings.main_image != blank %}
+                        <li class="glide__slide">
+                          {{ block.settings.main_image | image_url: width: 600 | image_tag: 
+                            class: 'product-hero__glide-image',
+                            loading: 'eager',
+                            alt: block.settings.main_image.alt | default: 'Product image'
+                          }}
+                        </li>
+                      {% endif %}
+                      {% for i in (1..5) %}
+                        {% assign image_key = 'image_' | append: i %}
+                        {% if block.settings[image_key] != blank %}
+                          <li class="glide__slide">
+                            {{ block.settings[image_key] | image_url: width: 600 | image_tag: 
+                              class: 'product-hero__glide-image',
+                              loading: 'lazy',
+                              alt: block.settings[image_key].alt | default: 'Product image'
+                            }}
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+
+                  {% if total_images > 1 %}
+                    {% if block.settings.show_navigation %}
+                      <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left product-hero__glide-arrow product-hero__glide-arrow--prev" data-glide-dir="<" aria-label="Previous image">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                        <button class="glide__arrow glide__arrow--right product-hero__glide-arrow product-hero__glide-arrow--next" data-glide-dir=">" aria-label="Next image">
+                          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </button>
+                      </div>
+                    {% endif %}
+
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                      {% assign slide_index = 0 %}
+                      {% if block.settings.main_image != blank %}
+                        <button class="glide__bullet product-hero__glide-bullet" data-glide-dir="={{ slide_index }}"></button>
+                        {% assign slide_index = slide_index | plus: 1 %}
+                      {% endif %}
+                      {% for i in (1..5) %}
+                        {% assign image_key = 'image_' | append: i %}
+                        {% if block.settings[image_key] != blank %}
+                          <button class="glide__bullet product-hero__glide-bullet" data-glide-dir="={{ slide_index }}"></button>
+                          {% assign slide_index = slide_index | plus: 1 %}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% else %}
+                <div class="product-hero__image-placeholder">
+                  <span>Product Image</span>
+                </div>
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% stylesheet %}
+.product-hero {
+  --hero-bg-light: #ffffff;
+  --hero-bg-dark: #1a1a1a;
+  --hero-text-primary: #000000;
+  --hero-text-secondary: #666666;
+  --hero-text-light: #ffffff;
+  --hero-accent: #0066cc;
+  --hero-success: #28a745;
+  --hero-border: #e5e5e5;
+  --hero-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --hero-radius: 8px;
+  --hero-spacing: 24px;
+  --hero-spacing-small: 16px;
+  --hero-spacing-large: 32px;
+  
+  /* Ensure proper section layout */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.product-hero__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--hero-spacing);
+  width: 100%;
+  box-sizing: border-box;
+  
+  /* Follow Shopify's section grid system */
+  position: relative;
+  z-index: 1;
+}
+
+.product-hero__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--hero-spacing-large);
+  align-items: start;
+  min-height: 600px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product-hero__info {
+  background: var(--hero-bg-light);
+  padding: var(--hero-spacing-large);
+}
+
+.product-hero__rating {
+  display: flex;
+  align-items: center;
+  gap: var(--hero-spacing-small);
+  margin-bottom: var(--hero-spacing);
+}
+
+.product-hero__stars {
+  display: flex;
+  gap: 2px;
+}
+
+.product-hero__star {
+  color: #ffd700;
+  font-size: 18px;
+}
+
+.product-hero__rating-text {
+  font-weight: 600;
+  color: var(--hero-text-primary);
+}
+
+.product-hero__reviews {
+  color: var(--hero-text-secondary);
+  font-size: 14px;
+}
+
+.product-hero__headline {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hero-text-primary);
+  margin: 0 0 var(--hero-spacing) 0;
+}
+
+.product-hero__subheadline {
+  font-size: 18px;
+  color: var(--hero-text-secondary);
+  margin: 0 0 var(--hero-spacing) 0;
+  line-height: 1.4;
+}
+
+.product-hero__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--hero-spacing) 0;
+}
+
+.product-hero__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--hero-spacing-small);
+  margin-bottom: var(--hero-spacing-small);
+  color: var(--hero-text-primary);
+}
+
+.product-hero__feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: var(--hero-accent);
+  color: var(--hero-text-light);
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.product-hero__satisfaction {
+  display: flex;
+  align-items: center;
+  gap: var(--hero-spacing-small);
+  margin-bottom: var(--hero-spacing);
+}
+
+.product-hero__avatars {
+  display: flex;
+  gap: 4px;
+}
+
+.product-hero__avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--hero-accent);
+  border: 2px solid var(--hero-bg-light);
+}
+
+.product-hero__customers {
+  color: var(--hero-text-secondary);
+  font-size: 14px;
+}
+
+.product-hero__stock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--hero-success);
+  font-size: 14px;
+}
+
+.product-hero__stock-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--hero-success);
+  border-radius: 50%;
+}
+
+.product-hero__cta {
+  display: inline-block;
+  background: var(--hero-text-primary);
+  color: var(--hero-text-light);
+  padding: var(--hero-spacing) var(--hero-spacing-large);
+  text-decoration: none;
+  border-radius: var(--hero-radius);
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: var(--hero-spacing);
+  transition: background-color 0.2s ease;
+}
+
+.product-hero__cta:hover {
+  background: #333333;
+}
+
+.product-hero__guarantees {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--hero-spacing-small);
+}
+
+.product-hero__guarantee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.product-hero__guarantee-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-border);
+  border-radius: var(--hero-radius);
+  font-size: 16px;
+}
+
+.product-hero__guarantee-placeholder {
+  width: 16px;
+  height: 16px;
+  background: var(--hero-text-secondary);
+  border-radius: 2px;
+}
+
+.product-hero__guarantee-text {
+  font-size: 12px;
+  color: var(--hero-text-secondary);
+  line-height: 1.2;
+  text-align: center;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.product-hero__gallery {
+  background: var(--hero-bg-light);
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+/* Glide.js Custom Styling */
+.product-hero__glide {
+  width: 100%;
+  height: 100%;
+}
+
+.product-hero__glide .glide__track {
+  height: 100%;
+}
+
+.product-hero__glide .glide__slides {
+  height: 100%;
+}
+
+.product-hero__glide .glide__slide {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-bg-dark);
+}
+
+.product-hero__glide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.product-hero__glide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--hero-text-light);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 10;
+  /* Fix centering issues */
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+}
+
+.product-hero__glide-arrow:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.product-hero__glide-arrow--prev {
+  left: var(--hero-spacing);
+}
+
+.product-hero__glide-arrow--next {
+  right: var(--hero-spacing);
+}
+
+.product-hero__glide-arrow svg {
+  width: 16px;
+  height: 16px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.product-hero__glide-bullet {
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.product-hero__glide-bullet--active {
+  background: var(--hero-text-light);
+}
+
+.product-hero__image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-border);
+  color: var(--hero-text-secondary);
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .product-hero {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product-hero__container {
+    padding: 0 var(--hero-spacing-small);
+    max-width: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+  }
+
+  .product-hero__content {
+    grid-template-columns: 1fr;
+    grid-template-areas: "gallery" "info";
+    gap: var(--hero-spacing);
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .product-hero__gallery {
+    grid-area: gallery;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .product-hero__info {
+    grid-area: info;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .product-hero__headline {
+    font-size: 24px;
+  }
+
+  .product-hero__guarantees {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-hero__glide-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .product-hero__glide-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .product-hero__glide-arrow--prev {
+    left: var(--hero-spacing-small);
+  }
+
+  .product-hero__glide-arrow--next {
+    right: var(--hero-spacing-small);
+  }
+}
+{% endstylesheet %}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/glide.min.js" defer></script>
+
+
+{% javascript %}
+document.addEventListener("DOMContentLoaded", function () {
+  const glideElement = document.querySelector('.product-hero__glide');
+  if (glideElement) {
+    new Glide('.product-hero__glide', {
+      type: 'carousel',
+      perView: 1,
+      
+      hoverpause: true,
+      keyboard: true,
+      animationDuration: 600,
+      rewind: true
+    }).mount();
+  }
+});
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_info",
+      "name": "Product Information",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Rating"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show rating",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "rating_value",
+          "label": "Rating value",
+          "default": "4.7"
+        },
+        {
+          "type": "text",
+          "id": "reviews_text",
+          "label": "Reviews text",
+          "default": "1000+ Verified Reviews"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Headline",
+          "default": "100% Pure Titanium Cutting Board: No More Microplastics, Bacteria Or Dull Knives"
+        },
+        {
+          "type": "text",
+          "id": "subheadline",
+          "label": "Subheadline",
+          "default": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Features (comma separated)",
+          "default": "Prevents risk from microplastics, Resists bacteria and odors, Keeps your knives sharp, Eliminates food cross-contamination"
+        },
+        {
+          "type": "header",
+          "content": "Customer Satisfaction"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_customer_satisfaction",
+          "label": "Show customer satisfaction",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "customers_text",
+          "label": "Customers text",
+          "default": "8K+ Happy Customers"
+        },
+        {
+          "type": "text",
+          "id": "stock_text",
+          "label": "Stock text",
+          "default": "In stock and ready to ship"
+        },
+        {
+          "type": "header",
+          "content": "Call to Action"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA text",
+          "default": "GET A -70% DISCOUNT"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "CTA link"
+        },
+        {
+          "type": "header",
+          "content": "Guarantees"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_guarantees",
+          "label": "Show guarantees",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "guarantee_icon_1",
+          "label": "Guarantee 1 icon",
+          "default": "🔶"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_text_1",
+          "label": "Guarantee 1 text",
+          "default": "PURE TITANIUM"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_icon_2",
+          "label": "Guarantee 2 icon",
+          "default": "⏳"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_text_2",
+          "label": "Guarantee 2 text",
+          "default": "LIFETIME DURABILITY"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_icon_3",
+          "label": "Guarantee 3 icon",
+          "default": "💰"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_text_3",
+          "label": "Guarantee 3 text",
+          "default": "30-DAY MONEY-BACK GUARANTEE"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_icon_4",
+          "label": "Guarantee 4 icon",
+          "default": "🦠"
+        },
+        {
+          "type": "text",
+          "id": "guarantee_text_4",
+          "label": "Guarantee 4 text",
+          "default": "ANTIBACTERIAL AND BPA-FREE"
+        }
+      ]
+    },
+    {
+      "type": "product_gallery",
+      "name": "Product Gallery",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "main_image",
+          "label": "Main product image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Additional image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Additional image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Additional image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Additional image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Additional image 5"
+        },
+        {
+          "type": "header",
+          "content": "Animation"
+        },
+        {
+          "type": "select",
+          "id": "animation_type",
+          "label": "Animation type",
+          "options": [
+            {
+              "value": "fade",
+              "label": "Fade"
+            },
+            {
+              "value": "slide",
+              "label": "Slide"
+            }
+          ],
+          "default": "fade"
+        },
+        {
+          "type": "header",
+          "content": "Navigation"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_navigation",
+          "label": "Show navigation arrows",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Hero",
+      "blocks": [
+        {
+          "type": "product_info"
+        },
+        {
+          "type": "product_gallery"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

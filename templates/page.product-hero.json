@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "product_hero": {
+      "type": "product-hero",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "product_info": {
+          "type": "product_info",
+          "settings": {
+            "show_rating": true,
+            "rating_value": "4.7",
+            "reviews_text": "1000+ Verified Reviews",
+            "headline": "100% Pure Titanium Cutting Board: No More Microplastics, Bacteria Or Dull Knives",
+            "subheadline": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board",
+            "features": "Prevents risk from microplastics, Resists bacteria and odors, Keeps your knives sharp, Eliminates food cross-contamination",
+            "show_customer_satisfaction": true,
+            "customers_text": "8K+ Happy Customers",
+            "stock_text": "In stock and ready to ship",
+            "cta_text": "GET A -70% DISCOUNT",
+            "cta_link": "/products/titanium-cutting-board",
+            "show_guarantees": true,
+            "guarantee_icon_1": "🔶",
+            "guarantee_text_1": "PURE TITANIUM",
+            "guarantee_icon_2": "⏳",
+            "guarantee_text_2": "LIFETIME DURABILITY",
+            "guarantee_icon_3": "💰",
+            "guarantee_text_3": "30-DAY MONEY-BACK GUARANTEE",
+            "guarantee_icon_4": "🦠",
+            "guarantee_text_4": "ANTIBACTERIAL AND BPA-FREE"
+          }
+        },
+        "product_gallery": {
+          "type": "product_gallery",
+          "settings": {
+            "main_image": "",
+            "image_1": "",
+            "image_2": "",
+            "image_3": "",
+            "image_4": "",
+            "image_5": "",
+            "animation_type": "fade",
+            "show_navigation": true
+          }
+        }
+      },
+      "block_order": [
+        "product_info",
+        "product_gallery"
+      ]
+    }
+  },
+  "order": [
+    "product_hero"
+  ]
+} 

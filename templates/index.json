@@ -459,6 +459,76 @@
         "section_padding_top": 4,
         "section_padding_bottom": 4
       }
+    },
+    "customer_reviews_aw4wyU": {
+      "type": "customer-reviews",
+      "blocks": {
+        "customer_review_QmCghG": {
+          "type": "customer_review",
+          "settings": {
+            "customer_photo": "shopify://shop_images/Ml9MaW5kYS5qcGc-w_351.jpg",
+            "customer_name": "Sara",
+            "rating": 5,
+            "review_text": "Love this cutting board! It's so much easier to clean than my old wooden one – no more scrubbing food out of knife marks. After 6 months of heavy use it still looks brand new. I feel so much better knowing I'm preparing meals on a non toxic, antibacterial surface !"
+          }
+        },
+        "customer_review_PMVB6T": {
+          "type": "customer_review",
+          "settings": {
+            "customer_photo": "shopify://shop_images/Ml9MaW5kYS5qcGc-w_351.jpg",
+            "customer_name": "Eve",
+            "rating": 5,
+            "review_text": "I used to dread chopping vegetables because my knives would dull so quickly on my old boards. With the Katuchef cutting board, my knives stay sharp, and I dont have to keep reaching for the sharpener. You just HAVE to have this"
+          }
+        },
+        "customer_review_6fzJEN": {
+          "type": "customer_review",
+          "settings": {
+            "customer_photo": "shopify://shop_images/Ml9MaW5kYS5qcGc-w_351.jpg",
+            "customer_name": "Linda",
+            "rating": 5,
+            "review_text": "I always hated how food smells lingered on my wooden boards. Onions, garlic, everything! But Katuchef doesn't absorb any odors. It's so satisfying to clean it and have zero traces of yesterday's dinner sticking around, always looks like new. Good investment"
+          }
+        }
+      },
+      "block_order": [
+        "customer_review_QmCghG",
+        "customer_review_PMVB6T",
+        "customer_review_6fzJEN"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "section_title": "Satisfaction Guaranteed With Katuchef",
+        "section_subtitle": "Redefine Your Kitchen Experience",
+        "show_divider": false,
+        "section_bg_color": "#f8f9fa",
+        "review_bg_color": "#ffffff",
+        "photo_border_color": "#f0f0f0",
+        "star_color": "#fbbf24",
+        "star_empty_color": "#e5e7eb",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
+    },
+    "rating_point_xnK8cn": {
+      "type": "rating-point",
+      "name": "Rating Point",
+      "settings": {
+        "award_image": "shopify://shop_images/Award_Badge_wellaWhite_V3s-2.svg",
+        "award_alt_text": "",
+        "rating": 5,
+        "title": "Katuchef was rated as the best Titanium Cutting Board of 2025",
+        "subtitle": "",
+        "source": "TopRatings.Review",
+        "product_image": "shopify://shop_images/Mi1zZWN0aW9uX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5n-w_616.png",
+        "product_alt_text": "",
+        "section_bg_color": "transparent",
+        "banner_bg_color": "#f8f9fa",
+        "star_color": "#fbbf24",
+        "star_empty_color": "#e5e7eb",
+        "section_padding_top": 3,
+        "section_padding_bottom": 3
+      }
     }
   },
   "order": [
@@ -469,6 +539,8 @@
     "content_blocks_h47WhJ",
     "features_grid_VPXXyz",
     "sliding_text_banner_NyzA9R",
-    "product_comparison_d9FwNK"
+    "product_comparison_d9FwNK",
+    "customer_reviews_aw4wyU",
+    "rating_point_xnK8cn"
   ]
 }

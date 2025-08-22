@@ -180,11 +180,109 @@
         "padding_top": 2,
         "padding_bottom": 2
       }
+    },
+    "features_showcase_CfEFB4": {
+      "type": "features-showcase",
+      "blocks": {
+        "showcase_image_CPY4Tr": {
+          "type": "showcase_image",
+          "settings": {}
+        },
+        "feature_point_4cKRTA": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Scratch-Resistant Titanium",
+            "icon_name": "grid"
+          }
+        },
+        "feature_point_T3GHi7": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Knife-Friendly Surface",
+            "icon_name": "edit"
+          }
+        },
+        "feature_point_QpdiFc": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Antibacterial and Non-Toxic",
+            "icon_name": "shield"
+          }
+        },
+        "feature_point_RNfTrb": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Heat-Proof Durability",
+            "icon_name": "thermometer"
+          }
+        },
+        "feature_point_DNtQUC": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Double-Sided Design",
+            "icon_name": "layers"
+          }
+        },
+        "feature_point_GqacDF": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Modern Aesthetic",
+            "icon_name": "star"
+          }
+        },
+        "feature_point_tQR49w": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Built to Last a Lifetime",
+            "icon_name": "award"
+          }
+        },
+        "feature_point_wjkDyt": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Resistant to Odors and Stains",
+            "icon_name": "droplet"
+          }
+        }
+      },
+      "block_order": [
+        "showcase_image_CPY4Tr",
+        "feature_point_4cKRTA",
+        "feature_point_T3GHi7",
+        "feature_point_QpdiFc",
+        "feature_point_RNfTrb",
+        "feature_point_DNtQUC",
+        "feature_point_GqacDF",
+        "feature_point_tQR49w",
+        "feature_point_wjkDyt"
+      ],
+      "name": "Features Showcase",
+      "settings": {
+        "heading": "Why Titanium is the Ultimate Choice",
+        "subheading": "No Staining, No Odors, No Bacteria",
+        "show_divider": true,
+        "background_color": "#f8f9fa",
+        "heading_color": "#000000",
+        "subheading_color": "#666666",
+        "feature_icon_color": "#000000",
+        "feature_text_color": "#000000",
+        "padding_top": 3,
+        "padding_bottom": 3
+      }
     }
   },
   "order": [
     "product_hero_nrCC6t",
     "sliding_text_banner_HtXLXR",
-    "cutting_board_comparison_86qjzL"
+    "cutting_board_comparison_86qjzL",
+    "features_showcase_CfEFB4"
   ]
 }

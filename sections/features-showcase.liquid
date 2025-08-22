@@ -39,7 +39,7 @@
                   {% if block.settings.icon_name != blank %}
                     <div class="features-showcase__feature-icon">
                       {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
-                      {{ icon_filename | asset_url | image_tag: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
+                      {{ icon_filename | asset_url | image_url: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
                     </div>
                   {% endif %}
                   {% if block.settings.title != blank %}
@@ -84,7 +84,7 @@
                   {% if block.settings.icon_name != blank %}
                     <div class="features-showcase__feature-icon">
                       {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
-                      {{ icon_filename | asset_url | image_tag: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
+                      {{ icon_filename | asset_url | image_url: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
                     </div>
                   {% endif %}
                   {% if block.settings.title != blank %}

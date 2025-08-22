@@ -546,6 +546,171 @@
         "section_padding_top": 4,
         "section_padding_bottom": 4
       }
+    },
+    "faq_md4Wf9": {
+      "type": "faq",
+      "blocks": {
+        "faq_item_MQFjL9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What Are The Benefits Of Using The Katuchef Cutting Board?",
+            "answer": "<p>The Katuchef cutting board offers numerous benefits including antibacterial properties, knife-friendly surface that keeps blades sharp, heat resistance, and exceptional durability. Made from pure titanium, it provides a hygienic cooking surface that resists bacteria and odors while being easy to clean and maintain.</p>"
+          }
+        },
+        "faq_item_g4DcH3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Katuchef Cutting Board Safe To Use?",
+            "answer": "<p>Yes, the Katuchef cutting board is completely safe for food preparation. Titanium is FDA-approved for food contact and is naturally antibacterial. It doesn't leach chemicals into food and creates a safer, more hygienic cooking environment compared to traditional cutting board materials.</p>"
+          }
+        },
+        "faq_item_iFq7HV": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How Do I Clean And Maintain My Katuchef?",
+            "answer": "<p>Cleaning your Katuchef is simple - just wash with warm soapy water or put it in the dishwasher. The titanium surface resists stains and odors, so minimal maintenance is required. For deep cleaning, you can use any standard kitchen cleaner without worry of damage.</p>"
+          }
+        },
+        "faq_item_hJYeW4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will Using The Katuchef Cutting Board Dull My Knives?",
+            "answer": "<p>No, the Katuchef cutting board is actually knife-friendly and helps keep your blades sharper longer. The titanium surface provides the right amount of give to protect knife edges while being firm enough for effective cutting. This means less frequent sharpening and longer-lasting knives.</p>"
+          }
+        },
+        "faq_item_3GcTFM": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are Katuchef Boards Heat-Resistant?",
+            "answer": "<p>Yes, titanium has excellent heat resistance properties. You can place hot pots and pans directly on the Katuchef cutting board without fear of damage, warping, or melting. This makes it incredibly versatile for various kitchen tasks beyond just cutting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_MQFjL9",
+        "faq_item_g4DcH3",
+        "faq_item_iFq7HV",
+        "faq_item_hJYeW4",
+        "faq_item_3GcTFM"
+      ],
+      "name": "FAQ",
+      "settings": {
+        "section_title": "Frequently Asked Questions",
+        "show_divider": true,
+        "section_subtitle": "",
+        "allow_multiple_open": false,
+        "closed_icon": "+",
+        "open_icon": "−",
+        "section_bg_color": "transparent",
+        "item_bg_color": "#ffffff",
+        "item_border_color": "#e5e7eb",
+        "icon_color": "#666666",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
+    },
+    "rating_point_LxtwhR": {
+      "type": "rating-point",
+      "name": "Rating Point",
+      "settings": {
+        "award_image": "shopify://shop_images/kvalita-garantovana_add2c54e-7408-4885-a249-5f5eb454488c.jpg",
+        "award_alt_text": "",
+        "rating": 0,
+        "title": "Buy With Confidence - It’s 100% Risk-Free!",
+        "subtitle": "If you aren’t happy with the product, we offer a 30-day money return policy. Send your package back and get a full refund, no questions asked.",
+        "source": "",
+        "product_image": "shopify://shop_images/Mi1zZWN0aW9uX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5n-w_616.png",
+        "product_alt_text": "",
+        "section_bg_color": "transparent",
+        "banner_bg_color": "#f8f9fa",
+        "star_color": "#fbbf24",
+        "star_empty_color": "#e5e7eb",
+        "section_padding_top": 3,
+        "section_padding_bottom": 3
+      }
+    },
+    "coupon_section_cVXcyM": {
+      "type": "coupon-section",
+      "name": "Coupon Section",
+      "settings": {
+        "product_image": "shopify://shop_images/S2F0dWNoZWZfY291cG9uLmpwZw-w_1100.jpg",
+        "product_alt_text": "",
+        "flag_icon": "🇺🇸",
+        "flag_text": "AMERICA's #1 Rated Titanium Cutting Board",
+        "headline": "UP TO 70% OFF FOR A LIMITED TIME ONLY!",
+        "subheadline": "",
+        "description": "This limited-time deal is in high demand, and the stock keeps selling out.",
+        "cta_text": "GET 70% OFF DISCOUNT NOW!",
+        "cta_link": "",
+        "guarantee_text": "Try it today with a 30-Day Money Back Guarantee!",
+        "show_avatars": true,
+        "avatar_1": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+        "avatar_2": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+        "avatar_3": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+        "avatar_4": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+        "rating": 5,
+        "rating_text": "4.7",
+        "stock_text": "In stock and ready to ship",
+        "section_bg_color": "transparent",
+        "banner_bg_color": "#ffffff",
+        "banner_border_color": "#e5e7eb",
+        "image_bg_color": "#f8f9fa",
+        "star_color": "#fbbf24",
+        "stock_color": "#059669",
+        "cta_bg_color": "#000000",
+        "cta_text_color": "#ffffff",
+        "cta_hover_bg_color": "#333333",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
+    },
+    "usp_section_FMyFhx": {
+      "type": "usp-section",
+      "blocks": {
+        "usp_item_WTBrQ8": {
+          "type": "usp_item",
+          "settings": {
+            "icon_name": "star",
+            "text": "Pure Titanium"
+          }
+        },
+        "usp_item_nDKekm": {
+          "type": "usp_item",
+          "settings": {
+            "icon_name": "shield",
+            "text": "Lifetime Durability"
+          }
+        },
+        "usp_item_wYbhw7": {
+          "type": "usp_item",
+          "settings": {
+            "icon_name": "dollar-sign",
+            "text": "30-Day Money-Back Guarantee"
+          }
+        },
+        "usp_item_KVFqXV": {
+          "type": "usp_item",
+          "settings": {
+            "icon_name": "check-circle",
+            "text": "Antibacterial and BPA-Free"
+          }
+        }
+      },
+      "block_order": [
+        "usp_item_WTBrQ8",
+        "usp_item_nDKekm",
+        "usp_item_wYbhw7",
+        "usp_item_KVFqXV"
+      ],
+      "name": "USP Section",
+      "settings": {
+        "section_bg_color": "#ffffff",
+        "border_color": "#e5e7eb",
+        "icon_color": "#000000",
+        "icon_stroke_width": 1,
+        "section_padding_top": 2,
+        "section_padding_bottom": 2
+      }
     }
   },
   "order": [
@@ -559,6 +724,10 @@
     "product_comparison_d9FwNK",
     "customer_reviews_aw4wyU",
     "rating_point_xnK8cn",
-    "expert_opinion_QfgeBA"
+    "expert_opinion_QfgeBA",
+    "faq_md4Wf9",
+    "rating_point_LxtwhR",
+    "coupon_section_cVXcyM",
+    "usp_section_FMyFhx"
   ]
 }

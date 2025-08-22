@@ -1,0 +1,241 @@
+{% comment %}
+  Sliding Text Banner Section
+  Auto-scrolling horizontal text banner with customizable messages
+{% endcomment %}
+
+<div class="sliding-text-banner" style="
+  --banner-bg-color: {{ section.settings.background_color | default: '#000000' }};
+  --banner-text-color: {{ section.settings.text_color | default: '#ffffff' }};
+  --banner-font-size: {{ section.settings.font_size | default: 1 }}rem;
+  --banner-padding: {{ section.settings.padding_vertical | default: 1 }}rem;
+  --animation-duration: {{ section.settings.animation_speed | default: 30 }}s;
+">
+  <div class="sliding-text-banner__container">
+    <div class="sliding-text-banner__track sliding-text-banner__track--{{ section.settings.direction | default: 'left' }}">
+      {% assign texts = '' %}
+      {% if section.settings.text_1 != blank %}
+        {% assign texts = texts | append: section.settings.text_1 %}
+      {% endif %}
+      {% if section.settings.text_2 != blank %}
+        {% unless texts == blank %}
+          {% assign texts = texts | append: ' | ' %}
+        {% endunless %}
+        {% assign texts = texts | append: section.settings.text_2 %}
+      {% endif %}
+      {% if section.settings.text_3 != blank %}
+        {% unless texts == blank %}
+          {% assign texts = texts | append: ' | ' %}
+        {% endunless %}
+        {% assign texts = texts | append: section.settings.text_3 %}
+      {% endif %}
+      {% if section.settings.text_4 != blank %}
+        {% unless texts == blank %}
+          {% assign texts = texts | append: ' | ' %}
+        {% endunless %}
+        {% assign texts = texts | append: section.settings.text_4 %}
+      {% endif %}
+      
+      <!-- Create enough duplicates for seamless infinite scroll -->
+      {% for i in (1..3) %}
+        <div class="sliding-text-banner__text">{{ texts }}</div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+.sliding-text-banner {
+  background-color: var(--banner-bg-color);
+  color: var(--banner-text-color);
+  padding: var(--banner-padding) 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: var(--banner-font-size);
+  font-weight: 500;
+  position: relative;
+  /* Break out of content container to span full width */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.sliding-text-banner__container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.sliding-text-banner__track {
+  display: flex;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+  width: fit-content;
+}
+
+.sliding-text-banner__track--left {
+  animation-name: slideLeft;
+  animation-duration: var(--animation-duration);
+}
+
+.sliding-text-banner__track--right {
+  animation-name: slideRight;
+  animation-duration: var(--animation-duration);
+}
+
+.sliding-text-banner__text {
+  flex-shrink: 0;
+  padding: 0 2rem;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Animation keyframes for seamless infinite scroll */
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%); /* Move by 1/3 since we have 3 duplicates */
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(-33.333%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .sliding-text-banner {
+    font-size: calc(var(--banner-font-size) * 0.875);
+  }
+  
+  .sliding-text-banner__text {
+    padding: 0 1.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .sliding-text-banner {
+    font-size: calc(var(--banner-font-size) * 0.75);
+  }
+  
+  .sliding-text-banner__text {
+    padding: 0 1rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Sliding Text Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Text 1",
+      "default": "30-Day Money-Back Guarantee"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Text 2",
+      "default": "Antibacterial & Odorless"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Text 3",
+      "default": "Premium Quality Materials"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Text 4",
+      "default": "Free Worldwide Shipping"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left to Right"
+        },
+        {
+          "value": "right",
+          "label": "Right to Left"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "label": "Animation speed",
+      "info": "Lower values = faster movement",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 0.5,
+      "max": 2,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Font size",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "min": 0.5,
+      "max": 3,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Vertical padding",
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sliding Text Banner"
+    }
+  ]
+}
+{% endschema %}

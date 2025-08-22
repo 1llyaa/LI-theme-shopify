@@ -1,0 +1,162 @@
+{% comment %}
+  Spacer Section
+  Creates customizable vertical spacing between sections
+{% endcomment %}
+
+<div class="spacer" style="
+  --spacer-height-desktop: {{ section.settings.height_desktop | default: 3 }}rem;
+  --spacer-height-tablet: {{ section.settings.height_tablet | default: 2 }}rem;
+  --spacer-height-mobile: {{ section.settings.height_mobile | default: 1.5 }}rem;
+  --spacer-bg-color: {{ section.settings.background_color | default: 'transparent' }};
+">
+  {% if section.settings.show_divider %}
+    <div class="spacer__divider" style="
+      --divider-color: {{ section.settings.divider_color | default: '#e5e5e5' }};
+      --divider-width: {{ section.settings.divider_width | default: 1 }}px;
+      --divider-style: {{ section.settings.divider_style | default: 'solid' }};
+    "></div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+.spacer {
+  background-color: var(--spacer-bg-color);
+  height: var(--spacer-height-mobile);
+  position: relative;
+  width: 100%;
+}
+
+.spacer__divider {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: var(--divider-width);
+  background-color: var(--divider-color);
+  transform: translateY(-50%);
+  border-style: var(--divider-style);
+  border-width: var(--divider-width) 0 0 0;
+  border-color: var(--divider-color);
+  background: none;
+}
+
+/* Responsive breakpoints */
+@media screen and (min-width: 768px) {
+  .spacer {
+    height: var(--spacer-height-tablet);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .spacer {
+    height: var(--spacer-height-desktop);
+  }
+}
+
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Spacer",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 0.5,
+      "max": 10,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Height (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "height_tablet",
+      "min": 0.5,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Height (Tablet)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 0.5,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Height (Mobile)",
+      "default": 1.5
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "info": "Leave empty for transparent"
+    },
+    {
+      "type": "header",
+      "content": "Divider Line"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider line",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "Divider style",
+      "options": [
+        {
+          "value": "solid",
+          "label": "Solid"
+        },
+        {
+          "value": "dashed",
+          "label": "Dashed"
+        },
+        {
+          "value": "dotted",
+          "label": "Dotted"
+        }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Divider thickness",
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spacer"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,387 @@
+{% comment %}
+  Rating Point Section
+  A banner section showcasing awards, ratings, and product credibility
+  Features award badge, star rating, review text, and product image
+{% endcomment %}
+
+{% stylesheet %}
+.rating-point {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.rating-point__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.rating-point__content {
+  background: var(--banner-bg-color, #f8f9fa);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border-light);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  min-height: 10rem;
+}
+
+.rating-point__award {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rating-point__award-image {
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+}
+
+.rating-point__info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-point__stars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.rating-point__star {
+  color: var(--star-color, #fbbf24);
+  font-size: 1.5rem;
+}
+
+.rating-point__star--empty {
+  color: var(--star-empty-color, #e5e7eb);
+}
+
+.rating-point__title {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.rating-point__subtitle {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.rating-point__source {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+  font-style: italic;
+}
+
+.rating-point__product {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rating-point__product-image {
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .rating-point {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .rating-point__content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    text-align: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    min-height: auto;
+  }
+  
+  .rating-point__award {
+    order: 1;
+  }
+  
+  .rating-point__info {
+    order: 2;
+  }
+  
+  .rating-point__product {
+    display: none;
+  }
+  
+  .rating-point__award-image,
+  .rating-point__product-image {
+    width: 7rem;
+    height: 7rem;
+  }
+  
+  .rating-point__title {
+    font-size: 1.25rem;
+  }
+  
+  .rating-point__stars {
+    gap: 0.125rem;
+  }
+  
+  .rating-point__star {
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .rating-point {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .rating-point__content {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .rating-point__award-image,
+  .rating-point__product-image {
+    width: 6rem;
+    height: 6rem;
+  }
+  
+  .rating-point__title {
+    font-size: 1.125rem;
+  }
+  
+  .rating-point__subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .rating-point__source {
+    font-size: 0.75rem;
+  }
+  
+  .rating-point__star {
+    font-size: 1.125rem;
+  }
+}
+{% endstylesheet %}
+
+<section class="rating-point" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: 'transparent' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 3 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 3 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 3 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 3 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 3 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 3 | times: 0.5 }}rem;
+  --banner-bg-color: {{ section.settings.banner_bg_color | default: '#f8f9fa' }};
+  --star-color: {{ section.settings.star_color | default: '#fbbf24' }};
+  --star-empty-color: {{ section.settings.star_empty_color | default: '#e5e7eb' }};
+" {{ section.shopify_attributes }}>
+  <div class="rating-point__container">
+    
+    <div class="rating-point__content">
+      
+      <!-- Award Badge -->
+      {% if section.settings.award_image != blank %}
+        <div class="rating-point__award">
+          {% assign award_alt = section.settings.award_alt_text | default: 'Award badge' %}
+          {{ section.settings.award_image | image_url: width: 400, height: 400 | image_tag: alt: award_alt, class: 'rating-point__award-image', loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+      <!-- Rating Info -->
+      <div class="rating-point__info">
+        
+        {% if section.settings.rating > 0 %}
+          <div class="rating-point__stars">
+            {% for i in (1..5) %}
+              {% if i <= section.settings.rating %}
+                <span class="rating-point__star">★</span>
+              {% else %}
+                <span class="rating-point__star rating-point__star--empty">★</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+        
+        {% if section.settings.title != blank %}
+          <h2 class="rating-point__title">{{ section.settings.title }}</h2>
+        {% endif %}
+        
+        {% if section.settings.subtitle != blank %}
+          <p class="rating-point__subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+        
+        {% if section.settings.source != blank %}
+          <p class="rating-point__source">- {{ section.settings.source }}</p>
+        {% endif %}
+        
+      </div>
+      
+      <!-- Product Image -->
+      {% if section.settings.product_image != blank %}
+        <div class="rating-point__product">
+          {% assign product_alt = section.settings.product_alt_text | default: 'Product image' %}
+          {{ section.settings.product_image | image_url: width: 400, height: 400 | image_tag: alt: product_alt, class: 'rating-point__product-image', loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+    </div>
+    
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Rating Point",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Award Badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "award_image",
+      "label": "Award badge image"
+    },
+    {
+      "type": "text",
+      "id": "award_alt_text",
+      "label": "Award image alt text",
+      "info": "Describe the award badge for accessibility"
+    },
+    {
+      "type": "header",
+      "content": "Rating Content"
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "label": "Star rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main title",
+      "default": "Katuchef was rated as the best Titanium Cutting Board of 2025"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "info": "Optional additional text"
+    },
+    {
+      "type": "text",
+      "id": "source",
+      "label": "Review source",
+      "default": "TopRatings.Review"
+    },
+    {
+      "type": "header",
+      "content": "Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "product_alt_text",
+      "label": "Product image alt text",
+      "info": "Describe the product for accessibility"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "banner_bg_color",
+      "label": "Banner background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#fbbf24"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Empty star color",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rating Point"
+    }
+  ]
+}
+{% endschema %}

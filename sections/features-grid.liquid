@@ -217,10 +217,10 @@
                   <div class="features-grid__icon">
                     {% if block.settings.icon contains '.svg' %}
                       {% assign icon_filename = block.settings.icon %}
-                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, loading: 'lazy' }}
+                      {{ icon_filename | asset_url | image_url: width: 100 | image_tag }}
                     {% else %}
                       {% assign icon_filename = block.settings.icon | append: '.svg' %}
-                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, loading: 'lazy' }}
+                      {{ icon_filename | asset_url | image_url: width: 100 | image_tag }}
                     {% endif %}
                   </div>
                 {% endif %}

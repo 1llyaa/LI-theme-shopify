@@ -186,7 +186,9 @@
       "blocks": {
         "showcase_image_CPY4Tr": {
           "type": "showcase_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mi1zZWN0aW9uX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5n-w_616.png"
+          }
         },
         "feature_point_4cKRTA": {
           "type": "feature_point",
@@ -268,7 +270,7 @@
       "settings": {
         "heading": "Why Titanium is the Ultimate Choice",
         "subheading": "No Staining, No Odors, No Bacteria",
-        "show_divider": true,
+        "show_divider": false,
         "background_color": "#f8f9fa",
         "heading_color": "#000000",
         "subheading_color": "#666666",
@@ -277,12 +279,107 @@
         "padding_top": 3,
         "padding_bottom": 3
       }
+    },
+    "content_blocks_h47WhJ": {
+      "type": "content-blocks",
+      "blocks": {
+        "content_block_MtqLJB": {
+          "type": "content_block",
+          "settings": {
+            "title": "No Germs, Bacteria, or Microplastics",
+            "description": "<p>Katuchef's antibacterial surface keeps your kitchen cleaner and safer by stopping bacteria from building up. Made from non-toxic titanium, Katuchef is free from harmful chemicals and ensures safer meal preparation for you and your family.</p>",
+            "image": "shopify://shop_images/Ml9QbGFzdGljX0VwaWN1cmVhbi5qcGc-w_700.jpg",
+            "image_alt": "",
+            "image_position": "right"
+          }
+        },
+        "content_block_k4eyqD": {
+          "type": "content_block",
+          "settings": {
+            "title": "Durable & Long-Lasting",
+            "description": "<p>Built with premium materials and expert craftsmanship, our products are designed to withstand daily use while maintaining their quality and performance for years to come.</p>",
+            "image": "shopify://shop_images/Ml9QbGFzdGljX0VwaWN1cmVhbi5qcGc-w_700.jpg",
+            "image_alt": "",
+            "image_position": "left"
+          }
+        }
+      },
+      "block_order": [
+        "content_block_MtqLJB",
+        "content_block_k4eyqD"
+      ],
+      "name": "Content Blocks",
+      "settings": {
+        "section_title": "Why Choose Our Products",
+        "section_subtitle": "Discover the benefits that make our products stand out from the competition",
+        "show_divider": true,
+        "section_bg_color": "#ffffff",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
+    },
+    "features_grid_VPXXyz": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_xhqCxL": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Antibacterial and Non-Toxic Surface",
+            "description": "Unlike wood or other materials, titanium's non-porous surface means bacteria can't get trapped inside. Just rinse it with water and you're good to go."
+          }
+        },
+        "feature_kNa7rY": {
+          "type": "feature",
+          "settings": {
+            "icon": "tool",
+            "title": "Knife-Friendly Build",
+            "description": "The surface of the Katuchef cutting board is specially designed to be gentle on your knives. It helps keep your blades sharper for longer, so you won't need to sharpen them as often."
+          }
+        },
+        "feature_rd8Lme": {
+          "type": "feature",
+          "settings": {
+            "icon": "zap",
+            "title": "Scratch-Resistance and Durability",
+            "description": "Katuchef is built to handle daily use without showing signs of wear and tear. It resists scratches, staining, and warping, and stays in great condition no matter how much prepping you do."
+          }
+        },
+        "feature_GerDkb": {
+          "type": "feature",
+          "settings": {
+            "icon": "layers",
+            "title": "Dual-Sided Versatility",
+            "description": "Katuchef's double-sided design lets you keep raw and cooked foods separate, making meal prep safer and easier. It's a simple way to avoid cross-contamination and save time in the kitchen."
+          }
+        }
+      },
+      "block_order": [
+        "feature_xhqCxL",
+        "feature_kNa7rY",
+        "feature_rd8Lme",
+        "feature_GerDkb"
+      ],
+      "name": "Features Grid",
+      "settings": {
+        "section_title": "Invest in a Cutting Board That Will Last a Lifetime",
+        "section_subtitle": "This Titanium Cutting Board Handles Everything in Your Kitchen",
+        "show_divider": true,
+        "section_bg_color": "#f8f9fa",
+        "feature_bg_color": "#ffffff",
+        "feature_icon_bg": "#f8f9fa",
+        "feature_icon_color": "#000000",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
     }
   },
   "order": [
     "product_hero_nrCC6t",
     "sliding_text_banner_HtXLXR",
     "cutting_board_comparison_86qjzL",
-    "features_showcase_CfEFB4"
+    "features_showcase_CfEFB4",
+    "content_blocks_h47WhJ",
+    "features_grid_VPXXyz"
   ]
 }

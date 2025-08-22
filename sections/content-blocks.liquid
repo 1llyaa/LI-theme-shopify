@@ -1,0 +1,370 @@
+{% comment %}
+  Content Blocks Section
+  Flexible section for creating content blocks with title, description, and positioned images
+{% endcomment %}
+
+{% stylesheet %}
+.content-blocks {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.content-blocks__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.content-blocks__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.content-blocks__title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.content-blocks__subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.content-blocks__divider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: var(--color-primary);
+  margin: 1.5rem auto;
+  border: none;
+}
+
+.content-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.content-block:last-child {
+  margin-bottom: 0;
+}
+
+.content-block--image-right .content-block__content {
+  order: 1;
+}
+
+.content-block--image-right .content-block__image {
+  order: 2;
+}
+
+.content-block--image-left .content-block__content {
+  order: 2;
+}
+
+.content-block--image-left .content-block__image {
+  order: 1;
+}
+
+.content-block__content {
+  padding: 1rem 0;
+}
+
+.content-block__title {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.content-block__description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+.content-block__image {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.content-block__image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .content-blocks {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .content-blocks__title {
+    font-size: 2rem;
+  }
+  
+  .content-blocks__subtitle {
+    font-size: 1rem;
+  }
+  
+  .content-block {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .content-block--image-right .content-block__content,
+  .content-block--image-left .content-block__content {
+    order: 2;
+  }
+  
+  .content-block--image-right .content-block__image,
+  .content-block--image-left .content-block__image {
+    order: 1;
+  }
+  
+  .content-block__title {
+    font-size: 1.5rem;
+  }
+  
+  .content-block__description {
+    font-size: 0.875rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content-blocks {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .content-blocks__header {
+    margin-bottom: 2rem;
+  }
+  
+  .content-blocks__title {
+    font-size: 1.75rem;
+  }
+  
+  .content-block {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .content-block__title {
+    font-size: 1.25rem;
+  }
+}
+{% endstylesheet %}
+
+<section class="content-blocks" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: '#ffffff' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 4 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 4 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 4 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 4 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 4 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 4 | times: 0.5 }}rem;
+" {{ section.shopify_attributes }}>
+  <div class="content-blocks__container">
+    
+    {% if section.settings.section_title != blank or section.settings.section_subtitle != blank %}
+      <div class="content-blocks__header">
+        {% if section.settings.section_title != blank %}
+          <h2 class="content-blocks__title">{{ section.settings.section_title }}</h2>
+        {% endif %}
+        
+        {% if section.settings.show_divider %}
+          <hr class="content-blocks__divider">
+        {% endif %}
+        
+        {% if section.settings.section_subtitle != blank %}
+          <p class="content-blocks__subtitle">{{ section.settings.section_subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'content_block' %}
+          {% if block.settings.title != blank or block.settings.description != blank or block.settings.image != blank %}
+            <div class="content-block content-block--image-{{ block.settings.image_position }}" {{ block.shopify_attributes }}>
+              
+              <div class="content-block__content">
+                {% if block.settings.title != blank %}
+                  <h3 class="content-block__title">{{ block.settings.title }}</h3>
+                {% endif %}
+                
+                {% if block.settings.description != blank %}
+                  <div class="content-block__description">
+                    {{ block.settings.description }}
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if block.settings.image != blank %}
+                <div class="content-block__image">
+                  {% assign alt_text = block.settings.image_alt | default: block.settings.image.alt %}
+                  {{ block.settings.image | image_url: width: 800, height: 600 | image_tag: alt: alt_text, loading: 'lazy' }}
+                </div>
+              {% endif %}
+
+            </div>
+          {% endif %}
+      {% endcase %}
+    {% endfor %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Content Blocks",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Why Choose Our Products"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Subtitle",
+      "default": "Discover the benefits that make our products stand out from the competition"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding top",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding bottom",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "Content Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "No Germs, Bacteria, or Microplastics"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Katuchef's antibacterial surface keeps your kitchen cleaner and safer by stopping bacteria from building up. Made from non-toxic titanium, Katuchef is free from harmful chemicals and ensures safer meal preparation for you and your family.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Leave blank to use the image's alt text"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "right"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content Blocks",
+      "blocks": [
+        {
+          "type": "content_block",
+          "settings": {
+            "title": "No Germs, Bacteria, or Microplastics",
+            "description": "<p>Katuchef's antibacterial surface keeps your kitchen cleaner and safer by stopping bacteria from building up. Made from non-toxic titanium, Katuchef is free from harmful chemicals and ensures safer meal preparation for you and your family.</p>",
+            "image_position": "right"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "title": "Durable & Long-Lasting",
+            "description": "<p>Built with premium materials and expert craftsmanship, our products are designed to withstand daily use while maintaining their quality and performance for years to come.</p>",
+            "image_position": "left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

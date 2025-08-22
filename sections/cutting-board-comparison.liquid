@@ -25,49 +25,103 @@
       </div>
     {% endif %}
 
-    <div class="cutting-board-comparison__content">
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'material_block' %}
-            <div class="cutting-board-comparison__block" {{ block.shopify_attributes }}>
-              {% if block.settings.image != blank %}
-                <div class="cutting-board-comparison__image-wrapper">
-                  {{ block.settings.image | image_url: width: 500, height: 500 | image_tag: 
-                     alt: block.settings.image.alt, 
-                     class: 'cutting-board-comparison__image' }}
-                </div>
-              {% endif %}
-              
-              {% if block.settings.title != blank %}
-                <div class="cutting-board-comparison__title-wrapper">
-                  {% if block.settings.icon_name != blank %}
-                    <div class="cutting-board-comparison__icon" style="
-                      --icon-size: {{ block.settings.icon_size | default: 1.5 }}rem;
-                      --icon-color: {{ block.settings.icon_color | default: '#666666' }};
-                      --icon-opacity: {{ block.settings.icon_opacity | default: 100 | divided_by: 100.0 }};
-                    ">
-                      {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
-                      <div class="cutting-board-comparison__icon-svg" 
-                           style="width: {{ block.settings.icon_size | default: 1.5 }}rem; height: {{ block.settings.icon_size | default: 1.5 }}rem;"
-                           data-icon="{{ icon_filename | asset_url }}"
-                           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+    {% if section.blocks.size > 0 %}
+      <!-- Desktop Grid -->
+      <div class="cutting-board-comparison__content">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'material_block' %}
+              <div class="cutting-board-comparison__block" {{ block.shopify_attributes }}>
+                {% if block.settings.image != blank %}
+                  <div class="cutting-board-comparison__image-wrapper">
+                    {{ block.settings.image | image_url: width: 500, height: 500 | image_tag: 
+                       alt: block.settings.image.alt, 
+                       class: 'cutting-board-comparison__image' }}
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.title != blank %}
+                  <div class="cutting-board-comparison__title-wrapper">
+                    {% if block.settings.icon_name != blank %}
+                      <div class="cutting-board-comparison__icon" style="
+                        --icon-size: {{ block.settings.icon_size | default: 1.5 }}rem;
+                        --icon-color: {{ block.settings.icon_color | default: '#666666' }};
+                        --icon-opacity: {{ block.settings.icon_opacity | default: 100 | divided_by: 100.0 }};
+                      ">
+                        {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
+                        <div class="cutting-board-comparison__icon-svg" 
+                             style="width: {{ block.settings.icon_size | default: 1.5 }}rem; height: {{ block.settings.icon_size | default: 1.5 }}rem;"
+                             data-icon="{{ icon_filename | asset_url }}"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        </div>
+                        <div class="cutting-board-comparison__icon-fallback" style="display: none; width: 100%; height: 100%; background: var(--icon-color, #666666); border-radius: 50%; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">
+                          {{ block.settings.icon_name | slice: 0, 2 | upcase }}
+                        </div>
                       </div>
-                      <div class="cutting-board-comparison__icon-fallback" style="display: none; width: 100%; height: 100%; background: var(--icon-color, #666666); border-radius: 50%; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">
-                        {{ block.settings.icon_name | slice: 0, 2 | upcase }}
-                      </div>
+                    {% endif %}
+                    <h3 class="cutting-board-comparison__title">{{ block.settings.title }}</h3>
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.description != blank %}
+                  <p class="cutting-board-comparison__description">{{ block.settings.description }}</p>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Slider -->
+      <div class="cutting-board-comparison__slider splide" id="cutting-board-slider-{{ section.id }}">
+        <div class="splide__track">
+          <ul class="splide__list">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'material_block' %}
+                  <li class="splide__slide" {{ block.shopify_attributes }}>
+                    <div class="cutting-board-comparison__block">
+                      {% if block.settings.image != blank %}
+                        <div class="cutting-board-comparison__image-wrapper">
+                          {{ block.settings.image | image_url: width: 500, height: 500 | image_tag: 
+                             alt: block.settings.image.alt, 
+                             class: 'cutting-board-comparison__image' }}
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.title != blank %}
+                        <div class="cutting-board-comparison__title-wrapper">
+                          {% if block.settings.icon_name != blank %}
+                            <div class="cutting-board-comparison__icon" style="
+                              --icon-size: {{ block.settings.icon_size | default: 1.5 }}rem;
+                              --icon-color: {{ block.settings.icon_color | default: '#666666' }};
+                              --icon-opacity: {{ block.settings.icon_opacity | default: 100 | divided_by: 100.0 }};
+                            ">
+                              {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
+                              <div class="cutting-board-comparison__icon-svg" 
+                                   style="width: {{ block.settings.icon_size | default: 1.5 }}rem; height: {{ block.settings.icon_size | default: 1.5 }}rem;"
+                                   data-icon="{{ icon_filename | asset_url }}"
+                                   onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                              </div>
+                              <div class="cutting-board-comparison__icon-fallback" style="display: none; width: 100%; height: 100%; background: var(--icon-color, #666666); border-radius: 50%; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: bold;">
+                                {{ block.settings.icon_name | slice: 0, 2 | upcase }}
+                              </div>
+                            </div>
+                          {% endif %}
+                          <h3 class="cutting-board-comparison__title">{{ block.settings.title }}</h3>
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.description != blank %}
+                        <p class="cutting-board-comparison__description">{{ block.settings.description }}</p>
+                      {% endif %}
                     </div>
-                  {% endif %}
-                  <h3 class="cutting-board-comparison__title">{{ block.settings.title }}</h3>
-                </div>
-              {% endif %}
-              
-              {% if block.settings.description != blank %}
-                <p class="cutting-board-comparison__description">{{ block.settings.description }}</p>
-              {% endif %}
-            </div>
-        {% endcase %}
-      {% endfor %}
-    </div>
+                  </li>
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>
 
@@ -119,7 +173,19 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: var(--spacing-2xl);
-  align-items: start;
+  align-items: stretch;
+}
+
+.cutting-board-comparison__slider {
+  display: none;
+}
+
+.cutting-board-comparison__slider .splide__track {
+  padding: 0 1rem;
+}
+
+.cutting-board-comparison__slider .splide__slide {
+  padding: 0 0.5rem;
 }
 
 .cutting-board-comparison__block {
@@ -128,6 +194,8 @@
   align-items: center;
   text-align: center;
   gap: var(--spacing-lg);
+  height: 100%;
+  min-height: 24rem;
 }
 
 .cutting-board-comparison__image-wrapper {
@@ -202,6 +270,32 @@
     padding-top: var(--section-padding-top-mobile);
     padding-bottom: var(--section-padding-bottom-mobile);
   }
+  
+  .cutting-board-comparison__content {
+    display: none;
+  }
+  
+  .cutting-board-comparison__slider {
+    display: block;
+  }
+  
+  .cutting-board-comparison__block {
+    padding: 1.5rem;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .cutting-board-comparison__image-wrapper {
+    max-width: 15rem;
+  }
+  
+  .cutting-board-comparison__title {
+    font-size: var(--font-size-lg);
+  }
+  
+  .cutting-board-comparison__description {
+    font-size: var(--font-size-sm);
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -230,6 +324,37 @@
   }
 }
 {% endstylesheet %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cuttingBoardSlider = document.getElementById('cutting-board-slider-{{ section.id }}');
+  
+  if (cuttingBoardSlider) {
+    new Splide(cuttingBoardSlider, {
+      type: 'loop',
+      rewind: true,
+      focus: 0,
+      perPage: 1,
+      autoWidth: false,
+      arrows: false,
+      pagination: false,
+      gap: '1rem',
+      speed: 400,
+      easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+      snap: true,
+      autoplay: false,
+      pauseOnHover: false,
+      resetProgress: false,
+      padding: {right: '15%'},
+      breakpoints: {
+        600: {
+          gap: '0.5rem'
+        }
+      }
+    }).mount();
+  }
+});
+</script>
 
 {% schema %}
 {

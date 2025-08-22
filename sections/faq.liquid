@@ -1,0 +1,478 @@
+{% comment %}
+  FAQ Section
+  Features customizable accordion-style FAQ with blocks for unlimited questions
+  Options for single/multiple open, custom icons, and full content control
+{% endcomment %}
+
+{% stylesheet %}
+.faq {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.faq__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.faq__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq__title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.faq__subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem;
+  line-height: var(--line-height-relaxed);
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq__divider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: var(--color-primary);
+  margin: 0 auto;
+  border: none;
+}
+
+.faq__list {
+  max-width: 50rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq__item {
+  background: var(--item-bg-color, #ffffff);
+  border: 1px solid var(--item-border-color, #e5e7eb);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow var(--transition-normal);
+}
+
+.faq__item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.faq__item.is-open {
+  box-shadow: var(--shadow-md);
+}
+
+.faq__question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.5rem 2rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  transition: background-color var(--transition-normal);
+}
+
+.faq__question:hover {
+  background-color: var(--color-bg-light);
+}
+
+.faq__question:focus {
+  outline: none;
+  background-color: var(--color-bg-light);
+}
+
+.faq__icon {
+  font-size: 1.25rem;
+  color: var(--icon-color, #666666);
+  flex-shrink: 0;
+  margin-left: 1rem;
+  transition: transform var(--transition-normal);
+}
+
+.faq__item.is-open .faq__icon {
+  transform: rotate(180deg);
+}
+
+.faq__answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s ease-out;
+}
+
+.faq__answer.is-open {
+  max-height: 500px;
+  transition: max-height 0.6s ease-in;
+}
+
+.faq__answer-content {
+  padding: 0 2rem 1.5rem;
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .faq {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .faq__title {
+    font-size: 2rem;
+  }
+  
+  .faq__subtitle {
+    font-size: 1rem;
+  }
+  
+  .faq__question {
+    padding: 1.25rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .faq__answer-content {
+    padding: 0 1.5rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .faq__icon {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .faq {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .faq__header {
+    margin-bottom: 2rem;
+  }
+  
+  .faq__title {
+    font-size: 1.75rem;
+  }
+  
+  .faq__question {
+    padding: 1rem 1.25rem;
+  }
+  
+  .faq__answer-content {
+    padding: 0 1.25rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+{% endstylesheet %}
+
+<section class="faq" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: 'transparent' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 4 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 4 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 4 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 4 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 4 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 4 | times: 0.5 }}rem;
+  --item-bg-color: {{ section.settings.item_bg_color | default: '#ffffff' }};
+  --item-border-color: {{ section.settings.item_border_color | default: '#e5e7eb' }};
+  --icon-color: {{ section.settings.icon_color | default: '#666666' }};
+" {{ section.shopify_attributes }}>
+  <div class="faq__container">
+    
+    {% if section.settings.section_title != blank or section.settings.section_subtitle != blank %}
+      <div class="faq__header">
+        {% if section.settings.section_title != blank %}
+          <h2 class="faq__title">{{ section.settings.section_title }}</h2>
+        {% endif %}
+        
+        {% if section.settings.show_divider %}
+          <hr class="faq__divider">
+        {% endif %}
+        
+        {% if section.settings.section_subtitle != blank %}
+          <p class="faq__subtitle">{{ section.settings.section_subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="faq__list">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'faq_item' %}
+              <div class="faq__item" {{ block.shopify_attributes }}>
+                <button class="faq__question" 
+                        type="button" 
+                        aria-expanded="false"
+                        data-faq-question>
+                  <span>{{ block.settings.question }}</span>
+                  <span class="faq__icon">{{ section.settings.closed_icon | default: '+' }}</span>
+                </button>
+                <div class="faq__answer" data-faq-answer>
+                  <div class="faq__answer-content">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const faqSection = document.querySelector('#shopify-section-{{ section.id }}');
+  if (!faqSection) return;
+  
+  const allowMultiple = {{ section.settings.allow_multiple_open | json }};
+  const closedIcon = {{ section.settings.closed_icon | default: '+' | json }};
+  const openIcon = {{ section.settings.open_icon | default: '−' | json }};
+  
+  const faqItems = faqSection.querySelectorAll('.faq__item');
+  
+  faqItems.forEach(item => {
+    const question = item.querySelector('[data-faq-question]');
+    const answer = item.querySelector('[data-faq-answer]');
+    const icon = question.querySelector('.faq__icon');
+    
+    if (!question || !answer || !icon) return;
+    
+    question.addEventListener('click', function() {
+      const isOpen = item.classList.contains('is-open');
+      
+      // If not allowing multiple open, close all others first
+      if (!allowMultiple && !isOpen) {
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            closeFaqItem(otherItem);
+          }
+        });
+      }
+      
+      // Toggle current item
+      if (isOpen) {
+        closeFaqItem(item);
+      } else {
+        openFaqItem(item);
+      }
+    });
+  });
+  
+  function openFaqItem(item) {
+    const question = item.querySelector('[data-faq-question]');
+    const answer = item.querySelector('[data-faq-answer]');
+    const icon = question.querySelector('.faq__icon');
+    
+    item.classList.add('is-open');
+    answer.classList.add('is-open');
+    question.setAttribute('aria-expanded', 'true');
+    icon.textContent = openIcon;
+  }
+  
+  function closeFaqItem(item) {
+    const question = item.querySelector('[data-faq-question]');
+    const answer = item.querySelector('[data-faq-answer]');
+    const icon = question.querySelector('.faq__icon');
+    
+    item.classList.remove('is-open');
+    answer.classList.remove('is-open');
+    question.setAttribute('aria-expanded', 'false');
+    icon.textContent = closedIcon;
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Content"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Section subtitle",
+      "info": "Optional description below the title"
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_multiple_open",
+      "label": "Allow multiple questions open",
+      "default": false,
+      "info": "If disabled, opening a question will close others"
+    },
+    {
+      "type": "text",
+      "id": "closed_icon",
+      "label": "Closed icon",
+      "default": "+",
+      "info": "Icon shown when question is closed"
+    },
+    {
+      "type": "text",
+      "id": "open_icon",
+      "label": "Open icon",
+      "default": "−",
+      "info": "Icon shown when question is open"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "item_bg_color",
+      "label": "FAQ item background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "item_border_color",
+      "label": "FAQ item border",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "📝 FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What Are The Benefits Of Using The Katuchef Cutting Board?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>The Katuchef cutting board offers numerous benefits including antibacterial properties, knife-friendly surface that keeps blades sharp, heat resistance, and exceptional durability. Made from pure titanium, it provides a hygienic cooking surface that resists bacteria and odors while being easy to clean and maintain.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What Are The Benefits Of Using The Katuchef Cutting Board?",
+            "answer": "<p>The Katuchef cutting board offers numerous benefits including antibacterial properties, knife-friendly surface that keeps blades sharp, heat resistance, and exceptional durability. Made from pure titanium, it provides a hygienic cooking surface that resists bacteria and odors while being easy to clean and maintain.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Katuchef Cutting Board Safe To Use?",
+            "answer": "<p>Yes, the Katuchef cutting board is completely safe for food preparation. Titanium is FDA-approved for food contact and is naturally antibacterial. It doesn't leach chemicals into food and creates a safer, more hygienic cooking environment compared to traditional cutting board materials.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How Do I Clean And Maintain My Katuchef?",
+            "answer": "<p>Cleaning your Katuchef is simple - just wash with warm soapy water or put it in the dishwasher. The titanium surface resists stains and odors, so minimal maintenance is required. For deep cleaning, you can use any standard kitchen cleaner without worry of damage.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will Using The Katuchef Cutting Board Dull My Knives?",
+            "answer": "<p>No, the Katuchef cutting board is actually knife-friendly and helps keep your blades sharper longer. The titanium surface provides the right amount of give to protect knife edges while being firm enough for effective cutting. This means less frequent sharpening and longer-lasting knives.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are Katuchef Boards Heat-Resistant?",
+            "answer": "<p>Yes, titanium has excellent heat resistance properties. You can place hot pots and pans directly on the Katuchef cutting board without fear of damage, warping, or melting. This makes it incredibly versatile for various kitchen tasks beyond just cutting.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,531 @@
+{% comment %}
+  Customer Reviews Section
+  Display customer testimonials with photos, names, ratings, and review text
+  Maximum 3 reviews per row, with automatic wrapping to new lines
+{% endcomment %}
+
+{% stylesheet %}
+.customer-reviews {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.customer-reviews__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.customer-reviews__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.customer-reviews__title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.customer-reviews__subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem;
+  line-height: var(--line-height-relaxed);
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.customer-reviews__divider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: var(--color-primary);
+  margin: 0 auto;
+  border: none;
+}
+
+.customer-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 2rem;
+  max-width: 75rem;
+  margin: 0 auto;
+}
+
+.customer-reviews__slider {
+  display: none;
+}
+
+.customer-reviews__slider .splide__track {
+  padding: 0 1rem;
+}
+
+.customer-reviews__slider .splide__slide {
+  padding: 0 0.5rem;
+}
+
+.customer-reviews__review {
+  background: var(--review-bg-color, #ffffff);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 22rem;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.customer-reviews__review:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-md);
+}
+
+.customer-reviews__customer-photo {
+  width: 5rem;
+  height: 5rem;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 3px solid var(--photo-border-color, #f0f0f0);
+}
+
+.customer-reviews__customer-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.customer-reviews__customer-name {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.customer-reviews__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 0.125rem;
+}
+
+.customer-reviews__star {
+  color: var(--star-color, #fbbf24);
+  font-size: 1.125rem;
+}
+
+.customer-reviews__star--empty {
+  color: var(--star-empty-color, #e5e7eb);
+}
+
+.customer-reviews__text {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .customer-reviews {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .customer-reviews__title {
+    font-size: 2rem;
+  }
+  
+  .customer-reviews__subtitle {
+    font-size: 1rem;
+  }
+  
+  .customer-reviews__grid {
+    display: none;
+  }
+  
+  .customer-reviews__slider {
+    display: block;
+  }
+  
+  .customer-reviews__review {
+    padding: 1.5rem;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .customer-reviews__customer-photo {
+    width: 4rem;
+    height: 4rem;
+  }
+  
+  .customer-reviews__customer-name {
+    font-size: 1rem;
+  }
+  
+  .customer-reviews__star {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .customer-reviews {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .customer-reviews__header {
+    margin-bottom: 2rem;
+  }
+  
+  .customer-reviews__title {
+    font-size: 1.75rem;
+  }
+  
+  .customer-reviews__review {
+    padding: 1.25rem;
+  }
+  
+  .customer-reviews__customer-photo {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .customer-reviews__text {
+    font-size: 0.8rem;
+  }
+}
+
+/* Ensure exactly 3 columns on larger screens */
+@media screen and (min-width: 75rem) {
+  .customer-reviews__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+{% endstylesheet %}
+
+<section class="customer-reviews" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: '#f8f9fa' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 4 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 4 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 4 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 4 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 4 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 4 | times: 0.5 }}rem;
+  --review-bg-color: {{ section.settings.review_bg_color | default: '#ffffff' }};
+  --photo-border-color: {{ section.settings.photo_border_color | default: '#f0f0f0' }};
+  --star-color: {{ section.settings.star_color | default: '#fbbf24' }};
+  --star-empty-color: {{ section.settings.star_empty_color | default: '#e5e7eb' }};
+" {{ section.shopify_attributes }}>
+  <div class="customer-reviews__container">
+    
+    {% if section.settings.section_title != blank or section.settings.section_subtitle != blank %}
+      <div class="customer-reviews__header">
+        {% if section.settings.section_title != blank %}
+          <h2 class="customer-reviews__title">{{ section.settings.section_title }}</h2>
+        {% endif %}
+        
+        {% if section.settings.show_divider %}
+          <hr class="customer-reviews__divider">
+        {% endif %}
+        
+        {% if section.settings.section_subtitle != blank %}
+          <p class="customer-reviews__subtitle">{{ section.settings.section_subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <!-- Desktop Grid -->
+      <div class="customer-reviews__grid">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'customer_review' %}
+              <div class="customer-reviews__review" {{ block.shopify_attributes }}>
+                
+                {% if block.settings.customer_photo != blank %}
+                  <div class="customer-reviews__customer-photo">
+                    {% assign alt_text = block.settings.customer_name | default: 'Customer photo' %}
+                    {{ block.settings.customer_photo | image_url: width: 160, height: 160 | image_tag: alt: alt_text, loading: 'lazy' }}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.customer_name != blank %}
+                  <h3 class="customer-reviews__customer-name">{{ block.settings.customer_name }}</h3>
+                {% endif %}
+                
+                {% if block.settings.rating > 0 %}
+                  <div class="customer-reviews__rating">
+                    {% for i in (1..5) %}
+                      {% if i <= block.settings.rating %}
+                        <span class="customer-reviews__star">★</span>
+                      {% else %}
+                        <span class="customer-reviews__star customer-reviews__star--empty">★</span>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+                
+                {% if block.settings.review_text != blank %}
+                  <p class="customer-reviews__text">"{{ block.settings.review_text }}"</p>
+                {% endif %}
+
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Slider -->
+      <div class="customer-reviews__slider splide" id="reviews-slider-{{ section.id }}">
+        <div class="splide__track">
+          <ul class="splide__list">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'customer_review' %}
+                  <li class="splide__slide" {{ block.shopify_attributes }}>
+                    <div class="customer-reviews__review">
+                      
+                      {% if block.settings.customer_photo != blank %}
+                        <div class="customer-reviews__customer-photo">
+                          {% assign alt_text = block.settings.customer_name | default: 'Customer photo' %}
+                          {{ block.settings.customer_photo | image_url: width: 160, height: 160 | image_tag: alt: alt_text, loading: 'lazy' }}
+                        </div>
+                      {% endif %}
+
+                      {% if block.settings.customer_name != blank %}
+                        <h3 class="customer-reviews__customer-name">{{ block.settings.customer_name }}</h3>
+                      {% endif %}
+                      
+                      {% if block.settings.rating > 0 %}
+                        <div class="customer-reviews__rating">
+                          {% for i in (1..5) %}
+                            {% if i <= block.settings.rating %}
+                              <span class="customer-reviews__star">★</span>
+                            {% else %}
+                              <span class="customer-reviews__star customer-reviews__star--empty">★</span>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                      
+                      {% if block.settings.review_text != blank %}
+                        <p class="customer-reviews__text">"{{ block.settings.review_text }}"</p>
+                      {% endif %}
+
+                    </div>
+                  </li>
+              {% endcase %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const reviewsSlider = document.getElementById('reviews-slider-{{ section.id }}');
+  
+  if (reviewsSlider) {
+    new Splide(reviewsSlider, {
+      type: 'loop',
+      rewind: true,
+      focus: 0,
+      perPage: 1,
+      autoWidth: false,
+      arrows: false,
+      pagination: false,
+      gap: '1rem',
+      padding: '2rem',
+      speed: 400,
+      easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+      snap: true,
+      autoplay: false,
+      pauseOnHover: false,
+      resetProgress: false,
+      padding: {right: '10%'},
+      breakpoints: {
+        600: {
+          padding: '1rem',
+          gap: '0.5rem'
+        }
+      }
+    }).mount();
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Satisfaction Guaranteed With Katuchef"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Subtitle",
+      "default": "Redefine Your Kitchen Experience"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "review_bg_color",
+      "label": "Review card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "photo_border_color",
+      "label": "Photo border color",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#fbbf24"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Empty star color",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding top",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding bottom",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "customer_review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "customer_photo",
+          "label": "Customer photo"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name",
+          "default": "Sara"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating (stars)",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "Love this cutting board! It's so much easier to clean than my old wooden one – no more scrubbing food out of knife marks. After 6 months of heavy use it still looks brand new. I feel so much better knowing I'm preparing meals on a non toxic, antibacterial surface !"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        {
+          "type": "customer_review",
+          "settings": {
+            "customer_name": "Sara",
+            "rating": 5,
+            "review_text": "Love this cutting board! It's so much easier to clean than my old wooden one – no more scrubbing food out of knife marks. After 6 months of heavy use it still looks brand new. I feel so much better knowing I'm preparing meals on a non toxic, antibacterial surface !"
+          }
+        },
+        {
+          "type": "customer_review",
+          "settings": {
+            "customer_name": "Eve",
+            "rating": 5,
+            "review_text": "I used to dread chopping vegetables because my knives would dull so quickly on my old boards. With the Katuchef cutting board, my knives stay sharp, and I dont have to keep reaching for the sharpener. You just HAVE to have this"
+          }
+        },
+        {
+          "type": "customer_review",
+          "settings": {
+            "customer_name": "Linda",
+            "rating": 5,
+            "review_text": "I always hated how food smells lingered on my wooden boards. Onions, garlic, everything! But Katuchef doesn't absorb any odors. It's so satisfying to clean it and have zero traces of yesterday's dinner sticking around, always looks like new. Good investment"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

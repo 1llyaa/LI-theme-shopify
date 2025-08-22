@@ -89,31 +89,18 @@
 
           {% when 'product_gallery' %}
             <div class="product-hero__gallery" {{ block.shopify_attributes }}>
-              {% assign total_images = 0 %}
-              {% if block.settings.main_image != blank %}
-                {% assign total_images = total_images | plus: 1 %}
-              {% endif %}
-              {% for i in (1..5) %}
-                {% assign image_key = 'image_' | append: i %}
-                {% if block.settings[image_key] != blank %}
-                  {% assign total_images = total_images | plus: 1 %}
-                {% endif %}
-              {% endfor %}
+              {% assign gallery_images = section.blocks | where: 'type', 'gallery_image' %}
+              {% assign total_images = gallery_images.size %}
 
               <!-- Main Carousel - Following Splide Tutorial -->
               <section id="main-carousel" class="splide" aria-label="Beautiful Gallery" data-animation-type="{{ block.settings.animation_type | default: 'slide' }}">
                 <div class="splide__track">
                   <ul class="splide__list">
-                    {% if block.settings.main_image != blank %}
-                      <li class="splide__slide">
-                        {{ block.settings.main_image | image_url: width: 600, height: 600 | image_tag: alt: block.settings.main_image.alt, width: 600, height: 600 }}
-                      </li>
-                    {% endif %}
-                    {% for i in (1..5) %}
-                      {% assign image_key = 'image_' | append: i %}
-                      {% if block.settings[image_key] != blank %}
-                        <li class="splide__slide">
-                          {{ block.settings[image_key] | image_url: width: 600, height: 600 | image_tag: alt: block.settings[image_key].alt, width: 600, height: 600 }}
+                    {% for gallery_block in gallery_images %}
+                      {% if gallery_block.settings.image != blank %}
+                        {% assign alt_text = gallery_block.settings.alt_text | default: gallery_block.settings.image.alt %}
+                        <li class="splide__slide" {{ gallery_block.shopify_attributes }}>
+                          {{ gallery_block.settings.image | image_url: width: 800, height: 800 | image_tag: alt: alt_text, loading: 'lazy' }}
                         </li>
                       {% endif %}
                     {% endfor %}
@@ -126,16 +113,11 @@
                 <section id="thumbnail-carousel" class="splide" aria-label="The carousel with thumbnails. Selecting a thumbnail will change the Beautiful Gallery carousel.">
                   <div class="splide__track">
                     <ul class="splide__list">
-                      {% if block.settings.main_image != blank %}
-                        <li class="splide__slide">
-                          {{ block.settings.main_image | image_url: width: 80, height: 80 | image_tag: alt: block.settings.main_image.alt, width: 80, height: 80 }}
-                        </li>
-                      {% endif %}
-                      {% for i in (1..5) %}
-                        {% assign image_key = 'image_' | append: i %}
-                        {% if block.settings[image_key] != blank %}
+                      {% for gallery_block in gallery_images %}
+                        {% if gallery_block.settings.image != blank %}
+                          {% assign alt_text = gallery_block.settings.alt_text | default: gallery_block.settings.image.alt %}
                           <li class="splide__slide">
-                            {{ block.settings[image_key] | image_url: width: 80, height: 80 | image_tag: alt: block.settings[image_key].alt, width: 80, height: 80 }}
+                            {{ gallery_block.settings.image | image_url: width: 160, height: 160 | image_tag: alt: alt_text, loading: 'lazy' }}
                           </li>
                         {% endif %}
                       {% endfor %}
@@ -395,6 +377,31 @@
   justify-content: center;
   background: #f5f5f5;
   overflow: hidden;
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+#thumbnail-carousel .splide__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (max-width: 768px) {
+  #thumbnail-carousel .splide__slide {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #thumbnail-carousel .splide__slide {
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
 
@@ -488,17 +495,28 @@ document.addEventListener( 'DOMContentLoaded', function () {
   } );
 
   var thumbnails = new Splide( '#thumbnail-carousel', {
-    fixedWidth  : 80,
-    fixedHeight : 80,
     gap         : 20,
-    rewind      : true,
+    rewind      : false,
     pagination  : false,
     arrows      : false,
     isNavigation: true,
+    focus       : 0,
+    perPage     : 5,
+    perMove     : 5,
+    trimSpace   : false,
+    width       : '100%',
+    height      : '100%',
+    snap        : true,
     breakpoints : {
+      768: {
+        perPage    : 4,
+        perMove    : 4,
+        gap        : 15,
+      },
       600: {
-        fixedWidth : 60,
-        fixedHeight: 60,
+        perPage    : 3,
+        perMove    : 3,
+        gap        : 10,
       },
     },
   } );
@@ -692,40 +710,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
       "name": "Product Gallery",
       "limit": 1,
       "settings": [
-        {
-          "type": "header",
-          "content": "Product Images"
-        },
-        {
-          "type": "image_picker",
-          "id": "main_image",
-          "label": "Main product image"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_1",
-          "label": "Additional image 1"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_2",
-          "label": "Additional image 2"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_3",
-          "label": "Additional image 3"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_4",
-          "label": "Additional image 4"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_5",
-          "label": "Additional image 5"
-        },
+
         {
           "type": "header",
           "content": "Animation"
@@ -763,6 +748,27 @@ document.addEventListener( 'DOMContentLoaded', function () {
           "default": true
         }
       ]
+    },
+    {
+      "type": "gallery_image",
+      "name": "📸 Gallery Image",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Image Settings"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt text",
+          "info": "Describe the image for accessibility (optional - will use image alt text if empty)"
+        }
+      ]
     }
   ],
   "presets": [
@@ -774,6 +780,15 @@ document.addEventListener( 'DOMContentLoaded', function () {
         },
         {
           "type": "product_gallery"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
         }
       ]
     }

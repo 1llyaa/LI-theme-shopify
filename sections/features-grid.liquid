@@ -217,11 +217,13 @@
                   <div class="features-grid__icon">
                     {% if block.settings.icon contains '.svg' %}
                       {% assign icon_filename = block.settings.icon %}
-                      {{ icon_filename | asset_url | image_url: width: 100 | image_tag }}
                     {% else %}
                       {% assign icon_filename = block.settings.icon | append: '.svg' %}
-                      {{ icon_filename | asset_url | image_url: width: 100 | image_tag }}
                     {% endif %}
+                    <div class="features-grid__icon-svg" 
+                         data-icon="{{ icon_filename | asset_url }}"
+                         data-alt="{{ block.settings.title }}">
+                    </div>
                   </div>
                 {% endif %}
 
@@ -391,3 +393,46 @@
   ]
 }
 {% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Load SVG icons for features grid
+  const iconContainers = document.querySelectorAll('.features-grid__icon-svg');
+  
+  iconContainers.forEach(container => {
+    const iconUrl = container.dataset.icon;
+    const altText = container.dataset.alt;
+    
+    fetch(iconUrl)
+      .then(response => response.text())
+      .then(svgContent => {
+        // Replace the container with the SVG content
+        container.innerHTML = svgContent;
+        
+        // Apply styling to the SVG
+        const svg = container.querySelector('svg');
+        if (svg) {
+          svg.style.width = '100%';
+          svg.style.height = '100%';
+          svg.style.fill = 'none';
+          svg.style.stroke = 'currentColor';
+          svg.style.strokeWidth = '2';
+          svg.setAttribute('alt', altText);
+          
+          // Apply styles to all SVG elements
+          const svgElements = svg.querySelectorAll('path, circle, rect, line, polyline, polygon');
+          svgElements.forEach(element => {
+            element.style.fill = 'none';
+            element.style.stroke = 'currentColor';
+            element.style.strokeWidth = '2';
+          });
+        }
+      })
+      .catch(error => {
+        console.log('SVG load failed for:', iconUrl, error);
+        // Hide container on error
+        container.style.display = 'none';
+      });
+  });
+});
+</script>

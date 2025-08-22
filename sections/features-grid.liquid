@@ -1,0 +1,393 @@
+{% comment %}
+  Features Grid Section
+  A clean 4-column grid layout showcasing product features with icons, titles, and descriptions
+{% endcomment %}
+
+{% stylesheet %}
+.features-grid {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.features-grid__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.features-grid__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.features-grid__title {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.features-grid__subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 2rem;
+  line-height: var(--line-height-relaxed);
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-grid__divider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: var(--color-primary);
+  margin: 0 auto;
+  border: none;
+}
+
+.features-grid__content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.features-grid__feature {
+  background: var(--feature-bg-color, #ffffff);
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.features-grid__feature:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: var(--shadow-md);
+}
+
+.features-grid__icon {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--feature-icon-bg, #f8f9fa);
+  border-radius: var(--radius-full);
+}
+
+.features-grid__icon img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.features-grid__icon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: var(--feature-icon-color, #000000);
+}
+
+.features-grid__feature-title {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.features-grid__feature-description {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .features-grid {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .features-grid__title {
+    font-size: 2rem;
+  }
+  
+  .features-grid__subtitle {
+    font-size: 1rem;
+  }
+  
+  .features-grid__content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .features-grid__feature {
+    padding: 1.5rem 1rem;
+  }
+  
+  .features-grid__icon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .features-grid__icon img,
+  .features-grid__icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .features-grid__feature-title {
+    font-size: 1.125rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .features-grid {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .features-grid__header {
+    margin-bottom: 2rem;
+  }
+  
+  .features-grid__title {
+    font-size: 1.75rem;
+  }
+  
+  .features-grid__content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .features-grid__feature {
+    padding: 1.5rem 1rem;
+  }
+}
+{% endstylesheet %}
+
+<section class="features-grid" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: '#f8f9fa' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 4 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 4 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 4 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 4 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 4 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 4 | times: 0.5 }}rem;
+  --feature-bg-color: {{ section.settings.feature_bg_color | default: '#ffffff' }};
+  --feature-icon-bg: {{ section.settings.feature_icon_bg | default: '#f8f9fa' }};
+  --feature-icon-color: {{ section.settings.feature_icon_color | default: '#000000' }};
+" {{ section.shopify_attributes }}>
+  <div class="features-grid__container">
+    
+    {% if section.settings.section_title != blank or section.settings.section_subtitle != blank %}
+      <div class="features-grid__header">
+        {% if section.settings.section_title != blank %}
+          <h2 class="features-grid__title">{{ section.settings.section_title }}</h2>
+        {% endif %}
+        
+        {% if section.settings.show_divider %}
+          <hr class="features-grid__divider">
+        {% endif %}
+        
+        {% if section.settings.section_subtitle != blank %}
+          <p class="features-grid__subtitle">{{ section.settings.section_subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="features-grid__content">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'feature' %}
+              <div class="features-grid__feature" {{ block.shopify_attributes }}>
+                
+                {% if block.settings.icon != blank %}
+                  <div class="features-grid__icon">
+                    {% if block.settings.icon contains '.svg' %}
+                      {% assign icon_filename = block.settings.icon %}
+                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, loading: 'lazy' }}
+                    {% else %}
+                      {% assign icon_filename = block.settings.icon | append: '.svg' %}
+                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, loading: 'lazy' }}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.title != blank %}
+                  <h3 class="features-grid__feature-title">{{ block.settings.title }}</h3>
+                {% endif %}
+                
+                {% if block.settings.description != blank %}
+                  <p class="features-grid__feature-description">{{ block.settings.description }}</p>
+                {% endif %}
+
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Invest in a Cutting Board That Will Last a Lifetime"
+    },
+    {
+      "type": "textarea",
+      "id": "section_subtitle",
+      "label": "Subtitle",
+      "default": "This Titanium Cutting Board Handles Everything in Your Kitchen"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "feature_bg_color",
+      "label": "Feature card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "feature_icon_bg",
+      "label": "Icon background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "feature_icon_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding top",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding bottom",
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon name",
+          "info": "Enter the icon filename (e.g., 'shield' for shield.svg)",
+          "default": "shield"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Antibacterial and Non-Toxic Surface"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Unlike wood or other materials, titanium's non-porous surface means bacteria can't get trapped inside. Just rinse it with water and you're good to go."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Antibacterial and Non-Toxic Surface",
+            "description": "Unlike wood or other materials, titanium's non-porous surface means bacteria can't get trapped inside. Just rinse it with water and you're good to go."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "tool",
+            "title": "Knife-Friendly Build",
+            "description": "The surface of the Katuchef cutting board is specially designed to be gentle on your knives. It helps keep your blades sharper for longer, so you won't need to sharpen them as often."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "zap",
+            "title": "Scratch-Resistance and Durability",
+            "description": "Katuchef is built to handle daily use without showing signs of wear and tear. It resists scratches, staining, and warping, and stays in great condition no matter how much prepping you do."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "layers",
+            "title": "Dual-Sided Versatility",
+            "description": "Katuchef's double-sided design lets you keep raw and cooked foods separate, making meal prep safer and easier. It's a simple way to avoid cross-contamination and save time in the kitchen."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

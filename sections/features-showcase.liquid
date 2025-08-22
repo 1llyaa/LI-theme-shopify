@@ -1,0 +1,515 @@
+{% comment %}
+  Features Showcase Section
+  Central product image with customizable feature points on left and right sides
+{% endcomment %}
+
+<div class="features-showcase" style="
+  --section-padding-top: {{ section.settings.padding_top | default: 3 }}rem;
+  --section-padding-bottom: {{ section.settings.padding_bottom | default: 3 }}rem;
+  --section-bg-color: {{ section.settings.background_color | default: '#f8f9fa' }};
+  --heading-color: {{ section.settings.heading_color | default: '#000000' }};
+  --subheading-color: {{ section.settings.subheading_color | default: '#666666' }};
+  --feature-icon-color: {{ section.settings.feature_icon_color | default: '#000000' }};
+  --feature-text-color: {{ section.settings.feature_text_color | default: '#000000' }};
+">
+  <div class="features-showcase__container">
+    
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="features-showcase__header">
+        {% if section.settings.heading != blank %}
+          <h2 class="features-showcase__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <p class="features-showcase__subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+        {% if section.settings.show_divider %}
+          <div class="features-showcase__divider"></div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="features-showcase__content">
+      <!-- Left Features -->
+      <div class="features-showcase__features features-showcase__features--left">
+        {% for block in section.blocks %}
+          {% if block.settings.position == 'left' %}
+            {% case block.type %}
+              {% when 'feature_point' %}
+                <div class="features-showcase__feature" {{ block.shopify_attributes }}>
+                  {% if block.settings.icon_name != blank %}
+                    <div class="features-showcase__feature-icon">
+                      {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
+                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.title != blank %}
+                    <h3 class="features-showcase__feature-title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Center Image -->
+      <div class="features-showcase__image-container">
+        {% for block in section.blocks %}
+          {% if block.type == 'showcase_image' %}
+            {% if block.settings.image != blank %}
+              <div class="features-showcase__image" {{ block.shopify_attributes }}>
+                {{ block.settings.image | image_url: width: 600, height: 600 | image_tag: 
+                   alt: block.settings.image.alt, 
+                   class: 'features-showcase__main-image',
+                   loading: 'lazy' }}
+              </div>
+            {% else %}
+              <div class="features-showcase__image features-showcase__placeholder">
+                <div class="features-showcase__placeholder-content">
+                  <p>Add Product Image</p>
+                </div>
+              </div>
+            {% endif %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Right Features -->
+      <div class="features-showcase__features features-showcase__features--right">
+        {% for block in section.blocks %}
+          {% if block.settings.position == 'right' %}
+            {% case block.type %}
+              {% when 'feature_point' %}
+                <div class="features-showcase__feature" {{ block.shopify_attributes }}>
+                  {% if block.settings.icon_name != blank %}
+                    <div class="features-showcase__feature-icon">
+                      {% assign icon_filename = block.settings.icon_name | append: '.svg' %}
+                      {{ icon_filename | asset_url | img_tag: alt: block.settings.title, class: 'features-showcase__icon-svg' }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.title != blank %}
+                    <h3 class="features-showcase__feature-title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+.features-showcase {
+  background-color: var(--section-bg-color);
+  padding: var(--section-padding-top) 0 var(--section-padding-bottom);
+  /* Break out of content container to span full width */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.features-showcase__container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.features-showcase__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.features-showcase__heading {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--heading-color);
+  margin: 0 0 1rem;
+  line-height: var(--line-height-tight);
+}
+
+.features-showcase__subheading {
+  font-size: 1.125rem;
+  color: var(--subheading-color);
+  margin: 0 0 1.5rem;
+  line-height: var(--line-height-normal);
+}
+
+.features-showcase__divider {
+  width: 4rem;
+  height: 0.25rem;
+  background-color: var(--feature-icon-color);
+  margin: 0 auto;
+}
+
+.features-showcase__content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 70rem;
+  margin: 0 auto;
+}
+
+.features-showcase__features {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.features-showcase__features--left {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.features-showcase__features--right {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.features-showcase__feature {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 18rem;
+}
+
+.features-showcase__features--left .features-showcase__feature {
+  flex-direction: row-reverse;
+}
+
+.features-showcase__feature-icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features-showcase__icon-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%);
+  color: var(--feature-icon-color);
+}
+
+.features-showcase__feature-title {
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--feature-text-color);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.features-showcase__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.features-showcase__image {
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.features-showcase__main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.features-showcase__placeholder {
+  background-color: #f0f0f0;
+  border: 2px dashed #cccccc;
+}
+
+.features-showcase__placeholder-content {
+  text-align: center;
+  color: #999999;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .features-showcase__content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .features-showcase__features--left,
+  .features-showcase__features--right {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .features-showcase__features--left .features-showcase__feature {
+    flex-direction: row;
+  }
+  
+  .features-showcase__image {
+    width: 16rem;
+    height: 16rem;
+    margin: 2rem 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .features-showcase__heading {
+    font-size: 2rem;
+  }
+  
+  .features-showcase__content {
+    gap: 1.5rem;
+  }
+  
+  .features-showcase__features {
+    gap: 1.5rem;
+  }
+  
+  .features-showcase__image {
+    width: 14rem;
+    height: 14rem;
+  }
+  
+  .features-showcase__feature-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .features-showcase__heading {
+    font-size: 1.75rem;
+  }
+  
+  .features-showcase__feature-title {
+    font-size: 1rem;
+  }
+  
+  .features-showcase__image {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Features Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Titanium is the Ultimate Choice"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "No Staining, No Odors, No Bacteria"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider line",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "feature_icon_color",
+      "label": "Feature icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding top",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Padding bottom",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "showcase_image",
+      "name": "Center Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product image"
+        }
+      ]
+    },
+    {
+      "type": "feature_point",
+      "name": "Feature Point",
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left side"
+            },
+            {
+              "value": "right",
+              "label": "Right side"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "text",
+          "id": "icon_name",
+          "label": "Icon name",
+          "info": "Enter icon filename without .svg extension (e.g., 'shield' for shield.svg)",
+          "default": "shield"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Showcase",
+      "blocks": [
+        {
+          "type": "showcase_image"
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Scratch-Resistant Titanium",
+            "icon_name": "grid"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Knife-Friendly Surface",
+            "icon_name": "edit"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Antibacterial and Non-Toxic",
+            "icon_name": "shield"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Heat-Proof Durability",
+            "icon_name": "thermometer"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Double-Sided Design",
+            "icon_name": "layers"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Modern Aesthetic",
+            "icon_name": "star"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Built to Last a Lifetime",
+            "icon_name": "award"
+          }
+        },
+        {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Resistant to Odors and Stains",
+            "icon_name": "droplet"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

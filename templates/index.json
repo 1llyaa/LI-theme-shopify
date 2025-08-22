@@ -372,6 +372,93 @@
         "section_padding_top": 4,
         "section_padding_bottom": 4
       }
+    },
+    "sliding_text_banner_NyzA9R": {
+      "type": "sliding-text-banner",
+      "name": "Sliding Text Banner",
+      "settings": {
+        "text_1": "30-Day Money-Back Guarantee",
+        "text_2": "Antibacterial & Odorless",
+        "text_3": "Premium Quality Materials",
+        "text_4": "Free Worldwide Shipping",
+        "direction": "left",
+        "animation_speed": 15,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "font_size": 1.5,
+        "padding_vertical": 1
+      }
+    },
+    "product_comparison_d9FwNK": {
+      "type": "product-comparison",
+      "blocks": {
+        "comparison_point_gPk6HG": {
+          "type": "comparison_point",
+          "settings": {
+            "feature_text": "Antibacterial surface",
+            "your_status": "check",
+            "competitor_status": "cross"
+          }
+        },
+        "comparison_point_G6PFFh": {
+          "type": "comparison_point",
+          "settings": {
+            "feature_text": "Knife-friendly material",
+            "your_status": "check",
+            "competitor_status": "check"
+          }
+        },
+        "comparison_point_KYwyWp": {
+          "type": "comparison_point",
+          "settings": {
+            "feature_text": "Scratch resistant",
+            "your_status": "check",
+            "competitor_status": "cross"
+          }
+        },
+        "comparison_point_ghUYgX": {
+          "type": "comparison_point",
+          "settings": {
+            "feature_text": "Easy to clean",
+            "your_status": "check",
+            "competitor_status": "cross"
+          }
+        },
+        "comparison_point_NieiLM": {
+          "type": "comparison_point",
+          "settings": {
+            "feature_text": "Lifetime durability",
+            "your_status": "check",
+            "competitor_status": "cross"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_point_gPk6HG",
+        "comparison_point_G6PFFh",
+        "comparison_point_KYwyWp",
+        "comparison_point_ghUYgX",
+        "comparison_point_NieiLM"
+      ],
+      "name": "Product Comparison",
+      "settings": {
+        "section_title": "Why Choose Our Product?",
+        "section_subtitle": "See how our product compares to traditional alternatives",
+        "show_divider": true,
+        "your_product_title": "Our Titanium Board",
+        "your_product_image": "shopify://shop_images/Q29tcGFyaW5nX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5nLnBuZw-w_544.png",
+        "your_product_alt": "",
+        "competitor_product_title": "Traditional Wood/Plastic Boards",
+        "competitor_product_image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+        "competitor_product_alt": "",
+        "section_bg_color": "#ffffff",
+        "check_bg_color": "#dcfce7",
+        "check_color": "#16a34a",
+        "cross_bg_color": "#fef2f2",
+        "cross_color": "#dc2626",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
     }
   },
   "order": [
@@ -380,6 +467,8 @@
     "cutting_board_comparison_86qjzL",
     "features_showcase_CfEFB4",
     "content_blocks_h47WhJ",
-    "features_grid_VPXXyz"
+    "features_grid_VPXXyz",
+    "sliding_text_banner_NyzA9R",
+    "product_comparison_d9FwNK"
   ]
 }

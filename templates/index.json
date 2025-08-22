@@ -529,6 +529,23 @@
         "section_padding_top": 3,
         "section_padding_bottom": 3
       }
+    },
+    "expert_opinion_QfgeBA": {
+      "type": "expert-opinion",
+      "name": "Expert Opinion",
+      "settings": {
+        "heading": "Meet Our Expert,",
+        "expert_title": "Culinary Coach & Founder of Katuchef",
+        "quote": "With two decades of experience as a master chef in Japanese cuisine, I know the importance of precision and cleanliness in every meal. A dull knife or an unhygienic surface can ruin not just the dish, but the entire experience. Traditional cutting boards just didn't meet my standards. Driven by my commitment to quality, I created the Katuchef cutting board. Made from pure titanium, Katuchef is antibacterial, knife-friendly, and built to last a lifetime, whether you're cooking at home or in a professional kitchen.",
+        "expert_name": "Mason Carter",
+        "expert_image": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+        "expert_alt_text": "",
+        "signature_image": "shopify://shop_images/Signature_example.png",
+        "signature_alt_text": "",
+        "section_bg_color": "transparent",
+        "section_padding_top": 4,
+        "section_padding_bottom": 4
+      }
     }
   },
   "order": [
@@ -541,6 +558,7 @@
     "sliding_text_banner_NyzA9R",
     "product_comparison_d9FwNK",
     "customer_reviews_aw4wyU",
-    "rating_point_xnK8cn"
+    "rating_point_xnK8cn",
+    "expert_opinion_QfgeBA"
   ]
 }

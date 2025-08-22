@@ -1,0 +1,605 @@
+{% comment %}
+  Coupon Section
+  A promotional banner featuring product image, discount offer, and call-to-action
+  Two-column layout with full customization options
+{% endcomment %}
+
+{% stylesheet %}
+.coupon-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  background-color: var(--section-bg-color);
+  padding-top: var(--section-padding-top);
+  padding-bottom: var(--section-padding-bottom);
+}
+
+.coupon-section__container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.coupon-section__content {
+  background: var(--banner-bg-color, #ffffff);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--banner-border-color, #e5e7eb);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 25rem;
+}
+
+.coupon-section__image-side {
+  position: relative;
+  background: var(--image-bg-color, #f8f9fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.coupon-section__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-md);
+}
+
+.coupon-section__text-side {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.coupon-section__flag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.coupon-section__flag-icon {
+  font-size: 1.125rem;
+}
+
+.coupon-section__headline {
+  font-size: 2.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+}
+
+.coupon-section__subheadline {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+.coupon-section__description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 1rem 0;
+  max-width: 28rem;
+}
+
+.coupon-section__social-proof {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coupon-section__avatars {
+  display: flex;
+  margin-right: 0.5rem;
+}
+
+.coupon-section__avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--banner-bg-color, #ffffff);
+  margin-left: -0.5rem;
+  object-fit: cover;
+}
+
+.coupon-section__avatar:first-child {
+  margin-left: 0;
+}
+
+.coupon-section__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.coupon-section__stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.coupon-section__star {
+  color: var(--star-color, #fbbf24);
+  font-size: 1rem;
+}
+
+.coupon-section__rating-text {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.coupon-section__stock-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--stock-color, #059669);
+  font-weight: var(--font-weight-medium);
+}
+
+.coupon-section__stock-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--stock-color, #059669);
+  border-radius: var(--radius-full);
+}
+
+.coupon-section__cta {
+  background: var(--cta-bg-color, #000000);
+  color: var(--cta-text-color, #ffffff);
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-md);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  display: inline-block;
+  min-width: 20rem;
+}
+
+.coupon-section__cta:hover {
+  background: var(--cta-hover-bg-color, #333333);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.coupon-section__guarantee {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-top: 1rem;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 768px) {
+  .coupon-section {
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
+  }
+  
+  .coupon-section__content {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  
+  .coupon-section__image-side {
+    order: 1;
+    padding: 1.5rem;
+    min-height: 15rem;
+  }
+  
+  .coupon-section__text-side {
+    order: 2;
+    padding: 2rem;
+    gap: 1rem;
+  }
+  
+  .coupon-section__headline {
+    font-size: 1.875rem;
+  }
+  
+  .coupon-section__subheadline {
+    font-size: 1.25rem;
+  }
+  
+  .coupon-section__description {
+    font-size: 0.9rem;
+  }
+  
+  .coupon-section__cta {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+    min-width: 18rem;
+  }
+  
+  .coupon-section__social-proof {
+    gap: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .coupon-section {
+    padding-top: var(--section-padding-top-small);
+    padding-bottom: var(--section-padding-bottom-small);
+  }
+  
+  .coupon-section__text-side {
+    padding: 1.5rem;
+  }
+  
+  .coupon-section__headline {
+    font-size: 1.5rem;
+  }
+  
+  .coupon-section__subheadline {
+    font-size: 1.125rem;
+  }
+  
+  .coupon-section__cta {
+    min-width: 100%;
+    padding: 1rem;
+  }
+  
+  .coupon-section__social-proof {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+{% endstylesheet %}
+
+<section class="coupon-section" style="
+  --section-bg-color: {{ section.settings.section_bg_color | default: 'transparent' }};
+  --section-padding-top: {{ section.settings.section_padding_top | default: 4 }}rem;
+  --section-padding-bottom: {{ section.settings.section_padding_bottom | default: 4 }}rem;
+  --section-padding-top-mobile: {{ section.settings.section_padding_top | default: 4 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.section_padding_bottom | default: 4 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.section_padding_top | default: 4 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.section_padding_bottom | default: 4 | times: 0.5 }}rem;
+  --banner-bg-color: {{ section.settings.banner_bg_color | default: '#ffffff' }};
+  --banner-border-color: {{ section.settings.banner_border_color | default: '#e5e7eb' }};
+  --image-bg-color: {{ section.settings.image_bg_color | default: '#f8f9fa' }};
+  --star-color: {{ section.settings.star_color | default: '#fbbf24' }};
+  --stock-color: {{ section.settings.stock_color | default: '#059669' }};
+  --cta-bg-color: {{ section.settings.cta_bg_color | default: '#000000' }};
+  --cta-text-color: {{ section.settings.cta_text_color | default: '#ffffff' }};
+  --cta-hover-bg-color: {{ section.settings.cta_hover_bg_color | default: '#333333' }};
+" {{ section.shopify_attributes }}>
+  <div class="coupon-section__container">
+    
+    <div class="coupon-section__content">
+      
+      <!-- Product Image Side -->
+      {% if section.settings.product_image != blank %}
+        <div class="coupon-section__image-side">
+          {% assign product_alt = section.settings.product_alt_text | default: 'Product image' %}
+          {{ section.settings.product_image | image_url: width: 600, height: 600 | image_tag: alt: product_alt, class: 'coupon-section__image', loading: 'lazy' }}
+        </div>
+      {% endif %}
+      
+      <!-- Text Content Side -->
+      <div class="coupon-section__text-side">
+        
+        {% if section.settings.flag_text != blank %}
+          <div class="coupon-section__flag">
+            {% if section.settings.flag_icon != blank %}
+              <span class="coupon-section__flag-icon">{{ section.settings.flag_icon }}</span>
+            {% endif %}
+            {{ section.settings.flag_text }}
+          </div>
+        {% endif %}
+        
+        {% if section.settings.headline != blank %}
+          <h2 class="coupon-section__headline">{{ section.settings.headline }}</h2>
+        {% endif %}
+        
+        {% if section.settings.subheadline != blank %}
+          <h3 class="coupon-section__subheadline">{{ section.settings.subheadline }}</h3>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+          <p class="coupon-section__description">{{ section.settings.description }}</p>
+        {% endif %}
+        
+        <!-- Social Proof -->
+        <div class="coupon-section__social-proof">
+          
+          {% if section.settings.show_avatars %}
+            <div class="coupon-section__avatars">
+              {% if section.settings.avatar_1 != blank %}
+                {% assign avatar_alt = 'Customer photo' %}
+                {{ section.settings.avatar_1 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'coupon-section__avatar', loading: 'lazy' }}
+              {% endif %}
+              {% if section.settings.avatar_2 != blank %}
+                {% assign avatar_alt = 'Customer photo' %}
+                {{ section.settings.avatar_2 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'coupon-section__avatar', loading: 'lazy' }}
+              {% endif %}
+              {% if section.settings.avatar_3 != blank %}
+                {% assign avatar_alt = 'Customer photo' %}
+                {{ section.settings.avatar_3 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'coupon-section__avatar', loading: 'lazy' }}
+              {% endif %}
+              {% if section.settings.avatar_4 != blank %}
+                {% assign avatar_alt = 'Customer photo' %}
+                {{ section.settings.avatar_4 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'coupon-section__avatar', loading: 'lazy' }}
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.rating > 0 %}
+            <div class="coupon-section__rating">
+              <div class="coupon-section__stars">
+                {% for i in (1..5) %}
+                  {% if i <= section.settings.rating %}
+                    <span class="coupon-section__star">★</span>
+                  {% else %}
+                    <span class="coupon-section__star" style="color: #e5e7eb;">★</span>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              {% if section.settings.rating_text != blank %}
+                <span class="coupon-section__rating-text">{{ section.settings.rating_text }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if section.settings.stock_text != blank %}
+            <div class="coupon-section__stock-text">
+              <span class="coupon-section__stock-dot"></span>
+              {{ section.settings.stock_text }}
+            </div>
+          {% endif %}
+          
+        </div>
+        
+        {% if section.settings.cta_text != blank %}
+          <a href="{{ section.settings.cta_link | default: '#' }}" class="coupon-section__cta">
+            {{ section.settings.cta_text }}
+          </a>
+        {% endif %}
+        
+        {% if section.settings.guarantee_text != blank %}
+          <p class="coupon-section__guarantee">{{ section.settings.guarantee_text }}</p>
+        {% endif %}
+        
+      </div>
+      
+    </div>
+    
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coupon Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "product_alt_text",
+      "label": "Product image alt text",
+      "info": "Describe the product for accessibility"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "flag_icon",
+      "label": "Flag icon",
+      "default": "🇺🇸",
+      "info": "Emoji or symbol to show before flag text"
+    },
+    {
+      "type": "text",
+      "id": "flag_text",
+      "label": "Flag text",
+      "default": "AMERICA's #1 Rated Titanium Cutting Board"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Main headline",
+      "default": "UP TO 70% OFF FOR A LIMITED TIME ONLY!"
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Sub headline",
+      "info": "Optional secondary headline"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "This limited-time deal is in high demand, and the stock keeps selling out."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button text",
+      "default": "GET 70% OFF DISCOUNT NOW!"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "Try it today with a 30-Day Money Back Guarantee!"
+    },
+    {
+      "type": "header",
+      "content": "Social Proof"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_avatars",
+      "label": "Show customer avatars",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Customer avatar 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Customer avatar 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Customer avatar 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_4",
+      "label": "Customer avatar 4"
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "label": "Star rating",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "4.7"
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Stock status text",
+      "default": "In stock and ready to ship"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "banner_bg_color",
+      "label": "Banner background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "banner_border_color",
+      "label": "Banner border",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "color",
+      "id": "image_bg_color",
+      "label": "Image area background",
+      "default": "#f8f9fa"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#fbbf24"
+    },
+    {
+      "type": "color",
+      "id": "stock_color",
+      "label": "Stock indicator color",
+      "default": "#059669"
+    },
+    {
+      "type": "color",
+      "id": "cta_bg_color",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coupon Section"
+    }
+  ]
+}
+{% endschema %}

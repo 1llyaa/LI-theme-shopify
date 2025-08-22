@@ -40,30 +40,249 @@
         "product_gallery_NXrXLL": {
           "type": "product_gallery",
           "settings": {
-            "main_image": "shopify://shop_images/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg",
-            "image_1": "shopify://shop_images/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg",
-            "image_2": "shopify://shop_images/Main_0a4e9096-021a-4c1e-8750-24b233166a12.jpg",
-            "image_3": "shopify://shop_images/Main_0a40b01b-5021-48c1-80d1-aa8ab4876d3d.jpg",
-            "image_4": "shopify://shop_images/Main_0a40b01b-5021-48c1-80d1-aa8ab4876d3d.jpg",
-            "image_5": "shopify://shop_images/wax-special.png",
             "animation_type": "slide",
             "show_navigation": true,
             "show_thumbnails": true
+          }
+        },
+        "gallery_image_6p4BpM": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_FR3FGA": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_VdX3G8": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_mHtLCM": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_QGdtnG": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_arLDT3": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
+          }
+        },
+        "gallery_image_7HLVex": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/MV9LYXR1Y2hlZl9UaXRhbml1bS1DdXR0aW5nLUJvYXJkX0hlcm8uanBn-w_500.jpg",
+            "alt_text": ""
           }
         }
       },
       "block_order": [
         "product_info_ViQA7Q",
-        "product_gallery_NXrXLL"
+        "product_gallery_NXrXLL",
+        "gallery_image_6p4BpM",
+        "gallery_image_FR3FGA",
+        "gallery_image_VdX3G8",
+        "gallery_image_mHtLCM",
+        "gallery_image_QGdtnG",
+        "gallery_image_arLDT3",
+        "gallery_image_7HLVex"
       ],
       "name": "Product Hero",
       "settings": {
         "padding_top": 2,
         "padding_bottom": 2
       }
+    },
+    "sliding_text_banner_HtXLXR": {
+      "type": "sliding-text-banner",
+      "name": "Sliding Text Banner",
+      "settings": {
+        "text_1": "30-Day Money-Back Guarantee",
+        "text_2": "Antibacterial & Odorless",
+        "text_3": "Premium Quality Materials",
+        "text_4": "Free Worldwide Shipping",
+        "direction": "left",
+        "animation_speed": 15,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "font_size": 1.5,
+        "padding_vertical": 1
+      }
+    },
+    "cutting_board_comparison_86qjzL": {
+      "type": "cutting-board-comparison",
+      "blocks": {
+        "material_block_e6dMC7": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Wood/Bamboo",
+            "description": "Natural materials can let bacteria and mold grow, in grooves and cuts, even if invisible, which can contaminate your food over time resulting in you feeling ill. They also absorb odors & stain easily."
+          }
+        },
+        "material_block_r3cbbq": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Plastic/Epicurean",
+            "description": "Many plastic boards contain BPAs, phthalates, or other toxic chemicals that can leach into food as you cut. Plus, plastic scratches easily, creating tiny crevices where bacteria can accumulate and thrive."
+          }
+        },
+        "material_block_z7F6fC": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Glass/Stone/Steel",
+            "description": "While these materials may seem hygienic, their extreme hardness wrecks your knives. Every cut rapidly dulls your blades, forcing you to sharpen or replace them far more often - wasting time, effort, and money."
+          }
+        }
+      },
+      "block_order": [
+        "material_block_e6dMC7",
+        "material_block_r3cbbq",
+        "material_block_z7F6fC"
+      ],
+      "name": "Cutting Board Comparison",
+      "settings": {
+        "headline": "Most Boards are Damaging Your Health & Knives",
+        "subheadline": "A cutting board might seem like a simple tool, but the wrong material can silently threaten the safety of your food and destroy your knives over time.",
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    },
+    "features_showcase_CfEFB4": {
+      "type": "features-showcase",
+      "blocks": {
+        "showcase_image_CPY4Tr": {
+          "type": "showcase_image",
+          "settings": {}
+        },
+        "feature_point_4cKRTA": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Scratch-Resistant Titanium",
+            "icon_name": "grid"
+          }
+        },
+        "feature_point_T3GHi7": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Knife-Friendly Surface",
+            "icon_name": "edit"
+          }
+        },
+        "feature_point_QpdiFc": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Antibacterial and Non-Toxic",
+            "icon_name": "shield"
+          }
+        },
+        "feature_point_RNfTrb": {
+          "type": "feature_point",
+          "settings": {
+            "position": "left",
+            "title": "Heat-Proof Durability",
+            "icon_name": "thermometer"
+          }
+        },
+        "feature_point_DNtQUC": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Double-Sided Design",
+            "icon_name": "layers"
+          }
+        },
+        "feature_point_GqacDF": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Modern Aesthetic",
+            "icon_name": "star"
+          }
+        },
+        "feature_point_tQR49w": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Built to Last a Lifetime",
+            "icon_name": "award"
+          }
+        },
+        "feature_point_wjkDyt": {
+          "type": "feature_point",
+          "settings": {
+            "position": "right",
+            "title": "Resistant to Odors and Stains",
+            "icon_name": "droplet"
+          }
+        }
+      },
+      "block_order": [
+        "showcase_image_CPY4Tr",
+        "feature_point_4cKRTA",
+        "feature_point_T3GHi7",
+        "feature_point_QpdiFc",
+        "feature_point_RNfTrb",
+        "feature_point_DNtQUC",
+        "feature_point_GqacDF",
+        "feature_point_tQR49w",
+        "feature_point_wjkDyt"
+      ],
+      "name": "Features Showcase",
+      "settings": {
+        "heading": "Why Titanium is the Ultimate Choice",
+        "subheading": "No Staining, No Odors, No Bacteria",
+        "show_divider": true,
+        "background_color": "#f8f9fa",
+        "heading_color": "#000000",
+        "subheading_color": "#666666",
+        "feature_icon_color": "#000000",
+        "feature_text_color": "#000000",
+        "padding_top": 3,
+        "padding_bottom": 3
+      }
     }
   },
   "order": [
-    "product_hero_nrCC6t"
+    "product_hero_nrCC6t",
+    "sliding_text_banner_HtXLXR",
+    "cutting_board_comparison_86qjzL",
+    "features_showcase_CfEFB4"
   ]
 }

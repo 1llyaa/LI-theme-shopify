@@ -6,12 +6,12 @@
 
 
 <div class="product-hero" style="
-  --section-padding-top: {{ section.settings.padding_top | default: 2 }}rem;
-  --section-padding-bottom: {{ section.settings.padding_bottom | default: 2 }}rem;
-  --section-padding-top-mobile: {{ section.settings.padding_top | default: 2 | times: 0.7 }}rem;
-  --section-padding-bottom-mobile: {{ section.settings.padding_bottom | default: 2 | times: 0.7 }}rem;
-  --section-padding-top-small: {{ section.settings.padding_top | default: 2 | times: 0.5 }}rem;
-  --section-padding-bottom-small: {{ section.settings.padding_bottom | default: 2 | times: 0.5 }}rem;
+  --section-padding-top: {{ section.settings.padding_top | default: 1 }}rem;
+  --section-padding-bottom: {{ section.settings.padding_bottom | default: 1 }}rem;
+  --section-padding-top-mobile: {{ section.settings.padding_top | default: 1 | times: 0.7 }}rem;
+  --section-padding-bottom-mobile: {{ section.settings.padding_bottom | default: 1 | times: 0.7 }}rem;
+  --section-padding-top-small: {{ section.settings.padding_top | default: 1 | times: 0.5 }}rem;
+  --section-padding-bottom-small: {{ section.settings.padding_bottom | default: 1 | times: 0.5 }}rem;
 ">
   <div class="product-hero__container">
     <div class="product-hero__content">
@@ -176,7 +176,7 @@
 
 .product-hero__info {
   background: var(--color-bg-primary);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
 }
 
 .product-hero__rating {
@@ -561,7 +561,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
       "step": 0.5,
       "unit": "rem",
       "label": "Padding top",
-      "default": 2
+      "default": 1
     },
     {
       "type": "range",
@@ -571,7 +571,7 @@ document.addEventListener( 'DOMContentLoaded', function () {
       "step": 0.5,
       "unit": "rem",
       "label": "Padding bottom",
-      "default": 2
+      "default": 1
     }
   ],
   "blocks": [

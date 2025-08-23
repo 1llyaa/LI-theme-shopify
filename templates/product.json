@@ -23,6 +23,28 @@
             "review_count": "1000+ Verified Reviews"
           }
         },
+        "description_GfCRx9": {
+          "type": "description",
+          "settings": {}
+        },
+        "features_crdc3w": {
+          "type": "features",
+          "settings": {
+            "heading": "Key Features",
+            "features": "Prevents risk from microplastics,\nResists bacteria and odors,\nKeeps your knives sharp,\nEliminates food cross-contamination"
+          }
+        },
+        "customer_satisfaction_dRCG8G": {
+          "type": "customer_satisfaction",
+          "settings": {
+            "customers_text": "8K+ Happy Customers",
+            "stock_text": "In stock and ready to ship",
+            "avatar_1": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+            "avatar_2": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+            "avatar_3": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif",
+            "avatar_4": "shopify://shop_images/OF9LYXR1Y2hlZl9TcGVjaWFsaXN0LmpwZw-w_280.avif"
+          }
+        },
         "buy_buttons_EbpwfX": {
           "type": "buy_buttons",
           "settings": {}
@@ -31,6 +53,9 @@
       "block_order": [
         "title_rHCRLA",
         "rating_hFyNjT",
+        "description_GfCRx9",
+        "features_crdc3w",
+        "customer_satisfaction_dRCG8G",
         "buy_buttons_EbpwfX"
       ],
       "settings": {

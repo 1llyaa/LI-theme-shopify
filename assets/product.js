@@ -1,45 +1,68 @@
-// Product functionality
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize product forms
-  const productForms = document.querySelectorAll('.product-form');
-  
-  productForms.forEach(form => {
-    form.addEventListener('submit', function(e) {
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Handle add to cart forms - including both custom forms and product forms
+  document.querySelectorAll('.add-to-cart-form, .product-form__buttons').forEach(form => {
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
-      
-      const formData = new FormData(form);
-      const variantId = formData.get('id');
-      const quantity = formData.get('quantity') || 1;
-      
-      // Add to cart functionality would go here
-      console.log('Adding to cart:', { variantId, quantity });
-      
-      // For now, just show a success message
-      alert('Product added to cart!');
+
+      // Get the main product form that contains the variant ID and quantity
+      const productForm = document.querySelector('.product-form');
+      if (!productForm) {
+        console.error('Product form not found');
+        return;
+      }
+
+      const formData = new FormData(productForm);
+
+      // Ensure quantity is properly set from the visible quantity input
+      const quantityInput = productForm.querySelector('.quantity__input');
+      if (quantityInput && quantityInput.value) {
+        formData.set('quantity', quantityInput.value);
+        console.log('Quantity set to:', quantityInput.value);
+      }
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+        .then(res => res.json())
+        .then(data => {
+          // ✅ Open Kaching drawer after successful add to cart
+          if (window.kachingCartApi && typeof window.kachingCartApi.Cart.open === 'function') {
+            window.kachingCartApi.Cart.open();
+            console.log("Product added to cart successfully:", data);
+          }
+        })
+        .catch(err => {
+          console.error('Error adding to cart:', err);
+        });
     });
   });
-  
-  // Initialize quantity selectors
-  const quantityInputs = document.querySelectorAll('.quantity__input');
-  
-  quantityInputs.forEach(input => {
-    const minusBtn = input.parentNode.querySelector('.quantity__button[name="minus"]');
-    const plusBtn = input.parentNode.querySelector('.quantity__button[name="plus"]');
-    
-    if (minusBtn) {
-      minusBtn.addEventListener('click', function() {
-        const currentValue = parseInt(input.value) || 1;
-        if (currentValue > 1) {
-          input.value = currentValue - 1;
-        }
-      });
-    }
-    
-    if (plusBtn) {
-      plusBtn.addEventListener('click', function() {
-        const currentValue = parseInt(input.value) || 1;
-        input.value = currentValue + 1;
-      });
-    }
+
+  // Ensure quantity selector works properly with the new structure
+  document.querySelectorAll('.product-form .quantity__button').forEach(button => {
+    button.addEventListener('click', function() {
+      const quantityInput = this.parentElement.querySelector('.quantity__input');
+      const currentValue = parseInt(quantityInput.value) || 1;
+      
+      if (this.name === 'minus') {
+        quantityInput.value = Math.max(1, currentValue - 1);
+      } else if (this.name === 'plus') {
+        quantityInput.value = currentValue + 1;
+      }
+      
+      console.log('Quantity updated to:', quantityInput.value);
+    });
   });
+
+  // Log when Kaching Bundles is detected for debugging
+  if (window.kachingCartApi) {
+    console.log('Kaching Cart API detected');
+  }
+  
+  if (window.kachingBundlesApi) {
+    console.log('Kaching Bundles API detected');
+  }
 });
+

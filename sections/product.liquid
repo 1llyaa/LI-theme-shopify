@@ -87,8 +87,8 @@
                 </div>
               
               {%- when 'buy_buttons' -%}
-                <div class="product-form__buttons" {{ block.shopify_attributes }}>
-                  <button
+                <form class="product-form__buttons" {{ block.shopify_attributes }}>
+                  <button id="add-to-cart-button"
                     type="submit"
                     name="add"
                     class="button button--full-width button--secondary"
@@ -101,7 +101,7 @@
                       Sold out
                     {%- endif -%}
                   </button>
-                </div>
+                </form>
               
               {%- when 'text' -%}
                 <p class="product__text" {{ block.shopify_attributes }}>
@@ -249,6 +249,35 @@
           <!-- Product Form -->
           {%- form 'product', product, id: product_form_id, class: 'product-form' -%}
             <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            
+            <!-- Quantity selector for Kaching Bundles compatibility -->
+            <div class="product-form__quantity-wrapper">
+              <label class="form__label" for="Quantity-{{ product_form_id }}">
+                {{ 'products.quantity' | t }}
+              </label>
+              <div class="quantity">
+                <button class="quantity__button" name="minus" type="button">
+                  <span class="visually-hidden">{{ 'products.decrease_quantity' | t }}</span>
+                  <span class="svg-wrapper">
+                    {{- 'minus.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+                <input
+                  class="quantity__input"
+                  type="number"
+                  name="quantity"
+                  id="Quantity-{{ product_form_id }}"
+                  min="1"
+                  value="1"
+                >
+                <button class="quantity__button" name="plus" type="button">
+                  <span class="visually-hidden">{{ 'products.increase_quantity' | t }}</span>
+                  <span class="svg-wrapper">
+                    {{- 'plus.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
+            </div>
           {%- endform -%}
           
         </section>
@@ -659,6 +688,93 @@
   text-align: center;
   line-height: var(--line-height-tight);
 }
+
+/* Notification animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Button loading state */
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transition: opacity var(--transition-fast);
+}
+
+/* Product Form Quantity Wrapper */
+.product-form__quantity-wrapper {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-light);
+}
+
+.product-form__quantity-wrapper .form__label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.product-form__quantity-wrapper .quantity {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg-primary);
+}
+
+.product-form__quantity-wrapper .quantity__button {
+  background: var(--color-bg-light);
+  border: none;
+  padding: var(--spacing-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.product-form__quantity-wrapper .quantity__button:hover {
+  background: var(--color-border);
+}
+
+.product-form__quantity-wrapper .quantity__input {
+  border: none;
+  text-align: center;
+  padding: var(--spacing-sm);
+  width: 4rem;
+  outline: none;
+  background: var(--color-bg-primary);
+}
+
+/* Quantity info styling */
+.product-form__quantity-info {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.quantity-info__text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Hide the quantity selector while keeping it functional for Kaching Bundles */
+.product-form__quantity-wrapper {
+  display: none !important;
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -667,9 +783,6 @@
   "tag": "section",
   "class": "section",
   "blocks": [
-    {
-      "type": "@app"
-    },
     {
       "type": "title",
       "name": "Product Title",
@@ -715,7 +828,7 @@
     },
     {
       "type": "buy_buttons",
-      "name": "Buy Buttons",
+      "name": "Add to Cart",
       "limit": 1
     },
     {

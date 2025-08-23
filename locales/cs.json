@@ -1,0 +1,73 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "404": {
+    "back_to_shopping": "Zpět k nakupování",
+    "not_found": "Stránka nenalezena."
+  },
+  "blog": {
+    "article_comments": "Komentáře",
+    "comment_form_body": "Komentář",
+    "comment_form_email": "E-mail",
+    "comment_form_name": "Jméno",
+    "comment_form_submit": "Zveřejnit",
+    "comment_form_title": "Přidat komentář"
+  },
+  "cart": {
+    "checkout": "Pokladna",
+    "remove": "Odstranit",
+    "title": "Vozík",
+    "update": "Aktualizovat"
+  },
+  "collections": {
+    "title": "Kolekce"
+  },
+  "customers": {
+    "login": {
+      "email": "E-mail",
+      "password": "Heslo",
+      "submit": "Přihlásit se",
+      "title": "Přihlášení"
+    }
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Přidat do Apple Wallet",
+    "card": "Dárková karta",
+    "expired": "Platnost této dárkové karty vypršela.",
+    "expires_on": "Platnost vyprší dne {{ expires_on }}",
+    "use_at_checkout": "Použijte tuto dárkovou kartu při placení"
+  },
+  "password": {
+    "enter": "Zadejte",
+    "password": "Heslo",
+    "title": "Tento obchod je soukromý"
+  },
+  "products": {
+    "decrease_quantity": "Snížit množství",
+    "increase_quantity": "Zvýšit množství",
+    "quantity": "Množství"
+  },
+  "search": {
+    "no_results_html": "Nebyly nalezeny žádné výsledky pro {{ terms }}",
+    "placeholder": "Vyhledávání článků, stránek nebo produktů",
+    "submit": "Vyhledávání",
+    "title": "Vyhledávání"
+  },
+  "shopify": {
+    "checkout": {
+      "merchant_instruction_errors": {
+        "invalid_entrypoint_for_remote_negotiation": "Pokyn pro vzdálené vyjednávání nelze poskytnout v rámci relace, která neprobíhá vzdáleně."
+      },
+      "stock": {
+        "out_of_stock_in_context_label": "Tento produkt není ve vaší zemi/regionu k dispozici."
+      }
+    }
+  }
+}

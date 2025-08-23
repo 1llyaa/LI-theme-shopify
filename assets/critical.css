@@ -115,3 +115,66 @@ body {
 .shopify-section > .full-width {
   grid-column: 1 / -1;
 }
+
+/* ===== LANGUAGE-SPECIFIC FONT SCALING FIX ===== */
+/* Prevent Shopify from automatically scaling fonts when switching languages */
+/* This ensures consistent font sizes across English and Czech */
+
+/* Force consistent root font size for all languages */
+html[lang="cs"],
+html[lang="en"],
+html[lang="en-US"] {
+  font-size: 16px !important; /* Base font size */
+}
+
+/* Override any automatic font scaling for critical elements */
+html[lang="cs"] *,
+html[lang="en"] *,
+html[lang="en-US"] * {
+  font-size: unset !important;
+}
+
+/* Restore specific font sizes for different elements */
+html[lang="cs"] body,
+html[lang="en"] body,
+html[lang="en-US"] body {
+  font-size: 1rem !important;
+}
+
+/* Force consistent font sizes for headings and buttons */
+html[lang="cs"] h1, html[lang="cs"] .h1,
+html[lang="en"] h1, html[lang="en"] .h1,
+html[lang="en-US"] h1, html[lang="en-US"] .h1 {
+  font-size: 2rem !important; /* 32px */
+}
+
+html[lang="cs"] h2, html[lang="cs"] .h2,
+html[lang="en"] h2, html[lang="en"] .h2,
+html[lang="en-US"] h2, html[lang="en-US"] .h2 {
+  font-size: 1.5rem !important; /* 24px */
+}
+
+html[lang="cs"] h3, html[lang="cs"] .h3,
+html[lang="en"] h3, html[lang="en"] .h3,
+html[lang="en-US"] h3, html[lang="en-US"] .h3 {
+  font-size: 1.25rem !important; /* 20px */
+}
+
+/* Force consistent button and text sizes */
+html[lang="cs"] .btn, html[lang="cs"] button,
+html[lang="en"] .btn, html[lang="en"] button,
+html[lang="en-US"] .btn, html[lang="en-US"] button {
+  font-size: 1rem !important; /* 16px */
+}
+
+/* Override any CSS variables that might be language-specific */
+:root[lang="cs"],
+:root[lang="en"],
+:root[lang="en-US"] {
+  --font-size-xs: 0.75rem !important;
+  --font-size-sm: 0.875rem !important;
+  --font-size-base: 1rem !important;
+  --font-size-lg: 1.125rem !important;
+  --font-size-xl: 1.5rem !important;
+  --font-size-2xl: 2rem !important;
+}

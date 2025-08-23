@@ -125,18 +125,6 @@ html[lang="cs"] {
   font-size: inherit !important; /* Force consistent base size */
 }
 
-/* Only override automatic scaling, not intentional font changes */
-html[lang="cs"] .product__title,
-html[lang="cs"] .product__description,
-html[lang="cs"] .btn,
-html[lang="cs"] button,
-html[lang="cs"] .heading,
-html[lang="cs"] h1, html[lang="cs"] h2, html[lang="cs"] h3,
-html[lang="cs"] .h1, html[lang="cs"] .h2, html[lang="cs"] .h3 {
-  /* Prevent automatic scaling while allowing theme customization */
-  font-size: inherit !important;
-}
-
 /* Ensure CSS variables work consistently across languages */
 :root[lang="cs"] {
   /* Keep your existing font size variables working */

@@ -122,7 +122,7 @@ body {
 
 /* Prevent root font size changes that cause automatic scaling */
 html[lang="cs"] {
-  font-size: 16px !important; /* Force consistent base size */
+  font-size: inherit !important; /* Force consistent base size */
 }
 
 /* Only override automatic scaling, not intentional font changes */

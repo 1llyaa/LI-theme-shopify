@@ -124,7 +124,7 @@
         "animation_speed": 15,
         "background_color": "#000000",
         "text_color": "#ffffff",
-        "font_size": 2,
+        "font_size": 1.5,
         "padding_vertical": 1
       }
     },

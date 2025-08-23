@@ -54,22 +54,22 @@
               {% if block.settings.show_customer_satisfaction %}
                 <div class="product-hero__satisfaction">
                   <div class="product-hero__avatars">
-                    {% if block.settings.customer_avatar_1 != blank %}
-                      {% assign avatar_alt = 'Customer photo' %}
-                      {{ block.settings.customer_avatar_1 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
-                    {% endif %}
-                    {% if block.settings.customer_avatar_2 != blank %}
-                      {% assign avatar_alt = 'Customer photo' %}
-                      {{ block.settings.customer_avatar_2 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
-                    {% endif %}
-                    {% if block.settings.customer_avatar_3 != blank %}
-                      {% assign avatar_alt = 'Customer photo' %}
-                      {{ block.settings.customer_avatar_3 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
-                    {% endif %}
-                    {% if block.settings.customer_avatar_4 != blank %}
-                      {% assign avatar_alt = 'Customer photo' %}
-                      {{ block.settings.customer_avatar_4 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
-                    {% endif %}
+                                    {% if block.settings.customer_avatar_1 != blank %}
+                {% assign avatar_alt = 'product_hero.customer_photo' | t %}
+                {{ block.settings.customer_avatar_1 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
+                {% endif %}
+                                          {% if block.settings.customer_avatar_2 != blank %}
+                        {% assign avatar_alt = 'product_hero.customer_photo' | t %}
+                        {{ block.settings.customer_avatar_2 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
+                      {% endif %}
+                                          {% if block.settings.customer_avatar_3 != blank %}
+                        {% assign avatar_alt = 'product_hero.customer_photo' | t %}
+                        {{ block.settings.customer_avatar_3 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
+                      {% endif %}
+                                          {% if block.settings.customer_avatar_4 != blank %}
+                        {% assign avatar_alt = 'product_hero.customer_photo' | t %}
+                        {{ block.settings.customer_avatar_4 | image_url: width: 80, height: 80 | image_tag: alt: avatar_alt, class: 'product-hero__avatar', loading: 'lazy' }}
+                      {% endif %}
                   </div>
                   <span class="product-hero__customers">{{ block.settings.customers_text }}</span>
                   <div class="product-hero__stock">
@@ -577,18 +577,18 @@ document.addEventListener( 'DOMContentLoaded', function () {
       "max": 6,
       "step": 0.5,
       "unit": "rem",
-      "label": "Padding top",
-      "default": 1
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 6,
-      "step": 0.5,
-      "unit": "rem",
-      "label": "Padding bottom",
-      "default": 1
+                      "label": "{{ 'schema.padding_top' | t }}",
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 6,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "{{ 'schema.padding_bottom' | t }}",
+        "default": 1
     }
   ],
   "blocks": [
@@ -604,20 +604,20 @@ document.addEventListener( 'DOMContentLoaded', function () {
         {
           "type": "checkbox",
           "id": "show_rating",
-          "label": "Show rating",
+          "label": "{{ 'schema.show_rating' | t }}",
           "default": true
         },
         {
           "type": "text",
           "id": "rating_value",
-          "label": "Rating value",
+          "label": "{{ 'schema.rating_value' | t }}",
           "default": "4.7"
         },
         {
           "type": "text",
           "id": "reviews_text",
-          "label": "Reviews text",
-          "default": "1000+ Verified Reviews"
+                  "label": "{{ 'schema.reviews_text' | t }}",
+        "default": "1000+ Verified Reviews"
         },
         {
           "type": "header",
@@ -626,14 +626,14 @@ document.addEventListener( 'DOMContentLoaded', function () {
         {
           "type": "text",
           "id": "headline",
-          "label": "Headline",
+          "label": "{{ 'schema.headline' | t }}",
           "default": "100% Pure Titanium Cutting Board: No More Microplastics, Bacteria Or Dull Knives"
         },
         {
           "type": "text",
           "id": "subheadline",
-          "label": "Subheadline",
-          "default": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board"
+                  "label": "{{ 'schema.subheadline' | t }}",
+        "default": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board"
         },
         {
           "type": "textarea",

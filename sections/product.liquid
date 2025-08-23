@@ -59,11 +59,11 @@
               {%- when 'quantity_selector' -%}
                 <div class="product-form__input product-form__quantity" {{ block.shopify_attributes }}>
                   <label class="form__label" for="Quantity-{{ section.id }}">
-                    Quantity
+                    {{ 'products.quantity' | t }}
                   </label>
                   <div class="quantity">
                     <button class="quantity__button" name="minus" type="button">
-                      <span class="visually-hidden">Decrease quantity</span>
+                      <span class="visually-hidden">{{ 'products.decrease_quantity' | t }}</span>
                       <span class="svg-wrapper">
                         {{- 'minus.svg' | inline_asset_content -}}
                       </span>
@@ -78,7 +78,7 @@
                       form="{{ product_form_id }}"
                     >
                     <button class="quantity__button" name="plus" type="button">
-                      <span class="visually-hidden">Increase quantity</span>
+                      <span class="visually-hidden">{{ 'products.increase_quantity' | t }}</span>
                       <span class="svg-wrapper">
                         {{- 'plus.svg' | inline_asset_content -}}
                       </span>
@@ -96,9 +96,9 @@
                     form="{{ product_form_id }}"
                   >
                     {%- if product.selected_or_first_available_variant.available -%}
-                      Add to cart
+                      {{ 'products.add_to_cart' | t }}
                     {%- else -%}
-                      Sold out
+                      {{ 'products.sold_out' | t }}
                     {%- endif -%}
                   </button>
                 </form>
@@ -809,15 +809,15 @@
           "options": [
             {
               "value": "dropdown",
-              "label": "Dropdown"
+              "label": "{{ 'schema.dropdown' | t }}"
             },
             {
               "value": "button",
-              "label": "Button"
+              "label": "{{ 'schema.button' | t }}"
             }
           ],
           "default": "dropdown",
-          "label": "Picker Type"
+          "label": "{{ 'schema.picker_type' | t }}"
         }
       ]
     },
@@ -833,47 +833,47 @@
     },
     {
       "type": "text",
-      "name": "Text",
+      "name": "{{ 'schema.text' | t }}",
       "settings": [
         {
           "type": "text",
           "id": "text",
           "default": "Add your text here",
-          "label": "Text"
+          "label": "{{ 'schema.text' | t }}"
         }
       ]
     },
     {
       "type": "custom_liquid",
-      "name": "Custom Liquid",
+      "name": "{{ 'schema.custom_liquid' | t }}",
       "settings": [
         {
           "type": "liquid",
           "id": "custom_liquid",
-          "label": "Custom Liquid",
-          "info": "Add custom Liquid code here"
+                      "label": "{{ 'schema.custom_liquid' | t }}",
+            "info": "Add custom Liquid code here"
         }
       ]
     },
-    {
-      "type": "collapsible_tab",
-      "name": "Collapsible Tab",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "default": "Tab Heading",
-          "label": "Heading"
-        },
+            {
+          "type": "collapsible_tab",
+          "name": "Collapsible Tab",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "default": "Tab Heading",
+              "label": "{{ 'schema.heading' | t }}"
+            },
         {
           "type": "richtext",
           "id": "content",
-          "label": "Content"
+          "label": "{{ 'schema.content' | t }}"
         },
         {
           "type": "page",
           "id": "page",
-          "label": "Page"
+          "label": "{{ 'schema.page' | t }}"
         }
       ]
     },
@@ -888,31 +888,31 @@
           "max": 5,
           "step": 0.1,
           "default": 4.7,
-          "label": "Rating"
+          "label": "{{ 'schema.rating' | t }}"
         },
         {
           "type": "text",
           "id": "review_count",
           "default": "1000+ Verified Reviews",
-          "label": "Review Count Text"
+          "label": "{{ 'schema.review_count_text' | t }}"
         }
       ]
     },
-    {
-      "type": "features",
-      "name": "Features List",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "default": "Key Features",
-          "label": "Heading"
-        },
+            {
+          "type": "features",
+          "name": "Features List",
+          "settings": [
+            {
+              "type": "text",
+              "id": "heading",
+              "default": "Key Features",
+              "label": "{{ 'schema.heading' | t }}"
+            },
         {
           "type": "textarea",
           "id": "features",
           "default": "Prevents risk from microplastics\nResists bacteria and odors\nKeeps your knives sharp\nEliminates food cross-contamination",
-          "label": "Features",
+          "label": "{{ 'schema.features' | t }}",
           "info": "Enter each feature on a new line"
         }
       ]
@@ -924,39 +924,39 @@
         {
           "type": "text",
           "id": "customers_text",
-          "label": "Customers text",
+          "label": "{{ 'schema.customers_text' | t }}",
           "default": "8K+ Happy Customers"
         },
         {
           "type": "text",
           "id": "stock_text",
-          "label": "Stock text",
+          "label": "{{ 'schema.stock_text' | t }}",
           "default": "In stock and ready to ship"
         },
         {
           "type": "image_picker",
           "id": "avatar_1",
-          "label": "Customer Avatar 1"
+          "label": "{{ 'schema.customer_avatar' | t }} 1"
         },
         {
           "type": "image_picker",
           "id": "avatar_2",
-          "label": "Customer Avatar 2"
+          "label": "{{ 'schema.customer_avatar' | t }} 2"
         },
         {
           "type": "image_picker",
           "id": "avatar_3",
-          "label": "Customer Avatar 3"
+          "label": "{{ 'schema.customer_avatar' | t }} 3"
         },
         {
           "type": "image_picker",
           "id": "avatar_4",
-          "label": "Customer Avatar 4"
+          "label": "{{ 'schema.customer_avatar' | t }} 4"
         },
         {
           "type": "image_picker",
           "id": "avatar_5",
-          "label": "Customer Avatar 5"
+          "label": "{{ 'schema.customer_avatar' | t }} 5"
         }
       ]
     },
@@ -972,13 +972,13 @@
           "type": "text",
           "id": "icon_1_name",
           "default": "diamond",
-          "label": "Icon 1 Name"
+          "label": "{{ 'schema.icon_name' | t }} 1"
         },
         {
           "type": "text",
           "id": "text_1",
           "default": "PURE TITANIUM",
-          "label": "Text 1"
+          "label": "{{ 'schema.text_label' | t }} 1"
         },
         {
           "type": "header",
@@ -988,13 +988,13 @@
           "type": "text",
           "id": "icon_2_name",
           "default": "clock",
-          "label": "Icon 2 Name"
+          "label": "{{ 'schema.icon_name' | t }} 2"
         },
         {
           "type": "text",
           "id": "text_2",
           "default": "LIFETIME DURABILITY",
-          "label": "Text 2"
+          "label": "{{ 'schema.text_label' | t }} 2"
         },
         {
           "type": "header",
@@ -1004,13 +1004,13 @@
           "type": "text",
           "id": "icon_3_name",
           "default": "dollar-sign",
-          "label": "Icon 3 Name"
+          "label": "{{ 'schema.icon_name' | t }} 3"
         },
         {
           "type": "text",
           "id": "text_3",
           "default": "30-DAY MONEY-BACK GUARANTEE",
-          "label": "Text 3"
+          "label": "{{ 'schema.text_label' | t }} 3"
         },
         {
           "type": "header",
@@ -1020,13 +1020,13 @@
           "type": "text",
           "id": "icon_4_name",
           "default": "shield",
-          "label": "Icon 4 Name"
+          "label": "{{ 'schema.icon_name' | t }} 4"
         },
         {
           "type": "text",
           "id": "text_4",
           "default": "ANTIBACTERIAL AND BPA-FREE",
-          "label": "Text 4"
+          "label": "{{ 'schema.text_label' | t }} 4"
         }
       ]
     }
@@ -1038,23 +1038,23 @@
       "options": [
         {
           "value": "accent-1",
-          "label": "Accent 1"
+          "label": "{{ 'schema.accent_1' | t }}"
         },
         {
           "value": "accent-2",
-          "label": "Accent 2"
+          "label": "{{ 'schema.accent_2' | t }}"
         },
         {
           "value": "background-1",
-          "label": "Background 1"
+          "label": "{{ 'schema.background_1' | t }}"
         },
         {
           "value": "background-2",
-          "label": "Background 2"
+          "label": "{{ 'schema.background_2' | t }}"
         }
       ],
       "default": "background-1",
-      "label": "Color Scheme"
+              "label": "{{ 'schema.color_scheme' | t }}"
     },
     {
       "type": "select",
@@ -1062,19 +1062,19 @@
       "options": [
         {
           "value": "small",
-          "label": "Small"
+          "label": "{{ 'schema.small' | t }}"
         },
         {
           "value": "medium",
-          "label": "Medium"
+          "label": "{{ 'schema.medium' | t }}"
         },
         {
           "value": "large",
-          "label": "Large"
+          "label": "{{ 'schema.large' | t }}"
         }
       ],
       "default": "large",
-      "label": "Media Size"
+              "label": "{{ 'schema.media_size' | t }}"
     },
     {
       "type": "select",
@@ -1082,15 +1082,15 @@
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "{{ 'schema.left' | t }}"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "{{ 'schema.right' | t }}"
         }
       ],
       "default": "left",
-      "label": "Media Position"
+              "label": "{{ 'schema.media_position' | t }}"
     },
     {
       "type": "header",
@@ -1103,18 +1103,18 @@
       "max": 10,
       "step": 0.5,
       "unit": "rem",
-      "label": "Padding Top",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 10,
-      "step": 0.5,
-      "unit": "rem",
-      "label": "Padding Bottom",
-      "default": 2
+                      "label": "{{ 'schema.padding_top' | t }}",
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 10,
+        "step": 0.5,
+        "unit": "rem",
+        "label": "{{ 'schema.padding_bottom' | t }}",
+        "default": 2
     }
   ]
 }

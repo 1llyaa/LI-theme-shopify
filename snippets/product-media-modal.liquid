@@ -1,0 +1,128 @@
+{% comment %}
+  Product Media Modal Snippet
+  Displays product images in a modal overlay
+{% endcomment %}
+
+{% if variant_images.size > 0 %}
+  <div class="product-modal" id="ProductModal-{{ section.id }}" style="display: none;">
+    <div class="product-modal__overlay" onclick="closeProductModal('{{ section.id }}')"></div>
+    <div class="product-modal__content">
+      <button class="product-modal__close" onclick="closeProductModal('{{ section.id }}')">
+        <span class="svg-wrapper">
+          {{- 'x.svg' | inline_asset_content -}}
+        </span>
+      </button>
+      
+      <div class="product-modal__gallery">
+        {% for image in variant_images %}
+          <div class="product-modal__image">
+            {{ image | image_url: width: 800, height: 800 | image_tag: 
+               alt: product.title, 
+               loading: 'lazy',
+               width: 800,
+               height: 800,
+               class: 'modal-image' }}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .product-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .product-modal__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+    }
+    
+    .product-modal__content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .product-modal__close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: white;
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-modal__gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem;
+    }
+    
+    .product-modal__image {
+      text-align: center;
+    }
+    
+    .modal-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  </style>
+
+  <script>
+    function openProductModal(sectionId) {
+      const modal = document.getElementById(`ProductModal-${sectionId}`);
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    
+    function closeProductModal(sectionId) {
+      const modal = document.getElementById(`ProductModal-${sectionId}`);
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    }
+    
+    // Close modal on escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modals = document.querySelectorAll('.product-modal');
+        modals.forEach(modal => {
+          if (modal.style.display === 'flex') {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+          }
+        });
+      }
+    });
+  </script>
+{% endif %}

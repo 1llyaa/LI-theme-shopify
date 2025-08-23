@@ -1,0 +1,68 @@
+{% comment %}
+  Product Variant Picker Snippet
+  Renders variant selection for products
+{% endcomment %}
+
+{% if product.variants.size > 1 %}
+  <div class="product-form__input product-form__input--dropdown" {{ block.shopify_attributes }}>
+    <label class="form__label" for="Variants-{{ section.id }}">
+      Variants
+    </label>
+
+    {% if block.settings.picker_type == 'dropdown' %}
+      <!-- Dropdown Variant Picker -->
+      <select
+        name="id"
+        id="Variants-{{ section.id }}"
+        class="select__select"
+        form="{{ product_form_id }}"
+      >
+        {% for variant in product.variants %}
+          <option
+            value="{{ variant.id }}"
+            {% if variant == product.selected_or_first_available_variant %}
+              selected="selected"
+            {% endif %}
+            {% unless variant.available %}
+              disabled="disabled"
+            {% endunless %}
+          >
+            {{ variant.title }}
+            {% unless variant.available %}
+              - Sold out
+            {% endunless %}
+          </option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <!-- Button Variant Picker -->
+      <div class="variant-picker">
+        {% for variant in product.variants %}
+          <input
+            type="radio"
+            id="variant-{{ variant.id }}-{{ section.id }}"
+            name="id"
+            value="{{ variant.id }}"
+            form="{{ product_form_id }}"
+            {% if variant == product.selected_or_first_available_variant %}
+              checked="checked"
+            {% endif %}
+            {% unless variant.available %}
+              disabled="disabled"
+            {% endunless %}
+            class="visually-hidden"
+          >
+          <label
+            for="variant-{{ variant.id }}-{{ section.id }}"
+            class="variant-picker__label{% unless variant.available %} variant-picker__label--disabled{% endunless %}"
+          >
+            {{ variant.title }}
+          </label>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  <!-- Single variant - hidden input -->
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" form="{{ product_form_id }}">
+{% endif %}

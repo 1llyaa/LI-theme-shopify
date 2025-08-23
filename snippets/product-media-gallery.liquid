@@ -1,0 +1,125 @@
+{% comment %}
+  Product Media Gallery Snippet
+  Renders product images with Splide carousel
+{% endcomment %}
+
+{% if product.media.size > 0 %}
+  <!-- Main Carousel -->
+  <section id="main-carousel-{{ section.id }}" class="splide" aria-label="Product Gallery">
+    <div class="splide__track">
+      <ul class="splide__list">
+        {% for media in product.media %}
+          <li class="splide__slide">
+            {% case media.media_type %}
+              {% when 'image' %}
+                {% assign alt_text = media.alt | default: product.title %}
+                {{ media | image_url: width: 800, height: 800 | image_tag: 
+                   alt: alt_text, 
+                   loading: 'lazy',
+                   width: 800,
+                   height: 800,
+                   class: 'product-gallery__image'
+                }}
+              {% when 'video' %}
+                {{ media | media_tag: class: 'product-gallery__video' }}
+              {% when 'external_video' %}
+                {{ media | external_video_tag: class: 'product-gallery__video' }}
+              {% when 'model' %}
+                {{ media | model_viewer_tag: class: 'product-gallery__model' }}
+              {% else %}
+                {{ media | media_tag: class: 'product-gallery__media' }}
+            {% endcase %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Thumbnail Carousel -->
+  {% if product.media.size > 1 %}
+    <section id="thumbnail-carousel-{{ section.id }}" class="splide thumbnail-carousel" aria-label="Thumbnails">
+      <div class="splide__track">
+        <ul class="splide__list">
+          {% for media in product.media %}
+            <li class="splide__slide">
+              {% case media.media_type %}
+                {% when 'image' %}
+                  {% assign alt_text = media.alt | default: product.title %}
+                  {{ media | image_url: width: 160, height: 160, crop: 'center' | image_tag: 
+                     alt: alt_text, 
+                     loading: 'lazy',
+                     width: 160,
+                     height: 160,
+                     class: 'product-gallery__thumbnail'
+                  }}
+                {% else %}
+                  <div class="product-gallery__thumbnail-placeholder">
+                    {{ media.media_type | capitalize }}
+                  </div>
+              {% endcase %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+  {% endif %}
+
+  <!-- Splide CSS and JS -->
+  {{ 'splide.min.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'splide.min.js' | asset_url }}" defer></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const mainCarousel = document.querySelector('#main-carousel-{{ section.id }}');
+      const thumbnailCarousel = document.querySelector('#thumbnail-carousel-{{ section.id }}');
+      
+      if (mainCarousel) {
+        const main = new Splide('#main-carousel-{{ section.id }}', {
+          type: 'fade',
+          rewind: true,
+          pagination: false,
+          arrows: true,
+          speed: 400,
+          easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+        });
+
+        if (thumbnailCarousel) {
+          const thumbnails = new Splide('#thumbnail-carousel-{{ section.id }}', {
+            gap: 20,
+            rewind: false,
+            pagination: false,
+            arrows: false,
+            isNavigation: true,
+            focus: 0,
+            perPage: 5,
+            perMove: 5,
+            trimSpace: false,
+            snap: true,
+            breakpoints: {
+              768: {
+                perPage: 4,
+                perMove: 4,
+                gap: 15,
+              },
+              600: {
+                perPage: 3,
+                perMove: 3,
+                gap: 10,
+              },
+            },
+          });
+
+          main.sync(thumbnails);
+          thumbnails.mount();
+        }
+        
+        main.mount();
+      }
+    });
+  </script>
+{% else %}
+  <!-- Placeholder if no media -->
+  <div class="product-gallery__placeholder">
+    {{ 'product-1' | placeholder_svg_tag: 'product-placeholder' }}
+  </div>
+{% endif %}

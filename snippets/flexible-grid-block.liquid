@@ -1,0 +1,83 @@
+{% comment %}
+  Flexible Grid Block Snippet
+  Renders individual content blocks within the grid system
+{% endcomment %}
+
+{% case block.type %}
+  {% when 'text_block' %}
+    <div class="flexible-grid__text-block" {{ block.shopify_attributes }} style="
+      --text-color: {{ block.settings.text_color | default: 'inherit' }};
+      --heading-color: {{ block.settings.heading_color | default: 'inherit' }};
+      --text-align: {{ block.settings.text_align | default: 'left' }};
+      --block-padding: {{ block.settings.block_padding | default: 1 }}rem;
+    ">
+      {% if block.settings.heading != blank %}
+        <h{{ block.settings.heading_level | default: 2 }} class="flexible-grid__heading">
+          {{ block.settings.heading }}
+        </h{{ block.settings.heading_level | default: 2 }}>
+      {% endif %}
+      {% if block.settings.text != blank %}
+        <div class="flexible-grid__text">
+          {{ block.settings.text }}
+        </div>
+      {% endif %}
+    </div>
+
+  {% when 'image_block' %}
+    <div class="flexible-grid__image-block" {{ block.shopify_attributes }} style="
+      --image-border-radius: {{ block.settings.border_radius | default: 8 }}px;
+      --image-shadow: {{ block.settings.shadow | default: 'none' }};
+      --block-padding: {{ block.settings.block_padding | default: 1 }}rem;
+    ">
+      {% if block.settings.image != blank %}
+        {% assign alt_text = block.settings.alt_text | default: block.settings.image.alt %}
+        {{ block.settings.image | image_url: width: block.settings.image_width | default: 800 | image_tag: alt: alt_text, loading: 'lazy', class: 'flexible-grid__image' }}
+      {% endif %}
+      {% if block.settings.caption != blank %}
+        <p class="flexible-grid__caption">{{ block.settings.caption }}</p>
+      {% endif %}
+    </div>
+
+  {% when 'button_block' %}
+    <div class="flexible-grid__button-block" {{ block.shopify_attributes }} style="
+      --button-bg-color: {{ block.settings.button_bg_color | default: '#007bff' }};
+      --button-text-color: {{ block.settings.button_text_color | default: '#ffffff' }};
+      --button-border-color: {{ block.settings.button_border_color | default: 'transparent' }};
+      --button-size: {{ block.settings.button_size | default: 'medium' }};
+      --button-width: {{ block.settings.button_width | default: 'auto' }};
+      --button-border-radius: {{ block.settings.button_border_radius | default: 6 }}px;
+      --button-shadow: {{ block.settings.button_shadow | default: 'none' }};
+      --block-padding: {{ block.settings.block_padding | default: 1 }}rem;
+    ">
+      {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+        <a href="{{ block.settings.button_link }}" class="flexible-grid__button flexible-grid__button--{{ block.settings.button_style | default: 'primary' }}">
+          {{ block.settings.button_text }}
+        </a>
+      {% endif %}
+    </div>
+
+  {% when 'html_block' %}
+    <div class="flexible-grid__html-block" {{ block.shopify_attributes }} style="
+      --block-padding: {{ block.settings.block_padding | default: 1 }}rem;
+    ">
+      {% if block.settings.html_content != blank %}
+        {{ block.settings.html_content }}
+      {% endif %}
+    </div>
+
+  {% when 'spacer_block' %}
+    <div class="flexible-grid__spacer" {{ block.shopify_attributes }} style="
+      --spacer-height: {{ block.settings.height | default: 2 }}rem;
+    ">
+    </div>
+
+  {% when 'divider_block' %}
+    <div class="flexible-grid__divider" {{ block.shopify_attributes }} style="
+      --divider-color: {{ block.settings.color | default: '#e5e7eb' }};
+      --divider-style: {{ block.settings.style | default: 'solid' }};
+      --divider-width: {{ block.settings.width | default: 100 }}%;
+      --divider-height: {{ block.settings.height | default: 1 }}px;
+      --divider-margin: {{ block.settings.margin | default: 1 }}rem;
+    ">
+    </div>
+{% endcase %}

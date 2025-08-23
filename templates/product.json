@@ -11,7 +11,35 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "blocks": {
+        "title_rHCRLA": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating_hFyNjT": {
+          "type": "rating",
+          "settings": {
+            "rating": 4.7,
+            "review_count": "1000+ Verified Reviews"
+          }
+        },
+        "buy_buttons_EbpwfX": {
+          "type": "buy_buttons",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title_rHCRLA",
+        "rating_hFyNjT",
+        "buy_buttons_EbpwfX"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "media_size": "large",
+        "media_position": "left",
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
     }
   },
   "order": [

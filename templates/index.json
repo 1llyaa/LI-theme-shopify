@@ -124,7 +124,7 @@
         "animation_speed": 15,
         "background_color": "#000000",
         "text_color": "#ffffff",
-        "font_size": 1.5,
+        "font_size": 2,
         "padding_vertical": 1
       }
     },
@@ -522,7 +522,7 @@
         "source": "TopRatings.Review",
         "product_image": "shopify://shop_images/Mi1zZWN0aW9uX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5n-w_616.png",
         "product_alt_text": "",
-        "section_bg_color": "transparent",
+        "section_bg_color": "rgba(0,0,0,0)",
         "banner_bg_color": "#f8f9fa",
         "star_color": "#fbbf24",
         "star_empty_color": "#e5e7eb",
@@ -542,7 +542,7 @@
         "expert_alt_text": "",
         "signature_image": "shopify://shop_images/Signature_example.png",
         "signature_alt_text": "",
-        "section_bg_color": "transparent",
+        "section_bg_color": "rgba(0,0,0,0)",
         "section_padding_top": 4,
         "section_padding_bottom": 4
       }
@@ -601,7 +601,7 @@
         "allow_multiple_open": false,
         "closed_icon": "+",
         "open_icon": "−",
-        "section_bg_color": "transparent",
+        "section_bg_color": "rgba(0,0,0,0)",
         "item_bg_color": "#ffffff",
         "item_border_color": "#e5e7eb",
         "icon_color": "#666666",
@@ -621,7 +621,7 @@
         "source": "",
         "product_image": "shopify://shop_images/Mi1zZWN0aW9uX0thdHVjaGVmX3Byb2R1Y3RfaW1hZ2UucG5n-w_616.png",
         "product_alt_text": "",
-        "section_bg_color": "transparent",
+        "section_bg_color": "rgba(0,0,0,0)",
         "banner_bg_color": "#f8f9fa",
         "star_color": "#fbbf24",
         "star_empty_color": "#e5e7eb",
@@ -651,7 +651,7 @@
         "rating": 5,
         "rating_text": "4.7",
         "stock_text": "In stock and ready to ship",
-        "section_bg_color": "transparent",
+        "section_bg_color": "rgba(0,0,0,0)",
         "banner_bg_color": "#ffffff",
         "banner_border_color": "#e5e7eb",
         "image_bg_color": "#f8f9fa",

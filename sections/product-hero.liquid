@@ -133,7 +133,7 @@
                       {% if gallery_block.settings.image != blank %}
                         {% assign alt_text = gallery_block.settings.alt_text | default: gallery_block.settings.image.alt %}
                         <li class="splide__slide" {{ gallery_block.shopify_attributes }}>
-                          {{ gallery_block.settings.image | image_url: width: 800, height: 800 | image_tag: alt: alt_text, loading: 'lazy' }}
+                          {{ gallery_block.settings.image | image_url: width: 800, height: 800 | image_tag: alt: alt_text }}
                         </li>
                       {% endif %}
                     {% endfor %}
@@ -150,7 +150,7 @@
                         {% if gallery_block.settings.image != blank %}
                           {% assign alt_text = gallery_block.settings.alt_text | default: gallery_block.settings.image.alt %}
                           <li class="splide__slide">
-                            {{ gallery_block.settings.image | image_url: width: 160, height: 160 | image_tag: alt: alt_text, loading: 'lazy' }}
+                            {{ gallery_block.settings.image | image_url: width: 160, height: 160 | image_tag: alt: alt_text }}
                           </li>
                         {% endif %}
                       {% endfor %}
@@ -399,7 +399,7 @@
 
 /* Splide Tutorial CSS - Proper Thumbnail Styling */
 .splide__slide {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .splide__slide.is-active {

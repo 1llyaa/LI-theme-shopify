@@ -1,56 +1,379 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
-  </div>
-
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
+<footer class="footer" style="
+  --footer-bg: {{ section.settings.footer_background_color }};
+  --footer-text: {{ section.settings.footer_text_color }};
+  --footer-heading: {{ section.settings.footer_heading_color }};
+  --footer-link: {{ section.settings.footer_link_color }};
+  --footer-link-hover: {{ section.settings.footer_link_hover_color }};
+  --footer-border: {{ section.settings.footer_border_color }};
+  --footer-copyright: {{ section.settings.footer_copyright_color }};
+  --footer-padding: {{ section.settings.footer_padding }}rem;
+  --footer-heading-size: {{ section.settings.footer_heading_size }}rem;
+  --footer-text-size: {{ section.settings.footer_text_size }}rem;
+  --footer-copyright-size: {{ section.settings.footer_copyright_size }}rem;
+  --footer-font-weight: {{ section.settings.footer_font_weight }};
+">
+  <div class="footer__container">
+    {% if section.blocks.size > 0 %}
+      <div class="footer__columns">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'menu' %}
+              <div class="footer__column" {{ block.shopify_attributes }}>
+                <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+                {% if block.settings.menu != blank %}
+                  {% assign footer_menu = linklists[block.settings.menu] %}
+                  {% if footer_menu.links.size > 0 %}
+                    <ul class="footer__list">
+                      {% for link in footer_menu.links %}
+                        <li class="footer__item">
+                          <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endif %}
+              </div>
+            
+            {% when 'text' %}
+              <div class="footer__column" {{ block.shopify_attributes }}>
+                <h3 class="footer__heading">{{ block.settings.heading }}</h3>
+                <div class="footer__text-content">
+                  {{ block.settings.content }}
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
     {% endif %}
+    
+    <div class="footer__bottom">
+      <div class="footer__payment-methods">
+        {% if section.settings.payment_methods_image != blank %}
+          <img 
+            src="{{ section.settings.payment_methods_image | image_url: width: 200 }}" 
+            alt="Payment methods"
+            width="200"
+            height="50"
+            style="max-width: {{ section.settings.payment_methods_width }}px; height: auto;"
+          >
+        {% endif %}
+      </div>
+      <div class="footer__copyright">
+        © {{ 'now' | date: '%Y' }} {{ shop.name }}
+      </div>
+    </div>
   </div>
 </footer>
 
 {% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
+.footer {
+  background: var(--footer-bg, #f8f8f8);
+  color: var(--footer-text, #333333);
+  padding: var(--footer-padding, 3rem) 0;
+  width: 100vw;
+  margin: 0;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.footer__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer__heading {
+  font-size: var(--footer-heading-size, 1.2rem);
+  font-weight: var(--footer-font-weight, 700);
+  color: var(--footer-heading, #000000);
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__item {
+  margin: 0;
+  padding: 0;
+}
+
+.footer__link {
+  display: block;
+  color: var(--footer-link, #666666);
+  text-decoration: none;
+  font-size: var(--footer-text-size, 1rem);
+  font-weight: var(--footer-font-weight, 400);
+  padding: 0.25rem 0;
+  transition: color 0.3s ease;
+}
+
+.footer__link:hover {
+  color: var(--footer-link-hover, #000000);
+}
+
+.footer__text-content {
+  font-size: var(--footer-text-size, 1rem);
+  font-weight: var(--footer-font-weight, 400);
+  color: var(--footer-text, #666666);
+  line-height: 1.6;
+}
+
+.footer__text-content p {
+  margin: 0 0 0.5rem 0;
+}
+
+.footer__text-content p:last-child {
+  margin-bottom: 0;
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--footer-border, rgba(0, 0, 0, 0.1));
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer__payment-methods {
+  flex: 0 0 auto;
+}
+
+.footer__payment-methods img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.footer__copyright {
+  flex: 0 0 auto;
+  font-size: var(--footer-copyright-size, 0.8rem);
+  font-weight: var(--footer-font-weight, 400);
+  color: var(--footer-copyright, #666666);
+  text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+  .footer__columns {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  footer .footer__links,
-  footer .footer__payment {
-    display: flex;
+  
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
     gap: 1rem;
   }
+  
+  .footer__payment-methods {
+    order: 1;
+  }
+  
+  .footer__copyright {
+    order: 2;
+  }
+}
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.footer",
+  "name": "Footer",
+  "max_blocks": 6,
   "settings": [
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "type": "header",
+      "content": "Layout"
     },
     {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
+      "type": "range",
+      "id": "footer_padding",
+      "min": 2,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Footer padding",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "footer_heading_size",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Heading font size",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "footer_text_size",
+      "min": 0.8,
+      "max": 1.2,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Text font size",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "footer_copyright_size",
+      "min": 0.7,
+      "max": 1,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Copyright font size",
+      "default": 0.8
+    },
+    {
+      "type": "range",
+      "id": "footer_font_weight",
+      "min": 300,
+      "max": 700,
+      "step": 100,
+      "label": "Font weight",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "footer_background_color",
+      "label": "Footer background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Footer text",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "footer_heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_color",
+      "label": "Link color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "footer_link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "footer_border_color",
+      "label": "Border color",
+      "default": "rgba(0, 0, 0, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "footer_copyright_color",
+      "label": "Copyright text color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Payment Methods"
+    },
+    {
+      "type": "image_picker",
+      "id": "payment_methods_image",
+      "label": "Payment methods image"
+    },
+    {
+      "type": "range",
+      "id": "payment_methods_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Payment methods image width",
+      "default": 200
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "About"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your text content here. You can include company information, contact details, or any other text you'd like to display in the footer.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "category": "Layout",
+      "blocks": [
+        {
+          "type": "menu"
+        },
+        {
+          "type": "text"
+        }
+      ]
     }
   ]
 }

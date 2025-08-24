@@ -1,18 +1,20 @@
-<header class="header" style="
-  --header-height: {{ section.settings.header_height }}rem;
-  --logo-width: {{ section.settings.logo_width }}rem;
-  --header-bg: {{ section.settings.header_background_color }};
-  --header-text: {{ section.settings.header_text_color }};
-  --cart-bg: {{ section.settings.cart_background_color }};
-  --cart-text: {{ section.settings.cart_text_color }};
-  --cart-hover-bg: {{ section.settings.cart_hover_background_color }};
-  --cart-border-radius: {{ section.settings.cart_border_radius }}rem;
-  --cart-padding: {{ section.settings.cart_padding }}rem;
-  --cart-font-size: {{ section.settings.cart_font_size }}rem;
-  --cart-font-weight: {{ section.settings.cart_font_weight }};
-  --cart-max-width: {{ section.settings.cart_max_width }}%;
-  --cart-icon-color: {{ section.settings.cart_icon_color }};
-">
+            <header class="header" style="
+              --header-height: {{ section.settings.header_height }}rem;
+              --logo-width: {{ section.settings.logo_width }}rem;
+              --header-bg: {{ section.settings.header_background_color }};
+              --header-text: {{ section.settings.header_text_color }};
+              --menu-hover: {{ section.settings.menu_hover_color }};
+              --header-font-weight: {{ section.settings.header_font_weight }};
+              --cart-bg: {{ section.settings.cart_background_color }};
+              --cart-text: {{ section.settings.cart_text_color }};
+              --cart-hover-bg: {{ section.settings.cart_hover_background_color }};
+              --cart-border-radius: {{ section.settings.cart_border_radius }}rem;
+              --cart-padding: {{ section.settings.cart_padding }}rem;
+              --cart-font-size: {{ section.settings.cart_font_size }}rem;
+              --cart-font-weight: {{ section.settings.cart_font_weight }};
+              --cart-max-width: {{ section.settings.cart_max_width }}%;
+              --cart-icon-color: {{ section.settings.cart_icon_color }};
+            " data-dropdown-activation="{{ section.settings.dropdown_activation }}">
   <div class="header__container">
     <!-- Logo Section -->
     <div class="header__logo" style="justify-content: {{ section.settings.logo_position }};">
@@ -37,10 +39,25 @@
       <nav class="header__navigation" style="justify-content: {{ section.settings.menu_position }};">
         <ul class="header__menu">
           {% for link in section.settings.menu.links %}
-            <li class="header__menu-item">
-              <a href="{{ link.url }}" class="header__menu-link">
+            <li class="header__menu-item{% if link.links.size > 0 %} has-dropdown{% endif %}">
+              <a href="{{ link.url }}" class="header__menu-link{% if link.links.size > 0 %} has-dropdown{% endif %}">
                 {{ link.title }}
+                {% if link.links.size > 0 %}
+                  <span class="dropdown-arrow">▼</span>
+                {% endif %}
               </a>
+              
+              {% if link.links.size > 0 %}
+                <ul class="header__submenu">
+                  {% for sublink in link.links %}
+                    <li class="header__submenu-item">
+                      <a href="{{ sublink.url }}" class="header__submenu-link">
+                        {{ sublink.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
@@ -108,8 +125,24 @@
       <nav class="header__mobile-nav">
         <ul class="header__mobile-list">
           {% for link in section.settings.menu.links %}
-            <li class="header__mobile-item">
-              <a href="{{ link.url }}" class="header__mobile-link">{{ link.title }}</a>
+            <li class="header__mobile-item{% if link.links.size > 0 %} has-dropdown{% endif %}">
+              {% if link.links.size > 0 %}
+                <button class="header__mobile-dropdown-toggle" aria-expanded="false">
+                  {{ link.title }}
+                  <span class="mobile-dropdown-arrow">▼</span>
+                </button>
+                <ul class="header__mobile-submenu">
+                  {% for sublink in link.links %}
+                    <li class="header__mobile-submenu-item">
+                      <a href="{{ sublink.url }}" class="header__mobile-submenu-link">
+                        {{ sublink.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <a href="{{ link.url }}" class="header__mobile-link">{{ link.title }}</a>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
@@ -160,7 +193,7 @@
 
   .header__logo-text {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: var(--header-font-weight, 700);
     text-decoration: none;
     color: inherit;
   }
@@ -183,13 +216,13 @@
   .header__menu-link {
     text-decoration: none;
     color: inherit;
-    font-weight: 500;
+    font-weight: var(--header-font-weight, 500);
     transition: color 0.3s ease;
     position: relative;
   }
 
   .header__menu-link:hover {
-    color: var(--color-primary, #007bff);
+    color: var(--menu-hover, #007bff);
   }
 
   .header__menu-link::after {
@@ -199,12 +232,94 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--color-primary, #007bff);
+    background: var(--menu-hover, #007bff);
     transition: width 0.3s ease;
   }
 
   .header__menu-link:hover::after {
     width: 100%;
+  }
+
+  /* Dropdown Styles */
+  .header__menu-item.has-dropdown {
+    position: relative;
+  }
+
+  .header__menu-link.has-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover mode arrow rotation */
+  .header[data-dropdown-activation="hover"] .header__menu-item:hover .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Click mode arrow rotation */
+  .header[data-dropdown-activation="click"] .header__menu-item.has-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .header__submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--header-bg, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+  }
+
+  /* Hover mode (default) */
+  .header[data-dropdown-activation="hover"] .header__menu-item:hover .header__submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Click mode */
+  .header[data-dropdown-activation="click"] .header__submenu {
+    display: none;
+  }
+
+  .header[data-dropdown-activation="click"] .header__menu-item.has-dropdown.open .header__submenu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header__submenu-item {
+    margin: 0;
+  }
+
+  .header__submenu-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    font-weight: var(--header-font-weight, 500);
+    transition: all 0.3s ease;
+  }
+
+  .header__submenu-link:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--menu-hover, #007bff);
   }
 
   /* Right Side Styles */
@@ -284,7 +399,7 @@
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
-    font-weight: 700;
+    font-weight: var(--header-font-weight, 700);
   }
 
   .header__cart-icon {
@@ -411,7 +526,59 @@
     padding: 1rem 0;
     text-decoration: none;
     color: inherit;
-    font-weight: 500;
+    font-weight: var(--header-font-weight, 500);
+  }
+
+  /* Mobile Dropdown Styles */
+  .header__mobile-dropdown-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1rem 0;
+    text-align: left;
+    color: inherit;
+    font-weight: var(--header-font-weight, 500);
+    font-size: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-dropdown-arrow {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+
+  .header__mobile-dropdown-toggle[aria-expanded="true"] .mobile-dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
+  .header__mobile-submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.05);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .header__mobile-dropdown-toggle[aria-expanded="true"] + .header__mobile-submenu {
+    max-height: 500px;
+  }
+
+  .header__mobile-submenu-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .header__mobile-submenu-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    font-weight: var(--header-font-weight, 500);
+    font-size: 0.9rem;
   }
 
   /* Responsive Design */
@@ -546,6 +713,51 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Mobile dropdown functionality
+  const mobileDropdownToggles = document.querySelectorAll('.header__mobile-dropdown-toggle');
+  
+  mobileDropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', !isExpanded);
+    });
+  });
+
+  // Desktop dropdown functionality (click mode)
+  const header = document.querySelector('.header');
+  const dropdownActivation = header?.dataset.dropdownActivation;
+  
+  if (dropdownActivation === 'click') {
+    const desktopDropdownItems = document.querySelectorAll('.header__menu-item.has-dropdown');
+    
+    desktopDropdownItems.forEach(item => {
+      const link = item.querySelector('.header__menu-link');
+      
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Close other open dropdowns
+        desktopDropdownItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('open');
+          }
+        });
+        
+        // Toggle current dropdown
+        item.classList.toggle('open');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.header__menu-item.has-dropdown')) {
+        desktopDropdownItems.forEach(item => {
+          item.classList.remove('open');
+        });
+      }
+    });
+  }
 });
 {% endjavascript %}
 
@@ -634,6 +846,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       ],
       "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "dropdown_activation",
+      "label": "Dropdown activation",
+      "options": [
+        {
+          "value": "hover",
+          "label": "Hover"
+        },
+        {
+          "value": "click",
+          "label": "Click"
+        }
+      ],
+      "default": "hover",
+      "info": "Choose how dropdowns open on desktop"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "header_font_weight",
+      "min": 300,
+      "max": 900,
+      "step": 100,
+      "label": "Header font weight",
+      "default": 600,
+      "info": "300 = Light, 400 = Normal, 600 = Semi-bold, 700 = Bold, 900 = Black"
     },
     {
       "type": "header",
@@ -749,6 +992,12 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "header_text_color",
       "label": "Header text",
       "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_color",
+      "label": "Menu hover color",
+      "default": "#007bff"
     },
     {
       "type": "color",

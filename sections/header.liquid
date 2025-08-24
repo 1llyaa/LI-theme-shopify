@@ -1,65 +1,581 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<header class="header" style="
+  --header-height: {{ section.settings.header_height }}rem;
+  --logo-width: {{ section.settings.logo_width }}rem;
+  --header-bg: {{ section.settings.header_background_color }};
+  --header-text: {{ section.settings.header_text_color }};
+  --cart-bg: {{ section.settings.cart_background_color }};
+  --cart-text: {{ section.settings.cart_text_color }};
+  --cart-hover-bg: {{ section.settings.cart_hover_background_color }};
+  --cart-border-radius: {{ section.settings.cart_border_radius }}rem;
+  --cart-padding: {{ section.settings.cart_padding }}rem;
+  --cart-font-size: {{ section.settings.cart_font_size }}rem;
+  --cart-font-weight: {{ section.settings.cart_font_weight }};
+  --cart-max-width: {{ section.settings.cart_max_width }}%;
+  --cart-icon-color: {{ section.settings.cart_icon_color }};
+">
+  <div class="header__container">
+    <!-- Logo Section -->
+    <div class="header__logo" style="justify-content: {{ section.settings.logo_position }};">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width | times: 16 }}" 
+               alt="{{ shop.name }}" 
+               class="header__logo-image"
+               width="{{ section.settings.logo_width | times: 16 }}"
+               height="{{ section.settings.logo_width | times: 16 }}"
+               style="max-width: {{ section.settings.logo_width }}rem;">
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="header__logo-text">
+          {{ shop.name }}
+        </a>
+      {% endif %}
+    </div>
 
-  <div class="header__menu">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="header__icons">
-    {% if shop.customer_accounts_enabled %}
-      {{ 'icon-account.svg' | inline_asset_content | link_to: routes.account_url }}
+    <!-- Navigation Menu -->
+    {% if section.settings.menu != blank %}
+      <nav class="header__navigation" style="justify-content: {{ section.settings.menu_position }};">
+        <ul class="header__menu">
+          {% for link in section.settings.menu.links %}
+            <li class="header__menu-item">
+              <a href="{{ link.url }}" class="header__menu-link">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
     {% endif %}
 
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
+    <!-- Right Side Icons -->
+    <div class="header__right">
+      <!-- Search Icon (if enabled) -->
+      {% if section.settings.show_search %}
+        <button class="header__search-toggle" aria-label="Search">
+          <img src="{{ 'search.svg' | asset_url }}" alt="Search" class="header__icon" width="24" height="24">
+        </button>
       {% endif %}
 
-      {{ 'icon-cart.svg' | inline_asset_content }}
-    </a>
+      <!-- Account Icon (if enabled) -->
+      {% if shop.customer_accounts_enabled and section.settings.show_account %}
+        <a href="{{ routes.account_url }}" class="header__account-link">
+          <img src="{{ 'icon-account.svg' | asset_url }}" alt="Account" class="header__icon" width="24" height="24">
+        </a>
+      {% endif %}
+
+      <!-- Cart Button -->
+      {% if section.settings.show_cart %}
+        <a href="{{ routes.cart_url }}" class="header__cart-button">
+          {% if section.settings.cart_show_count and cart.item_count > 0 %}
+            <span class="header__cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+          
+          {% if section.settings.cart_show_icon %}
+            <div class="header__cart-icon" 
+              style="width: 1.5rem; height: 1.5rem;"
+              data-icon="{{ 'icon-cart.svg' | asset_url }}">  
+            </div>
+          {% endif %}
+          
+          {% if section.settings.cart_show_text %}
+            <span class="header__cart-text">{{ section.settings.cart_text }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
   </div>
 </header>
 
 {% stylesheet %}
-  header {
-    height: 5rem;
+  .header {
+    background: var(--header-bg, #ffffff);
+    color: var(--header-text, #000000);
+    height: var(--header-height, 5rem);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header__container {
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    padding: 0 var(--page-margin, 1rem);
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 2rem;
   }
-  header a {
-    position: relative;
-    text-decoration: none;
-    color: var(--color-foreground);
-  }
-  header a sup {
-    position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
+
+  /* Logo Styles */
+  .header__logo {
     display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header__logo-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .header__logo-image {
+    height: auto;
+    max-height: calc(var(--header-height, 5rem) - 2rem);
+    width: auto;
+  }
+
+  .header__logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* Navigation Styles */
+  .header__navigation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2rem;
+  }
+
+  .header__menu-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .header__menu-link:hover {
+    color: var(--color-primary, #007bff);
+  }
+
+  .header__menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary, #007bff);
+    transition: width 0.3s ease;
+  }
+
+  .header__menu-link:hover::after {
+    width: 100%;
+  }
+
+  /* Right Side Styles */
+  .header__right {
+    display: flex;
+    align-items: center;
     gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .header__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: inherit;
+  }
+
+  .header__search-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  .header__search-toggle:hover {
+    color: var(--color-primary, #007bff);
+  }
+
+  .header__account-link {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .header__account-link:hover {
+    color: var(--color-primary, #007bff);
+  }
+
+  /* Cart Button Styles */
+  .header__cart-button {
+    background: var(--cart-bg, #000000);
+    color: var(--cart-text, #ffffff);
+    border: 2px solid var(--cart-bg, #000000);
+    border-radius: var(--cart-border-radius, 0.5rem);
+    padding: var(--cart-padding, 0.75rem) calc(var(--cart-padding, 0.75rem) * 1.5);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--cart-font-size, 1rem);
+    font-weight: var(--cart-font-weight, 600);
+    transition: all 0.3s ease;
+    position: relative;
+    max-width: var(--cart-max-width, 200px);
+    justify-content: center;
+  }
+
+  .header__cart-button:hover {
+    background: var(--cart-hover-bg, #333333);
+    border-color: var(--cart-hover-bg, #333333);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background: var(--color-accent, #ff4444);
+    color: white;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .header__cart-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--cart-icon-color, #ffffff);
+  }
+
+  .header__cart-text {
+    white-space: nowrap;
+  }
+
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .header__container {
+      gap: 1rem;
+    }
+
+    .header__menu {
+      gap: 1rem;
+    }
+
+    .header__right {
+      gap: 0.5rem;
+    }
+
+    .header__cart-button {
+      padding: calc(var(--cart-padding, 0.75rem) * 0.8) calc(var(--cart-padding, 0.75rem) * 1.2);
+      font-size: calc(var(--cart-font-size, 1rem) * 0.9);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .header__navigation {
+      display: none;
+    }
+
+    .header__container {
+      justify-content: space-between;
+    }
+
+    .header__logo {
+      flex: 1;
+    }
   }
 {% endstylesheet %}
 
+{% javascript %}
+document.addEventListener('DOMContentLoaded', function() {
+  // Load SVG icons and apply color styling
+  const iconContainers = document.querySelectorAll('.header__cart-icon');
+  
+  iconContainers.forEach(container => {
+    const iconUrl = container.dataset.icon;
+    const iconName = container.dataset.icon.split('/').pop().replace('.svg', '');
+    
+    fetch(iconUrl)
+      .then(response => response.text())
+      .then(svgContent => {
+        // Replace the container with the SVG content
+        container.innerHTML = svgContent;
+        
+        // Apply color styling to the SVG
+        const svg = container.querySelector('svg');
+        if (svg) {
+          // Get the computed color from CSS variables
+          const computedStyle = getComputedStyle(container.parentElement);
+          const iconColor = computedStyle.getPropertyValue('--cart-icon-color') || '#ffffff';
+          const iconOpacity = computedStyle.getPropertyValue('--cart-icon-opacity') || '1';
+          
+          // Apply color and opacity to the SVG
+          svg.style.color = iconColor;
+          svg.style.opacity = iconOpacity;
+          
+          // Also apply to stroke and fill if they exist
+          const paths = svg.querySelectorAll('path, polyline, line, rect, circle, polygon');
+          paths.forEach(path => {
+            if (path.getAttribute('stroke') === 'currentColor') {
+              path.setAttribute('stroke', iconColor);
+            }
+            if (path.getAttribute('fill') === 'currentColor') {
+              path.setAttribute('fill', iconColor);
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Failed to load icon:', iconName, error);
+        // Show fallback on error
+        container.style.display = 'none';
+        const fallback = container.nextElementSibling;
+        if (fallback) {
+          fallback.style.display = 'flex';
+        }
+      });
+  });
+});
+{% endjavascript %}
+
 {% schema %}
 {
-  "name": "t:general.header",
+  "name": "Header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "header_height",
+      "min": 4,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Header height",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 3,
+      "max": 8,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Logo width",
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "logo_position",
+      "label": "Logo position",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "Menu"
+    },
+    {
+      "type": "select",
+      "id": "menu_position",
+      "label": "Menu position",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Cart Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cart_text",
+      "label": "Cart button text",
+      "default": "Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_show_icon",
+      "label": "Show cart icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_show_text",
+      "label": "Show cart text",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_show_count",
+      "label": "Show item count",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "cart_max_width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Cart button max width",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "cart_padding",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Cart button padding",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "cart_font_size",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "unit": "rem",
+      "label": "Cart button font size",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "cart_font_weight",
+      "min": 400,
+      "max": 900,
+      "step": 100,
+      "label": "Cart button font weight",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "cart_border_radius",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Cart button border radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "header_background_color",
+      "label": "Header background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cart_background_color",
+      "label": "Cart button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cart_text_color",
+      "label": "Cart button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cart_hover_background_color",
+      "label": "Cart button hover background",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "cart_icon_color",
+      "label": "Cart icon color",
+      "default": "#ffffff"
     }
   ]
 }

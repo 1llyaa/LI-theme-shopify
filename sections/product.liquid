@@ -108,8 +108,8 @@
                   {{- block.settings.text -}}
                 </p>
               
-              {%- when 'custom_liquid' -%}
-                {{ block.settings.custom_liquid }}
+              {%- when 'custom_code' -%}
+                {{ block.settings.custom_code }}
               
               {%- when 'collapsible_tab' -%}
                 <div class="product__accordion accordion" {{ block.shopify_attributes }}>
@@ -199,8 +199,9 @@
                   <div class="product__stock">
                     <span class="product__stock-dot"></span>
                     {{ block.settings.stock_text }}
-                  </div>
+                  </div>  
                 </div>
+                  
                 
               {%- when 'usp_icons' -%}
                 <div class="product__usp-icons" {{ block.shopify_attributes }}>
@@ -832,27 +833,27 @@
       ]
     },
     {
-      "type": "custom_liquid",
-      "name": "{{ 'schema.custom_liquid' | t }}",
+      "type": "custom_code",
+      "name": "Custom Code",
       "settings": [
         {
           "type": "liquid",
-          "id": "custom_liquid",
-                      "label": "{{ 'schema.custom_liquid' | t }}",
-            "info": "Add custom Liquid code here"
+          "id": "custom_code",
+          "label": "Custom Code",
+          "info": "Add custom Liquid code here"
         }
       ]
     },
-            {
-          "type": "collapsible_tab",
-          "name": "Collapsible Tab",
-          "settings": [
-            {
-              "type": "text",
-              "id": "heading",
-              "default": "Tab Heading",
-              "label": "{{ 'schema.heading' | t }}"
-            },
+    {
+      "type": "collapsible_tab",
+      "name": "Collapsible Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Tab Heading",
+          "label": "{{ 'schema.heading' | t }}"
+        },
         {
           "type": "richtext",
           "id": "content",
@@ -886,16 +887,16 @@
         }
       ]
     },
-            {
-          "type": "features",
-          "name": "Features List",
-          "settings": [
-            {
-              "type": "text",
-              "id": "heading",
-              "default": "Key Features",
-              "label": "{{ 'schema.heading' | t }}"
-            },
+    {
+      "type": "features",
+      "name": "Features List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Key Features",
+          "label": "{{ 'schema.heading' | t }}"
+        },
         {
           "type": "textarea",
           "id": "features",

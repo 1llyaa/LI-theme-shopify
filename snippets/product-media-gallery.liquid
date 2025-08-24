@@ -75,7 +75,7 @@
       
       if (mainCarousel) {
         const main = new Splide('#main-carousel-{{ section.id }}', {
-          type: 'fade',
+          type: 'slide',
           rewind: true,
           pagination: false,
           arrows: true,
@@ -85,26 +85,28 @@
 
         if (thumbnailCarousel) {
           const thumbnails = new Splide('#thumbnail-carousel-{{ section.id }}', {
-            gap: 20,
-            rewind: false,
-            pagination: false,
-            arrows: false,
+            gap         : 20,
+            rewind      : false,
+            pagination  : false,
+            arrows      : false,
             isNavigation: true,
-            focus: 0,
-            perPage: 5,
-            perMove: 5,
-            trimSpace: false,
-            snap: true,
-            breakpoints: {
+            focus       : 0,
+            perPage     : 5,
+            perMove     : 5,
+            trimSpace   : false,
+            width       : '100%',
+            height      : '100%',
+            snap        : true,
+            breakpoints : {
               768: {
-                perPage: 4,
-                perMove: 4,
-                gap: 15,
+                perPage    : 4,
+                perMove    : 4,
+                gap        : 15,
               },
               600: {
-                perPage: 3,
-                perMove: 3,
-                gap: 10,
+                perPage    : 3,
+                perMove    : 3,
+                gap        : 10,
               },
             },
           });
@@ -123,3 +125,23 @@
     {{ 'product-1' | placeholder_svg_tag: 'product-placeholder' }}
   </div>
 {% endif %}
+
+{% stylesheet %}
+  .thumbnail-carousel {
+    padding: 0 var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+  }
+  
+  #thumbnail-carousel .splide__slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+    overflow: hidden;
+    width: 5rem;
+    height: 5rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+  }
+
+{% endstylesheet %}

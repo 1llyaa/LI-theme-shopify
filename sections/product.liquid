@@ -194,11 +194,11 @@
                       <img src="{{ block.settings.avatar_4 | image_url: width: 80, height: 80 }}" 
                            alt="Customer" class="customer-avatar" width="80" height="80">
                     {% endif %}
-                    <span class="product__customers">{{ block.settings.customers_text }}</span>
-                    <div class="product__stock">
-                      <span class="product__stock-dot"></span>
-                      {{ block.settings.stock_text }}
-                    </div>
+                  </div>
+                  <span class="product__customers">{{ block.settings.customers_text }}</span>
+                  <div class="product__stock">
+                    <span class="product__stock-dot"></span>
+                    {{ block.settings.stock_text }}
                   </div>
                 </div>
                 
@@ -687,18 +687,6 @@
   color: var(--color-text-primary);
   text-align: center;
   line-height: var(--line-height-tight);
-}
-
-/* Notification animations */
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
 }
 
 /* Button loading state */

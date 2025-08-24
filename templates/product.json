@@ -31,7 +31,9 @@
           "type": "features",
           "settings": {
             "heading": "Key Features",
-            "features": "Prevents risk from microplastics,\nResists bacteria and odors,\nKeeps your knives sharp,\nEliminates food cross-contamination"
+            "use_metafield_for_features": true,
+            "features_metafield_key": "custom.product_features",
+            "features_fallback": ""
           }
         },
         "customer_satisfaction_dRCG8G": {

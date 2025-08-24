@@ -156,7 +156,25 @@
                 </div>
                 
               {% when 'features' %}
-                {% if block.settings.features != blank %}
+                {% assign features_to_show = blank %}
+                
+                {% if block.settings.use_metafield_for_features and block.settings.features_metafield_key != blank %}
+                  {% assign metafield_key_parts = block.settings.features_metafield_key | split: '.' %}
+                  {% if metafield_key_parts.size == 2 %}
+                    {% assign namespace = metafield_key_parts[0] %}
+                    {% assign key = metafield_key_parts[1] %}
+                    {% assign features_metafield = product.metafields[namespace][key] %}
+                    {% if features_metafield != blank %}
+                      {% assign features_to_show = features_metafield %}
+                    {% endif %}
+                  {% endif %}
+                {% endif %}
+                
+                {% if features_to_show == blank and block.settings.features_fallback != blank %}
+                  {% assign features_to_show = block.settings.features_fallback %}
+                {% endif %}
+                
+                {% if features_to_show != blank %}
                   <div class="product__features" {{ block.shopify_attributes }}>
                     {% if block.settings.heading != blank %}
                       <h3 class="features__heading">{{ block.settings.heading }}</h3>
@@ -798,15 +816,15 @@
           "options": [
             {
               "value": "dropdown",
-              "label": "{{ 'schema.dropdown' | t }}"
+              "label": "Dropdown"
             },
             {
               "value": "button",
-              "label": "{{ 'schema.button' | t }}"
+              "label": "Button"
             }
           ],
           "default": "dropdown",
-          "label": "{{ 'schema.picker_type' | t }}"
+          "label": "Picker type"
         }
       ]
     },
@@ -822,13 +840,13 @@
     },
     {
       "type": "text",
-      "name": "{{ 'schema.text' | t }}",
+      "name": "Text",
       "settings": [
         {
           "type": "text",
           "id": "text",
           "default": "Add your text here",
-          "label": "{{ 'schema.text' | t }}"
+                      "label": "Text"
         }
       ]
     },
@@ -852,17 +870,17 @@
           "type": "text",
           "id": "heading",
           "default": "Tab Heading",
-          "label": "{{ 'schema.heading' | t }}"
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "content",
-          "label": "{{ 'schema.content' | t }}"
+          "label": "Content"
         },
         {
           "type": "page",
           "id": "page",
-          "label": "{{ 'schema.page' | t }}"
+          "label": "Page"
         }
       ]
     },
@@ -877,13 +895,13 @@
           "max": 5,
           "step": 0.1,
           "default": 4.7,
-          "label": "{{ 'schema.rating' | t }}"
+          "label": "Rating"
         },
         {
           "type": "text",
           "id": "review_count",
           "default": "1000+ Verified Reviews",
-          "label": "{{ 'schema.review_count_text' | t }}"
+          "label": "Review count text"
         }
       ]
     },
@@ -895,14 +913,28 @@
           "type": "text",
           "id": "heading",
           "default": "Key Features",
-          "label": "{{ 'schema.heading' | t }}"
+          "label": "Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_metafield_for_features",
+          "label": "Use metafield for features",
+          "default": true,
+          "info": "Enable to use a metafield instead of static text"
+        },
+        {
+          "type": "text",
+          "id": "features_metafield_key",
+          "default": "custom.features",
+          "label": "Features metafield key",
+          "info": "Enter the metafield key in format 'namespace.key'. Common examples: 'custom.features', 'product.features', 'specifications.benefits'. Create this metafield in Settings > Custom data > Products."
         },
         {
           "type": "textarea",
-          "id": "features",
+          "id": "features_fallback",
           "default": "Prevents risk from microplastics\nResists bacteria and odors\nKeeps your knives sharp\nEliminates food cross-contamination",
-          "label": "{{ 'schema.features' | t }}",
-          "info": "Enter each feature on a new line"
+          "label": "Fallback features",
+          "info": "Static features to use if metafield is empty or disabled (one per line)"
         }
       ]
     },
@@ -913,39 +945,39 @@
         {
           "type": "text",
           "id": "customers_text",
-          "label": "{{ 'schema.customers_text' | t }}",
+          "label": "Customers text",
           "default": "8K+ Happy Customers"
         },
         {
           "type": "text",
           "id": "stock_text",
-          "label": "{{ 'schema.stock_text' | t }}",
+          "label": "Stock text",
           "default": "In stock and ready to ship"
         },
         {
           "type": "image_picker",
           "id": "avatar_1",
-          "label": "{{ 'schema.customer_avatar' | t }} 1"
+          "label": "Customer avatar 1"
         },
         {
           "type": "image_picker",
           "id": "avatar_2",
-          "label": "{{ 'schema.customer_avatar' | t }} 2"
+          "label": "Customer avatar 2"
         },
         {
           "type": "image_picker",
           "id": "avatar_3",
-          "label": "{{ 'schema.customer_avatar' | t }} 3"
+          "label": "Customer avatar 3"
         },
         {
           "type": "image_picker",
           "id": "avatar_4",
-          "label": "{{ 'schema.customer_avatar' | t }} 4"
+          "label": "Customer avatar 4"
         },
         {
           "type": "image_picker",
           "id": "avatar_5",
-          "label": "{{ 'schema.customer_avatar' | t }} 5"
+          "label": "Customer avatar 5"
         }
       ]
     },
@@ -961,13 +993,13 @@
           "type": "text",
           "id": "icon_1_name",
           "default": "diamond",
-          "label": "{{ 'schema.icon_name' | t }} 1"
+          "label": "Icon name 1"
         },
         {
           "type": "text",
           "id": "text_1",
           "default": "PURE TITANIUM",
-          "label": "{{ 'schema.text_label' | t }} 1"
+          "label": "Text label 1"
         },
         {
           "type": "header",
@@ -977,13 +1009,13 @@
           "type": "text",
           "id": "icon_2_name",
           "default": "clock",
-          "label": "{{ 'schema.icon_name' | t }} 2"
+          "label": "Icon name 2"
         },
         {
           "type": "text",
           "id": "text_2",
           "default": "LIFETIME DURABILITY",
-          "label": "{{ 'schema.text_label' | t }} 2"
+          "label": "Text label 2"
         },
         {
           "type": "header",
@@ -993,13 +1025,13 @@
           "type": "text",
           "id": "icon_3_name",
           "default": "dollar-sign",
-          "label": "{{ 'schema.icon_name' | t }} 3"
+          "label": "Icon name 3"
         },
         {
           "type": "text",
           "id": "text_3",
           "default": "30-DAY MONEY-BACK GUARANTEE",
-          "label": "{{ 'schema.text_label' | t }} 3"
+          "label": "Text label 3"
         },
         {
           "type": "header",
@@ -1009,13 +1041,13 @@
           "type": "text",
           "id": "icon_4_name",
           "default": "shield",
-          "label": "{{ 'schema.icon_name' | t }} 4"
+          "label": "Icon name 4"
         },
         {
           "type": "text",
           "id": "text_4",
           "default": "ANTIBACTERIAL AND BPA-FREE",
-          "label": "{{ 'schema.text_label' | t }} 4"
+          "label": "Text label 4"
         }
       ]
     }
@@ -1027,23 +1059,23 @@
       "options": [
         {
           "value": "accent-1",
-          "label": "{{ 'schema.accent_1' | t }}"
+          "label": "Accent 1"
         },
         {
           "value": "accent-2",
-          "label": "{{ 'schema.accent_2' | t }}"
+          "label": "Accent 2"
         },
         {
           "value": "background-1",
-          "label": "{{ 'schema.background_1' | t }}"
+          "label": "Background 1"
         },
         {
           "value": "background-2",
-          "label": "{{ 'schema.background_2' | t }}"
+          "label": "Background 2"
         }
       ],
       "default": "background-1",
-              "label": "{{ 'schema.color_scheme' | t }}"
+              "label": "Color scheme"
     },
     {
       "type": "select",
@@ -1051,19 +1083,19 @@
       "options": [
         {
           "value": "small",
-          "label": "{{ 'schema.small' | t }}"
+          "label": "Small"
         },
         {
           "value": "medium",
-          "label": "{{ 'schema.medium' | t }}"
+          "label": "Medium"
         },
         {
           "value": "large",
-          "label": "{{ 'schema.large' | t }}"
+          "label": "Large"
         }
       ],
       "default": "large",
-              "label": "{{ 'schema.media_size' | t }}"
+              "label": "Media size"
     },
     {
       "type": "select",
@@ -1071,15 +1103,15 @@
       "options": [
         {
           "value": "left",
-          "label": "{{ 'schema.left' | t }}"
+          "label": "Left"
         },
         {
           "value": "right",
-          "label": "{{ 'schema.right' | t }}"
+          "label": "Right"
         }
       ],
       "default": "left",
-              "label": "{{ 'schema.media_position' | t }}"
+              "label": "Media position"
     },
     {
       "type": "header",
@@ -1092,7 +1124,7 @@
       "max": 10,
       "step": 0.5,
       "unit": "rem",
-                      "label": "{{ 'schema.padding_top' | t }}",
+                      "label": "Padding top",
         "default": 2
       },
       {
@@ -1102,7 +1134,7 @@
         "max": 10,
         "step": 0.5,
         "unit": "rem",
-        "label": "{{ 'schema.padding_bottom' | t }}",
+        "label": "Padding bottom",
         "default": 2
     }
   ]

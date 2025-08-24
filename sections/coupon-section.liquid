@@ -164,26 +164,32 @@
   border-radius: var(--radius-full);
 }
 
-.coupon-section__cta {
-  background: var(--cta-bg-color, #000000);
-  color: var(--cta-text-color, #ffffff);
-  border: none;
-  padding: 1rem 2.5rem;
-  border-radius: var(--radius-md);
-  font-size: 1.125rem;
-  font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  text-decoration: none;
-  display: inline-block;
-  min-width: 20rem;
-}
+  .coupon-section__cta {
+    background: var(--cta-bg-color, #000000);
+    color: var(--cta-text-color, #ffffff);
+    border: 2px solid var(--cta-bg-color, #000000);
+    padding: var(--cta-padding-v, 1.5rem) var(--cta-padding-h, 2.5rem);
+    border-radius: var(--cta-radius, 0.5rem);
+    font-size: var(--cta-font-size, 1.5rem);
+    font-weight: var(--cta-font-weight, 700);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    width: var(--cta-width, 50%);
+    max-width: var(--cta-max-width, 100%);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
 
 .coupon-section__cta:hover {
-  background: var(--cta-hover-bg-color, #333333);
+  background: var(--cta-hover-bg, #333333);
+  border-color: var(--cta-hover-bg, #333333);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+}
+
+.coupon-section__cta:hover[data-show-shadow="true"] {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .coupon-section__guarantee {
@@ -229,9 +235,10 @@
   }
   
   .coupon-section__cta {
-    padding: 0.875rem 2rem;
-    font-size: 1rem;
-    min-width: 18rem;
+    padding: var(--cta-padding-v, 1.5rem) var(--cta-padding-h, 2.5rem);
+    font-size: var(--cta-font-size, 1.5rem);
+    width: var(--cta-width, 50%);
+    max-width: var(--cta-max-width, 100%);
   }
   
   .coupon-section__social-proof {
@@ -282,9 +289,9 @@
   --image-bg-color: {{ section.settings.image_bg_color | default: '#f8f9fa' }};
   --star-color: {{ section.settings.star_color | default: '#fbbf24' }};
   --stock-color: {{ section.settings.stock_color | default: '#059669' }};
-  --cta-bg-color: {{ section.settings.cta_bg_color | default: '#000000' }};
-  --cta-text-color: {{ section.settings.cta_text_color | default: '#ffffff' }};
-  --cta-hover-bg-color: {{ section.settings.cta_hover_bg_color | default: '#333333' }};
+        --cta-bg-color: {{ section.settings.cta_background_color | default: '#000000' }};
+      --cta-text-color: {{ section.settings.cta_text_color | default: '#ffffff' }};
+      --cta-hover-bg: {{ section.settings.cta_hover_background | default: '#333333' }};
 " {{ section.shopify_attributes }}>
   <div class="coupon-section__container">
     
@@ -372,9 +379,22 @@
           
         </div>
         
-        {% if section.settings.cta_text != blank %}
-          <a href="{{ section.settings.cta_link | default: '#' }}" class="coupon-section__cta">
-            {{ section.settings.cta_text }}
+        {% if section.settings.show_cta and section.settings.cta_text != blank and section.settings.cta_link != blank %}
+          <a href="{{ section.settings.cta_link | default: '#' }}" class="coupon-section__cta" 
+             data-show-shadow="{{ section.settings.cta_show_shadow }}"
+             style="
+               --cta-bg-color: {{ section.settings.cta_background_color | default: '#000000' }};
+               --cta-text-color: {{ section.settings.cta_text_color | default: '#ffffff' }};
+               --cta-hover-bg: {{ section.settings.cta_hover_background | default: '#333333' }};
+               --cta-font-size: {{ section.settings.cta_font_size | default: 1.5 }}rem;
+               --cta-font-weight: {{ section.settings.cta_font_weight | default: 700 }};
+               --cta-padding-v: {{ section.settings.cta_padding_vertical | default: 1.5 }}rem;
+               --cta-padding-h: {{ section.settings.cta_padding_horizontal | default: 2.5 }}rem;
+               --cta-radius: {{ section.settings.cta_border_radius | default: 0.5 }}rem;
+               --cta-width: {{ section.settings.cta_width | default: 50 }}%;
+               --cta-max-width: {{ section.settings.cta_max_width | default: 100 }}%;
+             ">
+            {% if section.settings.cta_uppercase %}{{ section.settings.cta_text | upcase }}{% else %}{{ section.settings.cta_text }}{% endif %}
           </a>
         {% endif %}
         
@@ -446,6 +466,16 @@
       "default": "This limited-time deal is in high demand, and the stock keeps selling out."
     },
     {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "cta_text",
       "label": "Button text",
@@ -455,6 +485,128 @@
       "type": "url",
       "id": "cta_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Button Styling"
+    },
+    {
+      "type": "color",
+      "id": "cta_background_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "cta_text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cta_hover_background",
+      "label": "Hover background color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "cta_font_size",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Font size",
+      "default": 1.5
+    },
+    {
+      "type": "select",
+      "id": "cta_font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        },
+        {
+          "value": "800",
+          "label": "Extra Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_vertical",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Vertical padding",
+      "default": 1.5
+    },
+    {
+      "type": "range",
+      "id": "cta_padding_horizontal",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Horizontal padding",
+      "default": 2.5
+    },
+    {
+      "type": "range",
+      "id": "cta_border_radius",
+      "min": 0,
+      "max": 2,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Border radius",
+      "default": 0.5
+    },
+    {
+      "type": "range",
+      "id": "cta_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Button width",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "cta_max_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Maximum width",
+      "default": 100
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_uppercase",
+      "label": "Uppercase text",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "cta_show_shadow",
+      "label": "Show hover shadow",
+      "default": true
     },
     {
       "type": "text",
@@ -553,24 +705,7 @@
       "label": "Stock indicator color",
       "default": "#059669"
     },
-    {
-      "type": "color",
-      "id": "cta_bg_color",
-      "label": "Button background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "cta_text_color",
-      "label": "Button text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "cta_hover_bg_color",
-      "label": "Button hover background",
-      "default": "#333333"
-    },
+
     {
       "type": "header",
       "content": "Spacing"

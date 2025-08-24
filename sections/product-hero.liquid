@@ -91,7 +91,8 @@
                      --cta-padding-v: {{ block.settings.cta_padding_vertical | default: 1.5 }}rem;
                      --cta-padding-h: {{ block.settings.cta_padding_horizontal | default: 2.5 }}rem;
                      --cta-radius: {{ block.settings.cta_border_radius | default: 0.5 }}rem;
-                     --cta-min-width: {{ block.settings.cta_min_width | default: 50 }}%;
+                     --cta-width: {{ block.settings.cta_width | default: 50 }}%;
+                     --cta-max-width: {{ block.settings.cta_max_width | default: 100 }}%;
                    ">
                   {% if block.settings.cta_uppercase %}{{ block.settings.cta_text | upcase }}{% else %}{{ block.settings.cta_text }}{% endif %}
                 </a>
@@ -333,7 +334,8 @@
   border: 2px solid var(--cta-bg-color, #000000);
   cursor: pointer;
   text-align: center;
-  min-width: var(--cta-min-width, 200px);
+  width: var(--cta-width, 50%);
+  max-width: var(--cta-max-width, 100%);
 }
 
 .product-hero__cta:hover {
@@ -801,13 +803,23 @@ document.addEventListener( 'DOMContentLoaded', function () {
         },
         {
           "type": "range",
-          "id": "cta_min_width",
+          "id": "cta_width",
           "min": 20,
           "max": 100,
           "step": 5,
           "unit": "%",
-          "label": "Minimum width",
+          "label": "Button width",
           "default": 50
+        },
+        {
+          "type": "range",
+          "id": "cta_max_width",
+          "min": 20,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Maximum width",
+          "default": 100
         },
         {
           "type": "checkbox",

@@ -18,12 +18,12 @@
     <div class="header__logo" style="justify-content: {{ section.settings.logo_position }};">
       {% if section.settings.logo != blank %}
         <a href="{{ routes.root_url }}" class="header__logo-link">
-          <img src="{{ section.settings.logo | image_url: width: section.settings.logo_width | times: 16 }}" 
+          <img src="{{ section.settings.logo | image_url: width: 200 }}" 
                alt="{{ shop.name }}" 
                class="header__logo-image"
-               width="{{ section.settings.logo_width | times: 16 }}"
-               height="{{ section.settings.logo_width | times: 16 }}"
-               style="max-width: {{ section.settings.logo_width }}rem;">
+               width="200"
+               height="200"
+               style="max-width: {{ section.settings.logo_width }}rem; height: auto;">
         </a>
       {% else %}
         <a href="{{ routes.root_url }}" class="header__logo-text">
@@ -83,6 +83,38 @@
         </a>
       {% endif %}
     </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="header__mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+      <span class="header__hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Backdrop -->
+  <div class="header__mobile-backdrop" aria-hidden="true"></div>
+
+  <!-- Mobile Menu -->
+  <div class="header__mobile-menu" aria-hidden="true">
+    <div class="header__mobile-header">
+      <button class="header__mobile-close" aria-label="Close menu">
+        <span class="header__close-line"></span>
+        <span class="header__close-line"></span>
+      </button>
+    </div>
+    
+    {% if section.settings.menu != blank %}
+      <nav class="header__mobile-nav">
+        <ul class="header__mobile-list">
+          {% for link in section.settings.menu.links %}
+            <li class="header__mobile-item">
+              <a href="{{ link.url }}" class="header__mobile-link">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
   </div>
 </header>
 
@@ -265,6 +297,123 @@
     white-space: nowrap;
   }
 
+  /* Mobile Toggle Button */
+  .header__mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__hamburger-line {
+    width: 1.5rem;
+    height: 2px;
+    background: currentColor;
+    transition: all 0.3s ease;
+  }
+
+  /* Mobile Menu */
+  .header__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--header-bg, #ffffff);
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    transition: left 0.3s ease;
+    z-index: 1001;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .header__mobile-menu.is-open {
+    left: 0;
+  }
+
+  /* Mobile Menu Backdrop */
+  .header__mobile-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .header__mobile-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Mobile Menu Header */
+  .header__mobile-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  /* Close Button */
+  .header__mobile-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__close-line {
+    position: absolute;
+    width: 1.5rem;
+    height: 2px;
+    background: currentColor;
+    transition: all 0.3s ease;
+  }
+
+  .header__close-line:nth-child(1) {
+    transform: rotate(45deg);
+  }
+
+  .header__close-line:nth-child(2) {
+    transform: rotate(-45deg);
+  }
+
+  .header__mobile-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__mobile-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .header__mobile-link {
+    display: block;
+    padding: 1rem 0;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+  }
+
   /* Responsive Design */
   @media screen and (max-width: 768px) {
     .header__container {
@@ -290,12 +439,30 @@
       display: none;
     }
 
+    .header__mobile-toggle {
+      display: flex;
+    }
+
     .header__container {
       justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
     }
 
     .header__logo {
       flex: 1;
+      justify-content: center;
+      order: 2;
+    }
+
+    .header__mobile-toggle {
+      order: 1;
+      flex: 0 0 auto;
+    }
+
+    .header__right {
+      order: 3;
+      flex: 0 0 auto;
     }
   }
 {% endstylesheet %}
@@ -321,11 +488,9 @@ document.addEventListener('DOMContentLoaded', function() {
           // Get the computed color from CSS variables
           const computedStyle = getComputedStyle(container.parentElement);
           const iconColor = computedStyle.getPropertyValue('--cart-icon-color') || '#ffffff';
-          const iconOpacity = computedStyle.getPropertyValue('--cart-icon-opacity') || '1';
           
-          // Apply color and opacity to the SVG
+          // Apply color to the SVG
           svg.style.color = iconColor;
-          svg.style.opacity = iconOpacity;
           
           // Also apply to stroke and fill if they exist
           const paths = svg.querySelectorAll('path, polyline, line, rect, circle, polygon');
@@ -341,14 +506,46 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(error => {
         console.error('Failed to load icon:', iconName, error);
-        // Show fallback on error
-        container.style.display = 'none';
-        const fallback = container.nextElementSibling;
-        if (fallback) {
-          fallback.style.display = 'flex';
-        }
       });
   });
+
+  // Mobile menu functionality
+  const mobileToggle = document.querySelector('.header__mobile-toggle');
+  const mobileMenu = document.querySelector('.header__mobile-menu');
+  const mobileBackdrop = document.querySelector('.header__mobile-backdrop');
+  const mobileClose = document.querySelector('.header__mobile-close');
+  
+  function openMobileMenu() {
+    mobileMenu.classList.add('is-open');
+    mobileBackdrop.classList.add('is-open');
+    mobileToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('is-open');
+    mobileBackdrop.classList.remove('is-open');
+    mobileToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  
+  if (mobileToggle && mobileMenu && mobileBackdrop && mobileClose) {
+    // Open menu
+    mobileToggle.addEventListener('click', openMobileMenu);
+    
+    // Close menu with close button
+    mobileClose.addEventListener('click', closeMobileMenu);
+    
+    // Close menu with backdrop click
+    mobileBackdrop.addEventListener('click', closeMobileMenu);
+    
+    // Close menu with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
+    });
+  }
 });
 {% endjavascript %}
 
@@ -506,14 +703,14 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 0.5,
       "unit": "rem",
       "label": "Cart button padding",
-      "default": 1
+      "default": 0.5
     },
     {
       "type": "range",
       "id": "cart_font_size",
-      "min": 1,
+      "min": 0.5,
       "max": 3,
-      "step": 1,
+      "step": 0.5,
       "unit": "rem",
       "label": "Cart button font size",
       "default": 1
@@ -535,7 +732,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 0.5,
       "unit": "rem",
       "label": "Cart button border radius",
-      "default": 0
+      "default": 0.5
     },
     {
       "type": "header",
@@ -580,3 +777,4 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 {% endschema %}
+

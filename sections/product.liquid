@@ -180,7 +180,40 @@
                       <h3 class="features__heading">{{ block.settings.heading }}</h3>
                     {% endif %}
                     <ul class="features__list">
-                      {% assign features_array = block.settings.features | split: ',' %}
+                      {% assign features_to_show = blank %}
+                      
+                      {% if block.settings.use_metafield_for_features and block.settings.features_metafield_key != blank %}
+                        {% assign metafield_key_parts = block.settings.features_metafield_key | split: '.' %}
+                        {% if metafield_key_parts.size == 2 %}
+                          {% assign namespace = metafield_key_parts[0] %}
+                          {% assign key = metafield_key_parts[1] %}
+                          {% assign features_metafield = product.metafields[namespace][key] %}
+                          {% if features_metafield != blank %}
+                            {% assign features_to_show = features_metafield %}
+                          {% endif %}
+                        {% endif %}
+                      {% endif %}
+                      
+                      {% if features_to_show == blank and block.settings.features_fallback != blank %}
+                        {% assign features_to_show = block.settings.features_fallback %}
+                      {% endif %}
+                      
+                      {% if features_to_show != blank %}
+                        {% comment %} Handle JSON array format from List metafield type {% endcomment %}
+                        {% if features_to_show contains '[' and features_to_show contains ']' %}
+                          {% comment %} It's a JSON array, parse it properly {% endcomment %}
+                          {% assign features_clean = features_to_show | remove: '[' | remove: ']' | remove: '"' %}
+                          {% assign features_array = features_clean | split: ',' %}
+                        {% elsif features_to_show contains ',' %}
+                          {% comment %} It's a comma-separated string {% endcomment %}
+                          {% assign features_array = features_to_show | split: ',' %}
+                        {% else %}
+                          {% comment %} It's a newline-separated string {% endcomment %}
+                          {% assign features_array = features_to_show | split: '\n' %}
+                        {% endif %}
+                      {% else %}
+                        {% assign features_array = blank %}
+                      {% endif %}
                       {% for feature in features_array %}
                         {% if feature != blank %}
                           <li class="feature__item">

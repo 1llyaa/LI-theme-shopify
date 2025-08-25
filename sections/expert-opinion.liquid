@@ -6,12 +6,25 @@
 
 {% stylesheet %}
 .expert-opinion {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
   background-color: var(--section-bg-color);
   padding-top: var(--section-padding-top);
   padding-bottom: var(--section-padding-bottom);
+  position: relative;
+}
+
+.expert-opinion::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  height: 100%;
+  background: inherit;
+  z-index: -1;
 }
 
 .expert-opinion__container {
@@ -22,21 +35,21 @@
 
 .expert-opinion__content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   align-items: center;
-  min-height: 30rem;
+  min-height: auto;
 }
 
 .expert-opinion__text {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding-right: var(--spacing-xl);
+  padding-right: 0;
 }
 
 .expert-opinion__heading {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   margin: 0;
@@ -44,7 +57,7 @@
 }
 
 .expert-opinion__title {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--color-text-secondary);
   margin: 0;
   line-height: var(--line-height-normal);
@@ -52,10 +65,10 @@
 }
 
 .expert-opinion__quote {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   text-align: justify;
 }
 
@@ -66,14 +79,14 @@
 }
 
 .expert-opinion__name {
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
   margin: 0;
 }
 
 .expert-opinion__signature {
-  max-width: 12rem;
+  max-width: 8rem;
   height: auto;
   margin-top: 0.5rem;
 }
@@ -81,8 +94,9 @@
 .expert-opinion__image-wrapper {
   position: relative;
   width: 100%;
-  max-width: 32rem;
-  margin-left: auto;
+  max-width: 20rem;
+  margin: 0 auto 1rem;
+  order: -1;
 }
 
 .expert-opinion__image {
@@ -94,27 +108,10 @@
   aspect-ratio: 4 / 3;
 }
 
-/* Mobile Responsive */
-@media screen and (max-width: 768px) {
-  .expert-opinion {
-    padding-top: var(--section-padding-top-mobile);
-    padding-bottom: var(--section-padding-bottom-mobile);
-  }
-  
+/* Tablet and up */
+@media screen and (min-width: 600px) {
   .expert-opinion__content {
-    grid-template-columns: 1fr;
     gap: 2rem;
-    min-height: auto;
-  }
-  
-  .expert-opinion__text {
-    padding-right: 0;
-  }
-  
-  .expert-opinion__image-wrapper {
-    max-width: 20rem;
-    margin: 0 auto 1rem;
-    order: -1;
   }
   
   .expert-opinion__heading {
@@ -122,7 +119,7 @@
   }
   
   .expert-opinion__title {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
   
   .expert-opinion__quote {
@@ -131,7 +128,7 @@
   }
   
   .expert-opinion__name {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
   
   .expert-opinion__signature {
@@ -139,26 +136,48 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+/* Desktop and up */
+@media screen and (min-width: 769px) {
   .expert-opinion {
-    padding-top: var(--section-padding-top-small);
-    padding-bottom: var(--section-padding-bottom-small);
+    padding-top: var(--section-padding-top-mobile);
+    padding-bottom: var(--section-padding-bottom-mobile);
   }
   
   .expert-opinion__content {
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    min-height: 30rem;
+  }
+  
+  .expert-opinion__text {
+    padding-right: var(--spacing-xl);
+  }
+  
+  .expert-opinion__image-wrapper {
+    max-width: 32rem;
+    margin-left: auto;
+    order: 0;
   }
   
   .expert-opinion__heading {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+  
+  .expert-opinion__title {
+    font-size: 1.125rem;
   }
   
   .expert-opinion__quote {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    margin: 2rem 0;
+  }
+  
+  .expert-opinion__name {
+    font-size: 1.125rem;
   }
   
   .expert-opinion__signature {
-    max-width: 8rem;
+    max-width: 12rem;
   }
 }
 {% endstylesheet %}

@@ -1,20 +1,20 @@
-            <header class="header" style="
-              --header-height: {{ section.settings.header_height }}rem;
-              --logo-width: {{ section.settings.logo_width }}rem;
-              --header-bg: {{ section.settings.header_background_color }};
-              --header-text: {{ section.settings.header_text_color }};
-              --menu-hover: {{ section.settings.menu_hover_color }};
-              --header-font-weight: {{ section.settings.header_font_weight }};
-              --cart-bg: {{ section.settings.cart_background_color }};
-              --cart-text: {{ section.settings.cart_text_color }};
-              --cart-hover-bg: {{ section.settings.cart_hover_background_color }};
-              --cart-border-radius: {{ section.settings.cart_border_radius }}rem;
-              --cart-padding: {{ section.settings.cart_padding }}rem;
-              --cart-font-size: {{ section.settings.cart_font_size }}rem;
-              --cart-font-weight: {{ section.settings.cart_font_weight }};
-              --cart-max-width: {{ section.settings.cart_max_width }}%;
-              --cart-icon-color: {{ section.settings.cart_icon_color }};
-            " data-dropdown-activation="{{ section.settings.dropdown_activation }}">
+<header class="header" style="
+  --header-height: {{ section.settings.header_height }}rem;
+  --logo-width: {{ section.settings.logo_width }}rem;
+  --header-bg: {{ section.settings.header_background_color }};
+  --header-text: {{ section.settings.header_text_color }};
+  --menu-hover: {{ section.settings.menu_hover_color }};
+  --header-font-weight: {{ section.settings.header_font_weight }};
+  --cart-bg: {{ section.settings.cart_background_color }};
+  --cart-text: {{ section.settings.cart_text_color }};
+  --cart-hover-bg: {{ section.settings.cart_hover_background_color }};
+  --cart-border-radius: {{ section.settings.cart_border_radius }}rem;
+  --cart-padding: {{ section.settings.cart_padding }}rem;
+  --cart-font-size: {{ section.settings.cart_font_size }}rem;
+  --cart-font-weight: {{ section.settings.cart_font_weight }};
+  --cart-max-width: {{ section.settings.cart_max_width }}%;
+  --cart-icon-color: {{ section.settings.cart_icon_color }};
+" data-dropdown-activation="{{ section.settings.dropdown_activation }}">
   <div class="header__container">
     <!-- Logo Section -->
     <div class="header__logo" style="justify-content: {{ section.settings.logo_position }};">
@@ -423,6 +423,7 @@
     gap: 0.25rem;
     align-items: center;
     justify-content: center;
+    color: var(--header-text, #000000);
   }
 
   .header__hamburger-line {
@@ -493,6 +494,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--header-text, #000000);
   }
 
   .header__close-line {
@@ -624,12 +626,14 @@
 
     .header__mobile-toggle {
       order: 1;
-      flex: 0 0 auto;
+      flex: 0 0 3rem;
+      width: 3rem;
     }
 
     .header__right {
       order: 3;
-      flex: 0 0 auto;
+      flex: 0 0 3rem;
+      width: 3rem;
     }
   }
 {% endstylesheet %}

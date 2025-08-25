@@ -6,12 +6,10 @@
 
 {% stylesheet %}
 .coupon-section {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
+  width: 100%;
   background-color: var(--section-bg-color);
-  padding-top: var(--section-padding-top);
-  padding-bottom: var(--section-padding-bottom);
+  padding-top: var(--section-padding-top-small);
+  padding-bottom: var(--section-padding-bottom-small);
 }
 
 .coupon-section__container {
@@ -189,7 +187,7 @@
 }
 
 .coupon-section__cta:hover[data-show-shadow="true"] {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--color-shadow, rgba(0, 0, 0, 0.15));
 }
 
 .coupon-section__guarantee {
@@ -198,28 +196,58 @@
   margin-top: 1rem;
 }
 
-/* Mobile Responsive */
-@media screen and (max-width: 768px) {
+/* Mobile-first responsive design */
+.coupon-section__content {
+  grid-template-columns: 1fr;
+  min-height: auto;
+}
+
+.coupon-section__image-side {
+  order: 1;
+  padding: 1.5rem;
+  min-height: 15rem;
+}
+
+.coupon-section__text-side {
+  order: 2;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.coupon-section__headline {
+  font-size: 1.5rem;
+}
+
+.coupon-section__subheadline {
+  font-size: 1.125rem;
+}
+
+.coupon-section__description {
+  font-size: 0.9rem;
+}
+
+.coupon-section__cta {
+  padding: 1rem;
+  font-size: var(--cta-font-size, 1.5rem);
+  width: var(--cta-width, 50%);
+  max-width: var(--cta-max-width, 100%);
+  min-width: 100%;
+}
+
+.coupon-section__social-proof {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Desktop styles */
+@media screen and (min-width: 601px) {
   .coupon-section {
     padding-top: var(--section-padding-top-mobile);
     padding-bottom: var(--section-padding-bottom-mobile);
   }
   
-  .coupon-section__content {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-  
-  .coupon-section__image-side {
-    order: 1;
-    padding: 1.5rem;
-    min-height: 15rem;
-  }
-  
   .coupon-section__text-side {
-    order: 2;
     padding: 2rem;
-    gap: 1rem;
   }
   
   .coupon-section__headline {
@@ -230,48 +258,49 @@
     font-size: 1.25rem;
   }
   
-  .coupon-section__description {
-    font-size: 0.9rem;
-  }
-  
   .coupon-section__cta {
-    padding: var(--cta-padding-v, 1.5rem) var(--cta-padding-h, 2.5rem);
-    font-size: var(--cta-font-size, 1.5rem);
-    width: var(--cta-width, 50%);
-    max-width: var(--cta-max-width, 100%);
+    min-width: auto;
   }
   
   .coupon-section__social-proof {
+    flex-direction: row;
     gap: 0.75rem;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (min-width: 769px) {
   .coupon-section {
-    padding-top: var(--section-padding-top-small);
-    padding-bottom: var(--section-padding-bottom-small);
+    padding-top: var(--section-padding-top);
+    padding-bottom: var(--section-padding-bottom);
+  }
+  
+  .coupon-section__content {
+    grid-template-columns: 1fr 1fr;
+    min-height: 25rem;
+  }
+  
+  .coupon-section__image-side {
+    order: unset;
+    padding: var(--spacing-xl);
+    min-height: auto;
   }
   
   .coupon-section__text-side {
-    padding: 1.5rem;
+    order: unset;
+    padding: var(--spacing-2xl);
+    gap: var(--spacing-lg);
   }
   
   .coupon-section__headline {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
   
   .coupon-section__subheadline {
-    font-size: 1.125rem;
+    font-size: 1.5rem;
   }
   
-  .coupon-section__cta {
-    min-width: 100%;
-    padding: 1rem;
-  }
-  
-  .coupon-section__social-proof {
-    flex-direction: column;
-    gap: 0.5rem;
+  .coupon-section__description {
+    font-size: 1rem;
   }
 }
 {% endstylesheet %}

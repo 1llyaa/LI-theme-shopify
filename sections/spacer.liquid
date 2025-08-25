@@ -11,7 +11,7 @@
 ">
   {% if section.settings.show_divider %}
     <div class="spacer__divider" style="
-      --divider-color: {{ section.settings.divider_color | default: '#e5e5e5' }};
+      --divider-color: {{ section.settings.divider_color | default: 'var(--color-border-light, #e5e5e5)' }};
       --divider-width: {{ section.settings.divider_width | default: 1 }}px;
       --divider-style: {{ section.settings.divider_style | default: 'solid' }};
     "></div>

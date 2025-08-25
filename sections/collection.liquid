@@ -35,7 +35,34 @@
 {% stylesheet %}
   .collection-products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .collection-product {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .collection-product__content {
+    text-align: center;
+  }
+  
+  /* Tablet and up */
+  @media screen and (min-width: 600px) {
+    .collection-products {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  
+  /* Desktop and up */
+  @media screen and (min-width: 1025px) {
+    .collection-products {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
   }
 {% endstylesheet %}
 

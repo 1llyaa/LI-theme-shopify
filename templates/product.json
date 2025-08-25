@@ -27,6 +27,10 @@
           "type": "description",
           "settings": {}
         },
+        "price_7GAgAw": {
+          "type": "price",
+          "settings": {}
+        },
         "features_crdc3w": {
           "type": "features",
           "settings": {
@@ -56,6 +60,7 @@
         "title_rHCRLA",
         "rating_hFyNjT",
         "description_GfCRx9",
+        "price_7GAgAw",
         "features_crdc3w",
         "customer_satisfaction_dRCG8G",
         "buy_buttons_EbpwfX"

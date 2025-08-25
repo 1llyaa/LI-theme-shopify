@@ -136,7 +136,6 @@
 .cutting-board-comparison__container {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 var(--container-padding);
 }
 
 .cutting-board-comparison__header {
@@ -350,9 +349,10 @@ document.addEventListener('DOMContentLoaded', function () {
       autoplay: false,
       pauseOnHover: false,
       resetProgress: false,
-      padding: {right: '15%'},
+      //padding: {right: '15%'},
       breakpoints: {
-        600: {
+        768: {
+          padding: {right: '15%'},
           gap: '0.5rem'
         }
       }

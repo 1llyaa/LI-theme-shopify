@@ -36,8 +36,8 @@
               
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" class="price" {{ block.shopify_attributes }}>
-                  <span class="price__regular">
-                    {{ product.selected_or_first_available_variant.price | money }}
+                  <span data-product-price class="price__regular">
+                    test
                   </span>
                   {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
                     <span class="price__compare">
@@ -351,7 +351,48 @@
   <script type="application/ld+json">
     {{ product | structured_data }}
   </script>
+  <script>
+    const PRODUCT_HANDLE = {{ product.handle | json }};
+
+    async function fetchProductData(handle) {
+      const params = new URLSearchParams(window.location.search);
+      const discountCode = params.get("discount");
+
+      try {
+        const res = await fetch(`/products/${handle}.js`, { cache: 'no-store' });
+        const data = await res.json();
+
+        let variant = data.variants[0]; // první varianta, nebo si vyber podle potřeby
+        let price = variant.price / 100; // Shopify vrací v centech → Kč
+
+        // pokud je v URL discount=TEST, snížíme cenu o 300 Kč
+        if (discountCode === "TEST") {
+          price = Math.max(price - 300, 0); // ochrana aby cena nebyla záporná
+        }
+
+        console.log("Finální cena:", price);
+
+        // teď to můžeme vložit do HTML
+        const priceEl = document.querySelector("[data-product-price]");
+        if (priceEl) {
+          priceEl.textContent = price.toLocaleString("cs-CZ", {
+            style: "currency",
+            currency: "CZK"
+          });
+        }
+
+      } catch (err) {
+        console.error("Chyba při načítání produktu:", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchProductData(PRODUCT_HANDLE);
+    });
+  </script>
+
 </div>
+
 
 {% stylesheet %}
 /* Product Section Layout */

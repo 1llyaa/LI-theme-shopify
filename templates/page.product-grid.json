@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-grid",
+      "settings": {
+        "title": "Featured Products",
+        "description": "Discover our most popular products",
+        "show_title": true,
+        "show_description": true,
+        "collection": "",
+        "products_limit": 12,
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "grid_gap": 1,
+        "card_radius": 0,
+        "show_vendor": false,
+        "show_price": true,
+        "show_rating": true,
+        "show_quick_add": true,
+        "show_second_image": true,
+        "show_sale_badge": true,
+        "sale_badge_text": "",
+        "show_sold_out_badge": true,
+        "show_new_badge": false,
+        "title_color": "#000000",
+        "description_color": "#666666",
+        "product_title_color": "#000000",
+        "vendor_color": "#666666",
+        "price_color": "#000000",
+        "card_background": "#ffffff",
+        "card_border": "#e5e5e5",
+        "card_shadow": "0 0.125rem 0.25rem rgba(0, 0, 0, 0.1)",
+        "sale_badge_color": "#ff6b6b",
+        "sale_badge_text_color": "#ffffff",
+        "quick_add_bg": "#000000",
+        "quick_add_text": "#ffffff",
+        "quick_add_hover_bg": "#333333",
+        "rating_star_color": "#ffd700",
+        "rating_text_color": "#666666",
+        "show_view_all": true,
+        "padding_top": 2,
+        "padding_bottom": 2
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

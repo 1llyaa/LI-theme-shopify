@@ -39,6 +39,10 @@
   "collections": {
     "title": "Collections"
   },
+  "collection": {
+    "placeholder": "Collection Image",
+    "products": "products"
+  },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
     "card": "Gift card",
@@ -82,6 +86,13 @@
   "product_hero": {
     "customer_photo": "Customer photo",
     "feature_icon": "✓"
+  },
+  "product": {
+    "placeholder": "Product Image",
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "new": "New",
+    "view_all": "View all products"
   },
   "schema": {
     "dropdown": "Dropdown",

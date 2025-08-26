@@ -429,17 +429,18 @@
 
 .product-card__quick-add {
   width: 100%;
-  padding: var(--spacing-md) var(--spacing-lg);
+  display: inline-block;
+  padding: var(--spacing-lg) var(--spacing-xl);
   background: var(--quick-add-bg);
   color: var(--quick-add-text);
   border: none;
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  text-align: center;
   cursor: pointer;
-  transition: all var(--animation-duration) ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
 }
 
 .product-card__quick-add:hover {

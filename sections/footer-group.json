@@ -14,8 +14,19 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "footer_padding": 3,
+        "footer_heading_size": 1.2,
+        "footer_text_size": 1,
+        "footer_copyright_size": 0.8,
+        "footer_font_weight": 400,
+        "footer_background_color": "#f8f8f8",
+        "footer_text_color": "#666666",
+        "footer_heading_color": "#000000",
+        "footer_link_color": "#666666",
+        "footer_link_hover_color": "#000000",
+        "footer_border_color": "#0000001a",
+        "footer_copyright_color": "#666666",
+        "payment_methods_width": 200
       }
     }
   },

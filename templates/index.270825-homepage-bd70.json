@@ -18,6 +18,7 @@
             "show_rating": true,
             "rating_value": "4.7",
             "reviews_text": "1000+ Verified Reviews",
+            "star_color": "#ffd700",
             "headline": "100% Pure Titanium Cutting Board: No More Microplastics, Bacteria Or Dull Knives",
             "subheadline": "Hygienic, Durable, and Perfectly Crafted Titanium Cutting Board",
             "features": "Prevents risk from microplastics, Resists bacteria and odors, Keeps your knives sharp, Eliminates food cross-contamination",
@@ -145,59 +146,6 @@
         "padding_vertical": 1
       }
     },
-    "cutting_board_comparison_86qjzL": {
-      "type": "cutting-board-comparison",
-      "blocks": {
-        "material_block_e6dMC7": {
-          "type": "material_block",
-          "settings": {
-            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
-            "icon_name": "activity",
-            "icon_size": 1.5,
-            "icon_color": "#000000",
-            "icon_opacity": 100,
-            "title": "Wood/Bamboo",
-            "description": "Natural materials can let bacteria and mold grow, in grooves and cuts, even if invisible, which can contaminate your food over time resulting in you feeling ill. They also absorb odors & stain easily."
-          }
-        },
-        "material_block_r3cbbq": {
-          "type": "material_block",
-          "settings": {
-            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
-            "icon_name": "activity",
-            "icon_size": 1.5,
-            "icon_color": "#000000",
-            "icon_opacity": 100,
-            "title": "Plastic/Epicurean",
-            "description": "Many plastic boards contain BPAs, phthalates, or other toxic chemicals that can leach into food as you cut. Plus, plastic scratches easily, creating tiny crevices where bacteria can accumulate and thrive."
-          }
-        },
-        "material_block_z7F6fC": {
-          "type": "material_block",
-          "settings": {
-            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
-            "icon_name": "activity",
-            "icon_size": 1.5,
-            "icon_color": "#000000",
-            "icon_opacity": 100,
-            "title": "Glass/Stone/Steel",
-            "description": "While these materials may seem hygienic, their extreme hardness wrecks your knives. Every cut rapidly dulls your blades, forcing you to sharpen or replace them far more often - wasting time, effort, and money."
-          }
-        }
-      },
-      "block_order": [
-        "material_block_e6dMC7",
-        "material_block_r3cbbq",
-        "material_block_z7F6fC"
-      ],
-      "name": "Cutting Board Comparison",
-      "settings": {
-        "headline": "Most Boards are Damaging Your Health & Knives",
-        "subheadline": "A cutting board might seem like a simple tool, but the wrong material can silently threaten the safety of your food and destroy your knives over time.",
-        "padding_top": 2,
-        "padding_bottom": 2
-      }
-    },
     "features_showcase_CfEFB4": {
       "type": "features-showcase",
       "blocks": {
@@ -295,6 +243,59 @@
         "feature_text_color": "#000000",
         "padding_top": 3,
         "padding_bottom": 3
+      }
+    },
+    "cutting_board_comparison_86qjzL": {
+      "type": "cutting-board-comparison",
+      "blocks": {
+        "material_block_e6dMC7": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Wood/Bamboo",
+            "description": "Natural materials can let bacteria and mold grow, in grooves and cuts, even if invisible, which can contaminate your food over time resulting in you feeling ill. They also absorb odors & stain easily."
+          }
+        },
+        "material_block_r3cbbq": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Plastic/Epicurean",
+            "description": "Many plastic boards contain BPAs, phthalates, or other toxic chemicals that can leach into food as you cut. Plus, plastic scratches easily, creating tiny crevices where bacteria can accumulate and thrive."
+          }
+        },
+        "material_block_z7F6fC": {
+          "type": "material_block",
+          "settings": {
+            "image": "shopify://shop_images/MV9Xb29kX0JhbWJvby5qcGc-w_700.jpg",
+            "icon_name": "activity",
+            "icon_size": 1.5,
+            "icon_color": "#000000",
+            "icon_opacity": 100,
+            "title": "Glass/Stone/Steel",
+            "description": "While these materials may seem hygienic, their extreme hardness wrecks your knives. Every cut rapidly dulls your blades, forcing you to sharpen or replace them far more often - wasting time, effort, and money."
+          }
+        }
+      },
+      "block_order": [
+        "material_block_e6dMC7",
+        "material_block_r3cbbq",
+        "material_block_z7F6fC"
+      ],
+      "name": "Cutting Board Comparison",
+      "settings": {
+        "headline": "Most Boards are Damaging Your Health & Knives",
+        "subheadline": "A cutting board might seem like a simple tool, but the wrong material can silently threaten the safety of your food and destroy your knives over time.",
+        "padding_top": 2,
+        "padding_bottom": 2
       }
     },
     "content_blocks_h47WhJ": {
@@ -743,8 +744,8 @@
   "order": [
     "product_hero_nrCC6t",
     "sliding_text_banner_HtXLXR",
-    "cutting_board_comparison_86qjzL",
     "features_showcase_CfEFB4",
+    "cutting_board_comparison_86qjzL",
     "content_blocks_h47WhJ",
     "features_grid_VPXXyz",
     "sliding_text_banner_NyzA9R",

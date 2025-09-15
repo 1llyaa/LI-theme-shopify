@@ -13,9 +13,57 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "menu_9aVU7h": {
+          "type": "menu",
+          "settings": {
+            "heading": "Menu",
+            "menu": "footer"
+          }
+        },
+        "menu_jVdfgh": {
+          "type": "menu",
+          "settings": {
+            "heading": "Menu",
+            "menu": "footer"
+          }
+        },
+        "menu_6jCFAK": {
+          "type": "menu",
+          "settings": {
+            "heading": "Menu",
+            "menu": "footer"
+          }
+        },
+        "text_6xkqfJ": {
+          "type": "text",
+          "settings": {
+            "heading": "About",
+            "content": "<p>Add your text content here. You can include company information, contact details, or any other text you'd like to display in the footer.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "menu_9aVU7h",
+        "menu_jVdfgh",
+        "menu_6jCFAK",
+        "text_6xkqfJ"
+      ],
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "footer_padding": 3,
+        "footer_heading_size": 1.2,
+        "footer_text_size": 1,
+        "footer_copyright_size": 0.8,
+        "footer_font_weight": 400,
+        "footer_background_color": "#f8f8f8",
+        "footer_text_color": "#666666",
+        "footer_heading_color": "#000000",
+        "footer_link_color": "#666666",
+        "footer_link_hover_color": "#000000",
+        "footer_border_color": "#0000001a",
+        "footer_copyright_color": "#666666",
+        "payment_methods_image": "shopify://shop_images/platebni-metody.png",
+        "payment_methods_width": 200
       }
     }
   },

@@ -127,7 +127,9 @@
 
 {% stylesheet %}
 .cutting-board-comparison {
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   background: var(--color-bg-primary);
   padding-top: var(--section-padding-top);
   padding-bottom: var(--section-padding-bottom);
@@ -136,6 +138,8 @@
 .cutting-board-comparison__container {
   max-width: var(--container-max-width);
   margin: 0 auto;
+  padding-left: var(--spacing-md);
+  padding-right: 0;
 }
 
 .cutting-board-comparison__header {

@@ -27,7 +27,9 @@
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
-                {% render block %}
+                <div {{ block.shopify_attributes }}>
+                  {% render block %}
+                </div>
               
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
@@ -851,6 +853,15 @@
 .product-form__quantity-wrapper {
   display: none !important;
 }
+
+/* App Block Styles */
+.product__info-container > div[data-block-type="@app"] {
+  margin-bottom: var(--spacing-lg);
+}
+
+.product__info-container > div[data-block-type="@app"]:last-child {
+  margin-bottom: 0;
+}
 {% endstylesheet %}
 
 {% schema %}
@@ -859,6 +870,9 @@
   "tag": "section",
   "class": "section",
   "blocks": [
+    {
+      "type": "@app"
+    },
     {
       "type": "title",
       "name": "Product Title",

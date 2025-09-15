@@ -6,7 +6,9 @@
 
 {% stylesheet %}
 .customer-reviews {
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   background-color: var(--section-bg-color);
   padding-top: var(--section-padding-top);
   padding-bottom: var(--section-padding-bottom);
@@ -30,6 +32,8 @@
 .customer-reviews__container {
   max-width: var(--container-max-width);
   margin: 0 auto;
+  padding-left: var(--spacing-md);
+  padding-right: 0;
 }
 
 .customer-reviews__header {
